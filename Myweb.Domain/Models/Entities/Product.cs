@@ -11,7 +11,7 @@ namespace Myweb.Domain.Models.Entities
 
         public string Brand { get; set; } = string.Empty; 
 
-        public double Price { get; set; }   
+        public double Price { get; set; }
 
         public double Discount { get; set; }
 
