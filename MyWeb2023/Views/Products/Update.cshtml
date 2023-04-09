@@ -1,0 +1,40 @@
+﻿<div class="card">
+    <div class="card-header">
+        <h5>Chỉnh sửa Sản Phẩm</h5>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm-3"> </div>
+            <div class="col-sm-6">
+                <form method="post" action="/Products/Update">
+                    <div class="form-group">
+                        <label>Tên sản phẩm <span class="text-danger">*</span></label>
+                        <input name="name" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Giá*:</label>
+                                <input name="price" type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Tỷ lệ giảm giá:</label>
+                                <input name="discount" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <span class="input-group-text">Quantity</span>
+                    <input name="quantity" type="number" min="1" class="form-control">
+                    <br>
+                    <a type="button" href="/Products" class="btn btn-default">Back</a>
+                    <button type="submit" class="btn btn-info">Update</button>
+                </form>
+            </div>
+
+            <div class="col-sm-3"> </div>
+        </div>
+
+    </div>
+</div>
