@@ -14,6 +14,8 @@ namespace MyWeb2023.Controllers
         {
             _context = context;
         }
+
+
         public async Task<IActionResult> Index(string sort)
          {
             var products = await _context.Products.ToListAsync();
@@ -27,21 +29,6 @@ namespace MyWeb2023.Controllers
                 products = products.OrderByDescending(x => x.Price).ToList();
             }
 
-            //var result = new List<ProductDto> { };
-            //foreach (var item in products)
-            //{
-
-            //    var add = new ProductDto
-            //    {
-            //        Id = item.Id,
-            //        Name = item.Name,
-            //        Brand = item.Brand,
-            //        Price = item.Price,
-            //        Discount = item.Discount,
-            //        Quantity = item.Quantity,
-            //    };
-            //    result.Add(add);
-            //}
             var result = products.Select(x => new ProductDto
             {
                 Id = x.Id,
@@ -50,7 +37,7 @@ namespace MyWeb2023.Controllers
                 Brand= x.Brand,
                 Price = x.Price,
                 Discount = x.Discount,
-                Quantity = x.Quantity,
+                Status = x.Status,
             }).ToList();
             return View(result);
         }
@@ -94,7 +81,7 @@ namespace MyWeb2023.Controllers
                 Price = model.Price,
                 Brand = model.Brand,
                 Discount = model.Discount,
-                Quantity = model.Quantity
+                Status = model.Status
             };
             _context.Products.Add(productAdd);
             _context.SaveChanges();
@@ -105,6 +92,7 @@ namespace MyWeb2023.Controllers
         public IActionResult Delete(int id)
         {
             var product = _context.Products.Find(id);
+
             _context.Products.Remove(product);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -114,20 +102,26 @@ namespace MyWeb2023.Controllers
         public ActionResult Update(int id)
         {
             var product = _context.Products.Find(id);
+            //if (product == null)
+            //{
+            //    return RedirectToAction("NotFound", "Common");
+            //}
             return View(product);
         }
         [HttpPost]
-        public ActionResult Update(int Id, string name, double price, double discount, int quantity)
+        public ActionResult Update(int id, string name, double price, double discount,
+            bool status)
         {
-            var product = _context.Products.Find(Id);
+            //string CompleteUrl = this.Request.Url.AbsoluteUri;
+            var product = _context.Products.Find(id);
             if (product == null)
             {
-                ViewBag.Messager = "San pham khong ton tai";
+                ViewBag.Message = "San pham khong ton tai";
                 return View();
             }
-            product.Update(name, price, discount, quantity);
+            product.Update(name, price, discount, status);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Update", new {id});
         }
     }
 

@@ -14,10 +14,8 @@ namespace MyWeb2023.Controllers
         {
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
-            
             var users = await _context.Users.ToListAsync();
 
             var result = users.Select(x => new UserDto

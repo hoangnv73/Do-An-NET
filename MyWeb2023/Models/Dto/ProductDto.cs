@@ -14,6 +14,6 @@
 
         public double? Discount { get; set; }
 
-        public int Quantity { get; set; }
+        public bool Status { get; set; }
     }
 }

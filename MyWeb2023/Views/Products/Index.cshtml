@@ -7,7 +7,7 @@
         <h5>Quản Lý Sản Phẩm</h5>
         <div class="row">
             <div class="col-sm-3">
-                <a href="/Products/Create" class="btn btn-success btn-sm">Create</a>
+                <a href="/Products/Create" class="btn btn-success btn-sm">Add Product</a>
             </div>
             <div class="col-sm-3">
                 <form method="get" action="/Products/Index">
@@ -18,7 +18,6 @@
                     </select>
                     <button type="submit">Lọc</button>
                 </form>
-
             </div>
             <div class="col-sm-3">
                 <form class="d-flex">
@@ -26,22 +25,20 @@
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>
-
         </div>
-
     </div>
     <div class="card-block table-border-style">
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>STT</th>
                         <th>Image</th>
                         <th>ProductName</th>
                         <th>Brand</th>
-                        <th>Price</th>
-                        <th>Discount</th>
-                        <th>Quantity</th>
+                        <th>Price ($)</th>
+                        <th>Discount (%)</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -54,20 +51,24 @@
                             <td>@item.Name</td>
                             <td>@item.Brand</td>
                             <td>@item.Price</td>
-                            <td>@item.Discount</td>
-                            <td>@item.Quantity</td>
+                            <td class="text-danger">@item.Discount</td>
+                            @if (item.Status)
+                            {
+                                <td><span class="badge badge-success">Còn Hàng</span></td>
+                            }
+                            else
+                            {
+                                <td><span class="badge badge-danger">Hết Hàng</span></td>
+                            }
                             <td>
                                 <a href="/Products/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
                                 <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
                                 <button form="form-delete-@item.Id" type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                
                             </td>
                         </tr>
                         <form id="form-delete-@item.Id" action="@Url.Action("Delete","Products")" method="post">
                         </form>
-                       
                     }
-
                 </tbody>
             </table>
         </div>

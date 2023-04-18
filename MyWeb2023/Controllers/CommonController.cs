@@ -2,9 +2,9 @@
 
 namespace MyWeb2023.Controllers
 {
-    public class Orders : Controller
+    public class CommonController : Controller
     {
-        public IActionResult Index()
+        public IActionResult NotFound()
         {
             return View();
         }

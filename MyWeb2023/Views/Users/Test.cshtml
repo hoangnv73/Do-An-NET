@@ -1,0 +1,87 @@
+﻿<div class="j-content">
+
+    <div class="j-row">
+        <div class="j-span6 j-unit">
+            <div class="j-input">
+                <label class="j-icon-left" for="first_name">
+                    <i class="icofont icofont-ui-user"></i>
+                </label>
+                <input type="text" id="first_name" name="first_name" placeholder="First name" class="name-group">
+            </div>
+        </div>
+        <div class="j-span6 j-unit">
+            <div class="j-input">
+                <label class="j-icon-left" for="last_name">
+                    <i class="icofont icofont-ui-user"></i>
+                </label>
+                <input type="text" id="last_name" name="last_name" placeholder="Last name" class="name-group">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="j-unit">
+        <div class="j-input">
+            <label class="j-icon-left" for="email">
+                <i class="icofont icofont-envelope"></i>
+            </label>
+            <input type="email" placeholder="Email" id="email" name="email">
+        </div>
+    </div>
+
+
+    <div class="j-unit">
+        <label class="j-input j-select">
+            <select name="department">
+                <option value="" selected="">Choose your department</option>
+                <option value="general">General</option>
+                <option value="sales and marketing">Sales and Marketing</option>
+                <option value="deposit">Deposit</option>
+                <option value="IT and development">IT and Development</option>
+                <option value="design and branding">Design and Branding</option>
+            </select>
+            <i></i>
+        </label>
+    </div>
+
+    <div class="j-divider j-gap-bottom-25"></div>
+
+    <div class="j-unit">
+        <div class="j-input">
+            <label class="j-icon-left" for="subject">
+                <i class="icofont icofont-ui-check"></i>
+            </label>
+            <input type="text" id="subject" name="subject" placeholder="Subject">
+        </div>
+    </div>
+
+
+    <div class="j-unit">
+        <div class="j-input">
+            <label class="j-icon-left" for="message">
+                <i class="icofont icofont-file-text"></i>
+            </label>
+<textarea placeholder="Additional info" spellcheck="false" id="message" name="message"></textarea>
+            <span class="j-tooltip j-tooltip-right-top">Describe your proposal as detailed as possible</span>
+        </div>
+    </div>
+
+
+    <div class="j-unit">
+        <div class="j-input j-append-big-btn j-success-view">
+            <label class="j-icon-left" for="file_input">
+                <i class="icofont icofont-download"></i>
+            </label>
+            <div class="j-file-button">
+                Browse
+                <input type="file" name="file_name" onchange="document.getElementById('file_input').value = this.value;">
+            </div>
+            <input type="text" id="file_input" readonly="" placeholder="no file selected">
+            <span class="j-hint">Only: jpg / png / doc, less 1Mb</span>
+        </div>
+    </div>
+
+
+    <div class="j-response"></div>
+
+</div>

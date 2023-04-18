@@ -6,6 +6,6 @@
         public double Price { get; set; }
         public string Brand { get; set; } = string.Empty;
         public double? Discount { get; set; }
-        public int Quantity { get; set; }
+        public bool Status { get; set; }
     }
 }

@@ -1,52 +1,55 @@
-﻿@*@using MyWeb2023.Models.Dto;
+﻿@using MyWeb2023.Models.Dto;
 @using Myweb.Domain.Models.Entities;
-@model List<UserDto>
+@model List<CategoryDto>
 
 <div class="card">
     <div class="card-header">
-        <h5>Quản Lý Người Dùng</h5>
+        <h5>Quản Lý Danh Mục</h5>
     </div>
     <div class="col-sm-3">
-        <a href="/Users/Create" class="btn btn-success btn-sm">Create</a>
+        <a href="/Category/Create" class="btn btn-success btn-sm">Create</a>
     </div>
     <div class="card-block table-border-style">
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Avatar</th>
-                        <th>FirstName</th>
-                        <th>LastName</th>
-                        <th>Email</th>
-                        <th>Gender</th>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>IsActive</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @{
+                        var stt = 0;
+                    }
                     @foreach (var item in Model)
                     {
+                        stt = stt + 1;
                         <tr>
-                            <th scope="row">1</th>
-                            <td><img src="@item.Avatar" width="50" height="50" /></td>
-                            <td>@item.FirstName</td>
-                            <td>@item.LastName</td>
-                            <td>@item.Email</td>
-                            <td>@item.GenderName</td>
+                            <th scope="row">@stt</th>
+                            <td>@item.Name</td>
+                            @if (@item.IsActive == true)
+                            {
+                                <td><span class="badge badge-success">Hiển Thị</span></td>
+                            }
+                            else
+                            {
+                                <td><span class="badge badge-danger">Ẩn</span></td>
+                            }
                             <td>
-                                <button type="button" class="btn btn-info btn-sm">Edit</button>
+                                <a href="/Category/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
 
                                 <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
                                 <button form="form-delete-@item.Id" type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </td>
-                            <form id="form-delete-@item.Id" action="@Url.Action("Delete","Users")" method="post">
+                           <form id="form-delete-@item.Id" action="@Url.Action("Delete","Category")" method="post">
                             </form>
                         </tr>
                     }
-
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-*@
