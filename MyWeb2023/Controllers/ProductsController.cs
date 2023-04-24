@@ -123,6 +123,13 @@ namespace MyWeb2023.Controllers
             _context.SaveChanges();
             return RedirectToAction("Update", new {id});
         }
+
+        //// Up ảnh
+        //[HttpPost]
+        //public IActionResult Upload(HttpPostedFileBase file)
+        //{
+        //    return View();
+        //}
     }
 
 }

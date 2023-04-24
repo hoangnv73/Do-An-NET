@@ -906,7 +906,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="data\products\" />
     <Folder Include="wwwroot\abc\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
   <ItemGroup>
