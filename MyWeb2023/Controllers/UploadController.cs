@@ -15,7 +15,7 @@ namespace MyWeb2023.Controllers
         public IActionResult Upload(IFormFile file)
         {
             int productId = 1;
-            string currentPath = "fdfdfd";
+            string currentPath = @"D:\LAPTRINH\Project\MyWeb2023\MyWeb2023\data";
             string path = currentPath + @"wwwroot/uploads";
             string? imgUrl = null;
             if (file != null) imgUrl = UploadImage(productId, file);

@@ -14,6 +14,6 @@ namespace Myweb.Domain.Models.Entities
         public string Password { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public bool? Gender { get; set; }
-        public int StatusId { get; set; }
+        public bool StatusId { get; set; }
     }
 }

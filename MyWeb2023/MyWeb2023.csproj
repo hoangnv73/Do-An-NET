@@ -903,10 +903,12 @@
     <None Include="wwwroot\assets\bower_components\swiper\js\swiper.min.js" />
     <None Include="wwwroot\assets\bower_components\switchery\js\switchery.min.js" />
     <None Include="wwwroot\assets\bower_components\underscore\js\underscore-min.js" />
+    <None Include="wwwroot\data\7\DSC07956.jpg" />
+    <None Include="wwwroot\data\8\e8128e7a0f7fd021896e.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="data\products\" />
+    <Folder Include="wwwroot\data\products\" />
     <Folder Include="wwwroot\abc\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>

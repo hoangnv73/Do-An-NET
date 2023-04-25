@@ -74,17 +74,30 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateProductModel model)
+        public IActionResult Create(CreateProductModel request)
         {
-            var productAdd  = new Product { 
-                Name = model.Name,
-                Price = model.Price,
-                Brand = model.Brand,
-                Discount = model.Discount,
-                Status = model.Status
+            var product  = new Product { 
+                Name = request.Name,
+                Price = request.Price,
+                Brand = request.Brand,
+                //Biến = (điều kiện )? (Lệnh1 thực thi nếu đk đúng) : (lệnh 2 thực thi nếu đk sai);
+                Discount = request.Discount == null ? 0 : request.Discount,
+                // nếu như request.Discount not null thì giá trị = chính nó --> nếu như null thì gắn = 0
+                //Discount = request.Discount ?? 0,
+                Status = request.Status
             };
-            _context.Products.Add(productAdd);
+            _context.Products.Add(product);
             _context.SaveChanges();
+
+            //-- nếu như ảnh not null thì cập nhật ảnh trong db & lưu ảnh trong folder 
+            if (request.File != null)
+            {
+                string image = GetImage(product.Id, request.File);
+                // update
+                product.Image = image;
+                _context.SaveChanges();
+            }
+            
             return RedirectToAction("Index");
         }
         // Delete
@@ -102,15 +115,16 @@ namespace MyWeb2023.Controllers
         public ActionResult Update(int id)
         {
             var product = _context.Products.Find(id);
-            //if (product == null)
-            //{
-            //    return RedirectToAction("NotFound", "Common");
-            //}
+
+            if (product == null)
+            {
+                return RedirectToAction("NotFound", "Common");
+            }
             return View(product);
         }
         [HttpPost]
         public ActionResult Update(int id, string name, double price, double discount,
-            bool status)
+            bool status, IFormFile file)
         {
             //string CompleteUrl = this.Request.Url.AbsoluteUri;
             var product = _context.Products.Find(id);
@@ -121,15 +135,35 @@ namespace MyWeb2023.Controllers
             }
             product.Update(name, price, discount, status);
             _context.SaveChanges();
+            
             return RedirectToAction("Update", new {id});
         }
 
-        //// Up ảnh
-        //[HttpPost]
-        //public IActionResult Upload(HttpPostedFileBase file)
-        //{
-        //    return View();
-        //}
+        public string GetImage(int productId, IFormFile file)
+        {
+
+            //if (file == null) return null;
+
+            //// Get the current directory.
+            var rootFolder = Directory.GetCurrentDirectory();
+            //-- khai báo đường dẫn
+            string pathproduct = @$"{rootFolder}\wwwroot\data\{productId}";
+
+            //-- Kiểm tra folder đã tồn tại hay chưa
+            if (!Directory.Exists(pathproduct))
+            {
+                //-- Nếu chưa có thì tạo mới
+                Directory.CreateDirectory(pathproduct);
+            }
+            string filename = file.FileName;
+            var filepath = Path.Combine(pathproduct, filename);
+
+            using (FileStream filestream = System.IO.File.Create(filepath))
+            {
+                file.CopyTo(filestream);
+            }
+            return filename;
+        }
     }
 
 }

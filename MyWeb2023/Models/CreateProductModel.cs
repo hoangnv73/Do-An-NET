@@ -7,5 +7,7 @@
         public string Brand { get; set; } = string.Empty;
         public double? Discount { get; set; }
         public bool Status { get; set; }
+        public IFormFile? File { get; set; }
+        
     }
 }
