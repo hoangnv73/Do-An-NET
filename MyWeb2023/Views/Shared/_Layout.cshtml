@@ -21,6 +21,8 @@
     @*<link rel="stylesheet" type="text/css" href="~/assets/assets/css/style.css">*@
 
     <link rel="stylesheet" type="text/css" href="~/assets/assets/css/jquery.mCustomScrollbar.css">
+
+  
   </head>
   <body>
 
@@ -69,7 +71,7 @@
               <a class="mobile-menu" id="mobile-collapse" href="#!">
                 <i class="feather icon-menu"></i>
               </a>
-              <a href="index.html">
+                <a href="@Url.Action("Index","Home")">
                 <img class="img-fluid" src="~/assets/assets/images/logo.png" alt="Theme-Logo" />
               </a>
               <a class="mobile-options">
@@ -305,7 +307,7 @@
                    
                   </li>
                   <li class="pcoded-hasmenu">
-                    <a href="@Url.Action("Index", "Orders")">
+                    <a href="@Url.Action("Index", "Order")">
                       <span class="pcoded-micon">
                         <i class="feather icon-sidebar"></i>
                       </span>
@@ -324,7 +326,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                       <li class=" ">
-                        <a href="@Url.Action("Index","Categories")">
+                        <a href="@Url.Action("Index","Category")">
                           <span class="pcoded-mtext">Danh Mục</span>
                         </a>
                       </li>
@@ -413,6 +415,8 @@
         </div>
       </div>
     </div>
+ 
+
     <!--[if lt IE 10]>                                                                                                                                                                                    <![endif]-->
     @*<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>*@
     <script type="text/javascript" src="~/assets/bower_components/jquery/js/jquery.min.js"></script>
@@ -441,6 +445,15 @@
       gtag('js', new Date());
       gtag('config', 'UA-23581568-13');
     </script>
+
+        <script>
+            $(document).ready(function () {
+                var getLink = document.location.pathname + document.location.search;
+                console.log("getLink : ", getLink)
+                $("[href='" + getLink + "']").parent().addClass("active");
+                ($(".active").parent()).parent().addClass("pcoded-trigger active");
+            });
+        </script>
   </body>
   <!-- Mirrored from colorlib.com//polygon/adminty/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Feb 2019 19:07:58 GMT -->
 </html>

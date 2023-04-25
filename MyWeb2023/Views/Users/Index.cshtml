@@ -1,52 +1,51 @@
-﻿
-@*@@{
-    ViewData["Title"] = "Index";
-}*@
+﻿@using MyWeb2023.Models.Dto;
+@using Myweb.Domain.Models.Entities;
+@model List<UserDto>
 
-  <div class="card">
-       <div class="card-header">
+<div class="card">
+    <div class="card-header">
         <h5>Quản Lý Người Dùng</h5>
-       </div>
-        <div class="card-block table-border-style">
-          <div class="table-responsive">
-           <table class="table">
-             <thead>
-               <tr>
-                <th>#</th>
-                 <th>First Name</th>
-                 <th>Last Name</th>
-                 <th>Username</th>
-                 <th>Action</th>
-              </tr>
-              </thead>
-              <tbody>
-                <tr>
-                 <th scope="row">1</th>
-                 <td>Mark</td>
-                 <td>Otto</td>
-                 <td>@@mdo</td>
-                </tr>
+    </div>
+    <div class="col-sm-3">
+        <a href="/Users/Create" class="btn btn-success btn-sm">Create</a>
+    </div>
+    <div class="card-block table-border-style">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Avatar</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><img src="@item.Avatar" width="50" height="50" /></td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.Email</td>
+                            <td>@item.GenderName</td>
+                            <td>
+                                <button type="button" class="btn btn-info btn-sm">Edit</button>
 
-                 <tr>
-                 <th scope="row">2</th>
-                 <td>Mark</td>
-                 <td>Otto</td>
-                 <td>@@mdo</td>
-                </tr>
+                                <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
+                                <button form="form-delete-@item.Id" type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                            <form id="form-delete-@item.Id" action="@Url.Action("Delete","Users")" method="post">
+                            </form>
+                        </tr>
+                    }
 
-                 <tr>
-                 <th scope="row">3</th>
-                 <td>Mark</td>
-                 <td>Otto</td>
-                 <td>@@mdo</td>
-                </tr>
-
-                <tr>
-
-                </tr>
-                                                            
-             </tbody>
-           </table>
-          </div>
+                </tbody>
+            </table>
         </div>
-  </div>
+    </div>
+</div>
