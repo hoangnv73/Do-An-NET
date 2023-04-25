@@ -1,10 +1,17 @@
 ﻿@using MyWeb2023.Models.Dto;
 @using Myweb.Domain.Models.Entities;
 @model List<ProductDto>
-
+@{
+    List<int> pages = new List<int> { 1, 2, 3, 4, 5 };
+    int currentPage = ViewBag.Page;
+}
 <div class="card">
     <div class="card-header">
         <h5>Quản Lý Sản Phẩm</h5>
+       
+   
+    </div>
+    <div class="card-block">
         <div class="row">
             <div class="col-sm-3">
                 <a href="/Products/Create" class="btn btn-success btn-sm">Add Product</a>
@@ -28,13 +35,14 @@
         </div>
     </div>
     <div class="card-block table-border-style">
+       
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                         <th>STT</th>
                         <th>Image</th>
-                        <th>ProductName</th>
+                        <th>Sản phẩm</th>
                         <th>Brand</th>
                         <th>Price ($)</th>
                         <th>Discount (%)</th>
@@ -48,7 +56,7 @@
                     {
                         <tr>
                             <th scope="row">1</th>
-                            <td> <img src="/data/@item.Id/@item.Image" width="50" height="50" /> </td>
+                            <td> <img src="@item.Image" width="50" height="50" /> </td>
                             <td>@item.Name</td>
                             <td>@item.Brand</td>
                             <td>@item.Price</td>
@@ -72,6 +80,30 @@
                     }
                 </tbody>
             </table>
+      
+        </div>
+        
+    </div>
+    <div class="card-block">
+        <div >
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new {page = currentPage - 1})">Previous</a>
+                    </li>
+
+                @{
+                    foreach (var item in pages)
+                    {
+                        var active = currentPage == item ? "active" : "";
+                        <li class="page-item @active">
+                        <a class="page-link" href="@Url.Action("Index", new {page = item})">@item</a>
+                        </li>
+                    }
+                }
+                <li class="page-item"><a class="page-link" href="@Url.Action("Index", new {page = currentPage + 1})">Next</a></li>
+            </ul>
+
+        </div>
         </div>
     </div>
 </div>

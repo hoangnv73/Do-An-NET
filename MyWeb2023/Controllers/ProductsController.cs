@@ -16,8 +16,9 @@ namespace MyWeb2023.Controllers
         }
 
 
-        public async Task<IActionResult> Index(string sort)
+        public async Task<IActionResult> Index(string sort, int? page)
          {
+            ViewBag.Page = page == null ? 1 : page;
             var products = await _context.Products.ToListAsync();
 
             if (sort == "price_asc")
@@ -32,7 +33,9 @@ namespace MyWeb2023.Controllers
             var result = products.Select(x => new ProductDto
             {
                 Id = x.Id,
-                Image = !string.IsNullOrEmpty(x.Image) ? x.Image : "https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg",       
+                Image = !string.IsNullOrEmpty(x.Image)
+                        ? $"/data/{x.Id}/{x.Image}" 
+                        : "/www/images/default-thumbnail.jpg",       
                 Name = ShowProductName(x.Name),
                 Brand= x.Brand,
                 Price = x.Price,

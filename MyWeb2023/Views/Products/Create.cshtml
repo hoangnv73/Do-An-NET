@@ -46,20 +46,28 @@
                             }
                         </select>
                     </div>
-                    <br />
-                    <span class="input-group-text">Status</span>
-                    <input name="status" class="form-control">
-                    <br>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <input name="status" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input name="file" type="file" />
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-info">Create</button>
+                    </div>
 
-                    <a type="button" href="/Products" class="btn btn-default">Back</a>
-                    <button type="submit" class="btn btn-info">Create</button>
-                    <input name="file" type="file" />
+                  
+                   
+                    
                 </form>
             </div>
 
             <div class="col-sm-3"> </div>
         </div>
-
+        <div>
+            <a type="button" href="/Products" class="btn btn-default">Back</a>
+        </div>
     </div>
 </div>
 @*Url.Action("Create","Products")*@
