@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Models;
@@ -14,8 +16,6 @@ namespace MyWeb2023.Controllers
         {
             _context = context;
         }
-
-
         public async Task<IActionResult> Index(string sort, int? page)
          {
             ViewBag.Page = page == null ? 1 : page;
@@ -44,7 +44,6 @@ namespace MyWeb2023.Controllers
             }).ToList();
             return View(result);
         }
-
         public string ShowProductName(string productName)
         {
             if(productName == "Iphone 14 Pro Max") {
@@ -56,7 +55,7 @@ namespace MyWeb2023.Controllers
         // Create
         public IActionResult Create()
         {
-            #region
+            #region Cach 1
             //var listBrands = new List<ComboboxDto> { };
             //var brands = _context.Brands.ToList();
             //foreach (var item in brands)
@@ -65,7 +64,6 @@ namespace MyWeb2023.Controllers
             //    listBrands.Add(obj);
             //}
             #endregion
-
             var listBrands = _context.Brands.Select(x => new ComboboxDto
             {
                 Id = x.Id,
@@ -77,40 +75,57 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateProductModel request)
+        public IActionResult Create(CreateProductModel model)
         {
             var product  = new Product { 
-                Name = request.Name,
-                Price = request.Price,
-                Brand = request.Brand,
+                Name = model.Name,
+                Price = model.Price,
+                Brand = model.Brand,
                 //Biến = (điều kiện )? (Lệnh1 thực thi nếu đk đúng) : (lệnh 2 thực thi nếu đk sai);
-                Discount = request.Discount == null ? 0 : request.Discount,
                 // nếu như request.Discount not null thì giá trị = chính nó --> nếu như null thì gắn = 0
                 //Discount = request.Discount ?? 0,
-                Status = request.Status
+                Discount = model.Discount == null ? 0 : model.Discount,
+                Status = model.Status
             };
             _context.Products.Add(product);
             _context.SaveChanges();
 
             //-- nếu như ảnh not null thì cập nhật ảnh trong db & lưu ảnh trong folder 
-            if (request.File != null)
+            if (model.File != null)
             {
-                string image = GetImage(product.Id, request.File);
-                // update
+                string image = GetImage(product.Id, model.File);
                 product.Image = image;
                 _context.SaveChanges();
             }
-            
             return RedirectToAction("Index");
         }
+
         // Delete
         [HttpPost]
         public IActionResult Delete(int id)
         {
             var product = _context.Products.Find(id);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                var rootFolder = Directory.GetCurrentDirectory();
 
-            _context.Products.Remove(product);
-            _context.SaveChanges();
+                string pathproduct = @$"{rootFolder}\wwwroot\data\{id}";
+                //--exists kiểm tra thư mục tồn tại có tồn tại hay không
+                if (Directory.Exists(pathproduct))
+                {
+                    //-- thêm true để xoá những folder có file
+                    //-- nếu không có true thì chỉ xoá dược những folder rỗng 
+                    Directory.Delete(pathproduct, true);
+                }
+               
+               
+                _context.SaveChanges();
+            }
+            else
+            {
+                //todo
+            }
             return RedirectToAction("Index");
         }
         //Update
@@ -125,9 +140,26 @@ namespace MyWeb2023.Controllers
             }
             return View(product);
         }
+        //[HttpPost]
+        //public ActionResult Update(int id, string name, double price, double discount,
+        //    bool status, IFormFile file)
+        //{
+        //    //string CompleteUrl = this.Request.Url.AbsoluteUri;
+        //    var product = _context.Products.Find(id);
+        //    if (product == null)
+        //    {
+        //        ViewBag.Message = "San pham khong ton tai";
+        //        return View();
+        //    }
+        //    product.Update(name, price, discount, status);
+        //    _context.SaveChanges();
+
+        //    return RedirectToAction("Update", new { id });
+        //}
+
         [HttpPost]
         public ActionResult Update(int id, string name, double price, double discount,
-            bool status, IFormFile file)
+           bool status, IFormFile? file)
         {
             //string CompleteUrl = this.Request.Url.AbsoluteUri;
             var product = _context.Products.Find(id);
@@ -136,17 +168,22 @@ namespace MyWeb2023.Controllers
                 ViewBag.Message = "San pham khong ton tai";
                 return View();
             }
-            product.Update(name, price, discount, status);
-            _context.SaveChanges();
+
+            var image = product.Image;
+            if (file != null)
+            {
+               image = GetImage(product.Id, file);
+            }
             
-            return RedirectToAction("Update", new {id});
+            product.Update(name, price, discount, status, image);
+           
+            _context.SaveChanges();
+            return RedirectToAction("Update", new { id });
         }
+
 
         public string GetImage(int productId, IFormFile file)
         {
-
-            //if (file == null) return null;
-
             //// Get the current directory.
             var rootFolder = Directory.GetCurrentDirectory();
             //-- khai báo đường dẫn

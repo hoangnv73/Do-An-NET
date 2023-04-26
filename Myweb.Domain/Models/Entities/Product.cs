@@ -7,7 +7,7 @@ namespace Myweb.Domain.Models.Entities
     {
         public string? Image { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string Brand { get; set; } = string.Empty; 
+        public string? Brand { get; set; }
         public double Price { get; set; }
         public double? Discount { get; set; }
         public bool Status { get; set; }
@@ -25,7 +25,7 @@ namespace Myweb.Domain.Models.Entities
 
         }
 
-        public void Update(string name, double price, double? discount, bool status)
+        public void Update(string name, double price, double? discount, bool status, string? image)
         {
             Name = name;
             Price = price;

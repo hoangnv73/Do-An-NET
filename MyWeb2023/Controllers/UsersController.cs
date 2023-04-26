@@ -21,7 +21,7 @@ namespace MyWeb2023.Controllers
             var result = users.Select(x => new UserDto
             {
                 Id = x.Id,
-                Avatar = x.Avatar,
+                Image = x.Image,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
@@ -46,6 +46,15 @@ namespace MyWeb2023.Controllers
             };
             _context.Users.Add(UserAdd);
             _context.SaveChanges();
+
+            //-- nếu như ảnh not null thì cập nhật ảnh trong db & lưu ảnh trong folder 
+            if (model.File != null)
+            {
+                string image = GetImage(UserAdd.Id, model.File);
+                UserAdd.Image = image;
+                _context.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -57,6 +66,29 @@ namespace MyWeb2023.Controllers
             _context.Users.Remove(user);
             _context.SaveChanges(true);
             return RedirectToAction("Index");
+        }
+
+        public string GetImage(int UserId, IFormFile file)
+        {
+            //// Get the current directory.
+            var rootFolder = Directory.GetCurrentDirectory();
+            //-- khai báo đường dẫn
+            string pathUser = @$"{rootFolder}\wwwroot\data\users{UserId}";
+
+            //-- Kiểm tra folder đã tồn tại hay chưa
+            if (!Directory.Exists(pathUser))
+            {
+                //-- Nếu chưa có thì tạo mới
+                Directory.CreateDirectory(pathUser);
+            }
+            string filename = file.FileName;
+            var filepath = Path.Combine(pathUser, filename);
+
+            using (FileStream filestream = System.IO.File.Create(filepath))
+            {
+                file.CopyTo(filestream);
+            }
+            return filename;
         }
     }
 }

@@ -33,13 +33,17 @@
                     </div>
                     <span class="input-group-text">Status</span>
                     <br />
-                    <br />
-                    <input name="status" value="True" type="radio" @isCheckedActive />
-                    <span> Hoạt động</span>
-                    <br />
-                    <input name="status" value="False" type="radio" @isCheckedInActive />
-                    <span>Không hoạt động</span>
-                    <br />
+                    <div class="form-group">
+                        <input name="status" value="True" type="radio" @isCheckedActive />
+                        <span> Hoạt động</span>
+                        <br />
+                        <input name="status" value="False" type="radio" @isCheckedInActive />
+                        <span>Không hoạt động</span>
+                    </div>
+
+                    <div class="form-group">
+                        <input name="file" value="@Model.Image" type="file" />
+                    </div>
                     <a type="button" href="/Products" class="btn btn-default">Back</a>
                     <button type="submit" class="btn btn-info">Update</button>
                 </form>
