@@ -1,0 +1,46 @@
+﻿@using MyWeb2023.Models.Dto;
+@using Myweb.Domain.Models.Entities;
+@model List<BrandDto>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Quản Lý Thương Hiệu</h5>
+    </div>
+    <div class="col-sm-3">
+        <a href="/Brand/Create" class="btn btn-success btn-sm">Create</a>
+    </div>
+    <div class="card-block table-border-style">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên Thương Hiệu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var stt = 0;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        stt = stt + 1;
+                        <tr>
+                            <th scope="row">@stt</th>
+                            <td>@item.Name</td>
+                            <td>
+                                <a href="/Brand/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
+
+                                <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
+                                <button form="form-delete-@item.Id" type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                            <form id="form-delete-@item.Id" action="@Url.Action("Delete","Brand")" method="post">
+                            </form>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
