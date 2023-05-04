@@ -132,6 +132,14 @@ namespace MyWeb2023.Controllers
         [HttpGet]
         public ActionResult Update(int id)
         {
+            var listBrands = _context.Brands.Select(x => new ComboboxDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToList();
+
+            ViewBag.Brands = listBrands;
+
             var product = _context.Products.Find(id);
 
             if (product == null)
