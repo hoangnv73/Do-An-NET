@@ -37,12 +37,29 @@ namespace MyWeb2023.Controllers
                         ? $"/data/{x.Id}/{x.Image}" 
                         : "/www/images/default-thumbnail.jpg",       
                 Name = ShowProductName(x.Name),
-                Brand= x.Brand,
+                BrandId = x.Id,
                 Price = x.Price,
                 Discount = x.Discount,
                 Status = x.Status,
+                BrandName = ShowBrandName(x.BrandId),
             }).ToList();
             return View(result);
+        }
+        public string ShowBrandName(int? brandId)
+        {
+            if(brandId == null)
+            {
+                return "-";
+            }
+            else
+            {
+                //đã có brandId
+                //Brand
+                //-> Name
+                var brand = _context.Brands.Find(brandId);
+                string brandName = brand.Name;
+                return brandName;
+            }          
         }
         public string ShowProductName(string productName)
         {
@@ -80,7 +97,7 @@ namespace MyWeb2023.Controllers
             var product  = new Product { 
                 Name = model.Name,
                 Price = model.Price,
-                Brand = model.Brand,
+                BrandId = model.BrandId,
                 //Biến = (điều kiện )? (Lệnh1 thực thi nếu đk đúng) : (lệnh 2 thực thi nếu đk sai);
                 // nếu như request.Discount not null thì giá trị = chính nó --> nếu như null thì gắn = 0
                 //Discount = request.Discount ?? 0,
@@ -148,25 +165,9 @@ namespace MyWeb2023.Controllers
             }
             return View(product);
         }
-        //[HttpPost]
-        //public ActionResult Update(int id, string name, double price, double discount,
-        //    bool status, IFormFile file)
-        //{
-        //    //string CompleteUrl = this.Request.Url.AbsoluteUri;
-        //    var product = _context.Products.Find(id);
-        //    if (product == null)
-        //    {
-        //        ViewBag.Message = "San pham khong ton tai";
-        //        return View();
-        //    }
-        //    product.Update(name, price, discount, status);
-        //    _context.SaveChanges();
-
-        //    return RedirectToAction("Update", new { id });
-        //}
-
+       
         [HttpPost]
-        public ActionResult Update(int id, string name, double price, double discount,
+        public ActionResult Update(int id, string name, float price, float discount, int brandId,
            bool status, IFormFile? file)
         {
             //string CompleteUrl = this.Request.Url.AbsoluteUri;
@@ -182,13 +183,19 @@ namespace MyWeb2023.Controllers
             {
                image = GetImage(product.Id, file);
             }
+
+            //Dòng 171: đây là function Update, a cố tình copy qua cho dễ nhìn
+            //Update(string name, float price, float? discount, bool status, string? image, int brandid)
+            // Dòng product.Update ... dưới là đoạn code gọi tới funtion Update ở trong class Product
+            //thì mình phải truyền vào theo đúng thứ tự
+            //nó mapping theo param truyền vào chứ ko phải theo cái name như kiểu ở input html
+            // anh cố tình tạo 1 biến nameTest cho khác tên truyền vào vẫn được đó thấy không
             
-            product.Update(name, price, discount, status, image);
+            product.Update(name, price, discount, status, image, brandId);
            
             _context.SaveChanges();
             return RedirectToAction("Update", new { id });
         }
-
 
         public string GetImage(int productId, IFormFile file)
         {
