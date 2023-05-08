@@ -8,6 +8,7 @@
         public double? Discount { get; set; }
         public bool Status { get; set; }
         public IFormFile? File { get; set; }
+        public int BrandId { get; set; }
         
     }
 }

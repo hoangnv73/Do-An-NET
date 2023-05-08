@@ -67,6 +67,20 @@ namespace MyWeb2023.Controllers
             _context.SaveChanges(true);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult Update(int id) 
+        {
+            var user = _context.Users.Find(id);
+            return View();
+        }
+        //[HttpPost]
+        //public IActionResult Update(int id,string firtname, string lastname, string password, bool gender, bool statusid)
+        //{
+        //    var user = _context.Users.Find(id);
+        //    user.Update
+        //    return View();
+        //}
+
 
         public string GetImage(int UserId, IFormFile file)
         {
@@ -90,5 +104,6 @@ namespace MyWeb2023.Controllers
             }
             return filename;
         }
+
     }
 }
