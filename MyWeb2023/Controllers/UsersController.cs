@@ -26,10 +26,43 @@ namespace MyWeb2023.Controllers
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
-                GenderName = x.Gender == null ? "-" : x.Gender == true ? "Nam" : "Nữ" //ifelseif
+                GenderName = x.Gender == null ? "-" : x.Gender == true ? "Nam" : "Nữ", //ifelseif
+                ResetPassword = HashPassWord(),
             }).ToList();
             return View(result);
         }
+
+        /// <summary>
+        /// Action reset password
+        /// </summary>
+        /// <param name="id">id người dùng</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ResetPassword(int id)
+        {
+            var user = _context.Users.Find(id);
+            var newPassword = HashPassWord();
+            user.UpdatePassword(newPassword);
+            _context.SaveChanges();
+            return newPassword;
+        }
+
+        public string HashPassWord()
+        {
+            //todo: nghiên cứu thêm cách làm hash SHA256/MD5 
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[8];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+            return finalString;
+        }
+
         // Create
         public IActionResult Create()
         {
@@ -45,9 +78,12 @@ namespace MyWeb2023.Controllers
                 Password = model.Password,
                 Email = model.Email,
                 Gender = model.Gender,
+                ResetPassword = model.ResetPassword,
             };
             _context.Users.Add(UserAdd);
             _context.SaveChanges();
+
+           
 
             //-- nếu như ảnh not null thì cập nhật ảnh trong db & lưu ảnh trong folder 
             if (model.File != null)

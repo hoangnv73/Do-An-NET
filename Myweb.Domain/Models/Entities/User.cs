@@ -41,6 +41,11 @@ namespace Myweb.Domain.Models.Entities
             Image = image;
             ResetPassword = resetPassword;
         }
+
+        public void UpdatePassword(string newPassword)
+        {
+            Password = newPassword;
+        }
         public User()
         {
 
