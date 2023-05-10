@@ -34,8 +34,7 @@
                             <td>@item.Email</td>
                             <td>@item.GenderName</td>
                             <td>
-                                <button type="button" class="btn btn-info btn-sm">Edit</button>
-
+                                <a href="/Users/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
                                 <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
                                 <button form="form-delete-@item.Id" type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </td>

@@ -45,10 +45,10 @@
 
                     <div class="form-group">
                         <label>Thương hiệu</label>
-                        <select class="form-control" name="brand">
+                        <select class="form-control" name="brandId">
                             <option value="">Chọn</option>
                             @{
-                                var brand = int.Parse(@Model.Brand);
+                                var brand = Model.BrandId;
                                 foreach (var item in brands)
                                 {
                                     //var abc = currentPage == item ? "active" : "";

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Models;
 using MyWeb2023.Models.Dto;
+using System.Drawing.Drawing2D;
 
 namespace MyWeb2023.Controllers
 {
@@ -37,7 +38,8 @@ namespace MyWeb2023.Controllers
         [HttpPost]
         public IActionResult Create(CreateUserModel model)
         {
-            var UserAdd = new User {
+            var UserAdd = new User
+            {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Password = model.Password,
@@ -67,19 +69,39 @@ namespace MyWeb2023.Controllers
             _context.SaveChanges(true);
             return RedirectToAction("Index");
         }
+        //Update
         [HttpGet]
-        public IActionResult Update(int id) 
+        public IActionResult Update(int id)
         {
             var user = _context.Users.Find(id);
-            return View();
+            if (user == null)
+            {
+                return RedirectToAction("NotFound", "Common");
+            }
+            return View(user);
         }
-        //[HttpPost]
-        //public IActionResult Update(int id,string firtname, string lastname, string password, bool gender, bool statusid)
-        //{
-        //    var user = _context.Users.Find(id);
-        //    user.Update
-        //    return View();
-        //}
+        [HttpPost]
+        public IActionResult Update(int id, string firstname, string lastname, string password,
+            string email, bool gender, int statusid, IFormFile? file, string resetPassword)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                ViewBag.Message = "San pham khong ton tai";                
+                return View();
+            }
+
+            var image = user.Image;
+            if (file != null)
+            {
+                image = GetImage(user.Id, file);
+            }
+
+            user.Update(firstname, lastname, password, email, gender, statusid, image, resetPassword);
+            _context.SaveChanges();
+
+            return RedirectToAction("Update", new { id });
+        }
 
 
         public string GetImage(int UserId, IFormFile file)

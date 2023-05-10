@@ -1,0 +1,45 @@
+﻿@using Myweb.Domain.Models.Entities;
+@model User
+
+<div class="card">
+    <div class="card-header">
+        <h5>Chỉnh sửa Sản Phẩm</h5>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm-3"> </div>
+            <div class="col-sm-6">
+                <form method="post" action="/Users/Update">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input id="update" name="id" value="@Model.Id" type="hidden" />
+                                <label>FirstName</label>
+                                <input name="firstname" value="@Model.FirstName" type="text" class="form-control">
+                                <label>LastName</label>
+                                <input name="lastname" value="@Model.LastName" type="text" class="form-control">
+                               
+                                <label>Email</label>
+                                <input name="email" value="@Model.Email" type="text" class="form-control">
+
+                                <div class="form-group">
+                                    <input name="statusid" value="True" type="radio"  />
+                                    <span>Nam</span>
+                                    <br />
+                                    <input name="statusid" value="False" type="radio"  />
+                                    <span>Nữ</span>
+                                </div>
+                                <label>Reset Password</label>
+                                <div class="form-group">
+                                    <input name="password" value="@Model.ResetPassword" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a type="button" href="/Users" class="btn btn-default">Back</a>
+                    <button type="submit" class="btn btn-info">Update </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

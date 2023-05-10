@@ -9,6 +9,6 @@
         public string Email { get; set; } = string.Empty;
         public int StatusId { get; set; }
         public string Image { get; set; } = string.Empty;
-
+        public string ResetPassword { get; set; } = string.Empty;
     }
 }
