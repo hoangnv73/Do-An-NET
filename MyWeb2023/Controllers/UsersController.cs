@@ -46,7 +46,26 @@ namespace MyWeb2023.Controllers
             _context.SaveChanges();
             return newPassword;
         }
+      
+        [HttpPost]
+        public async Task<bool> DeleteUser(int id)
+        {
+            var user = _context.Users.Find(id);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return true;
+        }
 
+
+        // Delete
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var user = _context.Users.Find(id);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public string HashPassWord()
         {
             //todo: nghiên cứu thêm cách làm hash SHA256/MD5 
@@ -96,15 +115,7 @@ namespace MyWeb2023.Controllers
             return RedirectToAction("Index");
         }
 
-        // Delete
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            var user = _context.Users.Find(id);
-            _context.Users.Remove(user);
-            _context.SaveChanges(true);
-            return RedirectToAction("Index");
-        }
+       
         //Update
         [HttpGet]
         public IActionResult Update(int id)
