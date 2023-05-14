@@ -117,6 +117,15 @@ namespace MyWeb2023.Controllers
             return RedirectToAction("Index");
         }
 
+        // Delete Sweetarlet
+        [HttpPost]
+        public async Task<bool> DeleteProduct(int id)
+        {
+            var product = _context.Products.Find(id);
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+            return true;
+        }
         // Delete
         [HttpPost]
         public IActionResult Delete(int id)

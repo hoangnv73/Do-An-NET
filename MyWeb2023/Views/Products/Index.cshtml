@@ -5,6 +5,27 @@
     List<int> pages = new List<int> { 1, 2, 3, 4, 5 };
     int currentPage = ViewBag.Page;
 }
+<script>
+    function deleteProduct(id) {
+        axios.post('/products/deleteProduct', {
+            'id': id
+        }, {
+
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+                Swal.fire(
+                    'Xóa thành công!',
+                    '',
+                    'success'
+
+                )
+            })
+    }
+</script>
 <div class="card">
     <div class="card-header">
         <h5>Quản Lý Sản Phẩm</h5>
@@ -70,11 +91,12 @@
                                 <td><span class="badge badge-danger">Hết Hàng</span></td>
                             }
                             <td>
+                               
                                 <a href="/Products/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
                                 <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
                                 @if (item.BrandName == "Gucci")
                                 {
-                                    <a href="#" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">Delete</a>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteProduct('@item.Id')">Delete</button>
                                 }
                                 else
                                 {

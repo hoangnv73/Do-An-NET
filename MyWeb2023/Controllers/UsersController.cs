@@ -56,7 +56,6 @@ namespace MyWeb2023.Controllers
             return true;
         }
 
-
         // Delete
         [HttpPost]
         public IActionResult Delete(int id)
