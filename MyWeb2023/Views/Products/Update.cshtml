@@ -59,14 +59,39 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <input name="file" value="@Model.Image" type="file" />
+                   
+                    <div id="editor"></div>
+                    <html lang="en">
+                    <head>
+                        <meta charset="utf-8">
+                        <title>CKEditor 5 – Classic editor</title>
+                        <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+                    </head>
+                    <body>
+                        <h1>Classic editor</h1>
+                        <div id="editor">
+                         
+                        </div>
+                        <script>
+                            ClassicEditor
+                                .create(document.querySelector('#editor'))
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
+                    </body>
+                </html>
+
+                    <input name="file" value="@Model.Image" type="file" />
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-info ">Update</button>
                     </div>
-                    <a type="button" href="/Products" class="btn btn-default">Back</a>
-                    <button type="submit" class="btn btn-info">Update</button>
                 </form>
             </div>
             <div class="col-sm-3"> </div>
+        </div>
+        <div>
+            <a type="button" href="/Products" class="btn btn-default">Back</a>
         </div>
     </div>
 </div>

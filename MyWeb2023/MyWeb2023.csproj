@@ -921,6 +921,7 @@
     <Folder Include="wwwroot\data\products\" />
     <Folder Include="wwwroot\abc\" />
     <Folder Include="wwwroot\uploads\" />
+    <Folder Include="wwwroot\www\images\" />
   </ItemGroup>
 
   <ItemGroup>

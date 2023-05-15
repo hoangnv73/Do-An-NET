@@ -22,7 +22,9 @@ namespace MyWeb2023.Controllers
             var result = users.Select(x => new UserDto
             {
                 Id = x.Id,
-                Image = x.Image,
+                Image = !string.IsNullOrEmpty(x.Image)
+                        ? $"/data/{x.Id}/{x.Image}"
+                        : "/www/images/default.jpg",
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,

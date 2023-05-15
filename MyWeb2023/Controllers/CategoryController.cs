@@ -60,10 +60,10 @@ namespace MyWeb2023.Controllers
             return View(category);
         }
         [HttpPost]
-        public IActionResult Update(int id, string name, bool isactive)
+        public IActionResult Update(int id, string name, bool isActive)
         {
             var category = _context.Categories.Find(id);
-            category.Update(name, isactive);
+            category.Update(name, isActive);
             _context.SaveChanges(true);
             return RedirectToAction("Update", new {id});
         }
