@@ -45,12 +45,12 @@ namespace MyWeb2023.Controllers
 
         // Delete
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<bool> DeleteBrand(int id)
         {
             var brand = _context.Brands.Find(id);
             _context.Brands.Remove(brand);
-            _context.SaveChanges(true);
-            return RedirectToAction("Index");
+            _context.SaveChanges();
+            return true;
         }
 
         //Update

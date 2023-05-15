@@ -11,27 +11,30 @@ namespace Myweb.Domain.Models.Entities
         public double Price { get; set; }
         public double? Discount { get; set; }
         public bool Status { get; set; }
+        public string? Description { get; set; } 
 
         public Product()
         {
 
         }
-        public Product(string name, double price, double? discount, bool trangThai)
+        public Product(string name, double price, double? discount, bool trangThai, string description)
         {
             Name = name;
             Price = price;
-            Discount= discount;
+            Discount = discount;
             Status = trangThai;
-
+            Description = description;
         }
 
-        public void Update(string name, double price, double? discount, bool status, string? image, int brandId)
+        public void Update(string name, double price, double? discount, bool status,
+            string? image, int brandId, string description)
         {
             Name = name;
             Price = price;
             Discount = discount;
             Status = status;
             BrandId = brandId;
+            Description = description;
         }
     }
 }

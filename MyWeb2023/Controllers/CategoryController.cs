@@ -45,13 +45,14 @@ namespace MyWeb2023.Controllers
         }
         // Delete
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<bool> DeleteCategory(int id)
         {
-            var category = _context.Categories.Find(id);
-            _context.Categories.Remove(category);
-            _context.SaveChanges(true);
-            return RedirectToAction("Index");
+            var user = _context.Categories.Find(id);
+            _context.Categories.Remove(user);
+            _context.SaveChanges();
+            return true;
         }
+     
         //Update 
         [HttpGet]
         public IActionResult Update(int id) 

@@ -6,23 +6,37 @@
     int currentPage = ViewBag.Page;
 }
 <script>
-    function deleteProduct(id) {
-        axios.post('/products/deleteProduct', {
+    function reloadPage() {
+        window.location.reload()
+    }
+    function DeleteProduct(id) {
+        axios.post('/Product/DeleteProduct', {
             'id': id
         }, {
-
             headers: {
                 'content-type': 'application/x-www-form-urlencoded'
             }
         })
             .then(function (response) {
                 console.log(response);
-                Swal.fire(
-                    'Xóa thành công!',
-                    '',
-                    'success'
-                )
+                reloadPage();
             })
+    }
+    function confirmDelete(id) {
+        console.log("confirmDelete", id);
+        Swal.fire({
+            title: 'Bạn có muốn xóa không ?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                DeleteProduct(id);
+            }
+        })
     }
 </script>
 <div class="card">
@@ -88,18 +102,9 @@
                                 <td><span class="badge badge-danger">Hết Hàng</span></td>
                             }
                             <td>
-                               
                                 <a href="/Products/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
                                 <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
-                                @if (item.BrandName == "Gucci")
-                                {
-                                    <button class="btn btn-danger btn-sm" onclick="deleteProduct('@item.Id')">Delete</button>
-                                }
-                                else
-                                {
-                                    <button form="form-delete-@item.Id" type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                }
-                               
+                                <button class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id')">Delete</button>
                             </td>
                         </tr>
                         <form id="form-delete-@item.Id" action="@Url.Action("Delete","Products")" method="post">

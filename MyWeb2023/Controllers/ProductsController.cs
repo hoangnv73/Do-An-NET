@@ -92,25 +92,26 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateProductModel model)
+        public IActionResult Create(CreateProductModel request)
         {
-            var product  = new Product { 
-                Name = model.Name,
-                Price = model.Price,
-                BrandId = model.BrandId,
+            var product = new Product {
+                Name = request.Name,
+                Price = request.Price,
+                BrandId = request.BrandId,
                 //Biến = (điều kiện )? (Lệnh1 thực thi nếu đk đúng) : (lệnh 2 thực thi nếu đk sai);
                 // nếu như request.Discount not null thì giá trị = chính nó --> nếu như null thì gắn = 0
                 //Discount = request.Discount ?? 0,
-                Discount = model.Discount == null ? 0 : model.Discount,
-                Status = model.Status
+                Discount = request.Discount == null ? 0 : request.Discount,
+                Status = request.Status,
+                Description = request.Description
             };
             _context.Products.Add(product);
             _context.SaveChanges();
 
             //-- nếu như ảnh not null thì cập nhật ảnh trong db & lưu ảnh trong folder 
-            if (model.File != null)
+            if (request.File != null)
             {
-                string image = GetImage(product.Id, model.File);
+                string image = GetImage(product.Id, request.File);
                 product.Image = image;
                 _context.SaveChanges();
             }
@@ -200,7 +201,7 @@ namespace MyWeb2023.Controllers
             //nó mapping theo param truyền vào chứ ko phải theo cái name như kiểu ở input html
             // anh cố tình tạo 1 biến nameTest cho khác tên truyền vào vẫn được đó thấy không
             
-            product.Update(name, price, discount, status, image, brandId);
+            product.Update(name, price, discount, status, image, brandId,"abc");
            
             _context.SaveChanges();
             return RedirectToAction("Update", new { id });
