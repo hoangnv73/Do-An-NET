@@ -71,7 +71,7 @@ namespace MyWeb2023.Controllers
 
         // Create
         public IActionResult Create()
-        {
+         {
             #region Cach 1
             //var listBrands = new List<ComboboxDto> { };
             //var brands = _context.Brands.ToList();
@@ -118,18 +118,9 @@ namespace MyWeb2023.Controllers
             return RedirectToAction("Index");
         }
 
-        // Delete Sweetarlet
-        [HttpPost]
-        public async Task<bool> DeleteProduct(int id)
-        {
-            var product = _context.Products.Find(id);
-            _context.Products.Remove(product);
-            _context.SaveChanges();
-            return true;
-        }
         // Delete
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<bool> DeleteProduct(int id)
         {
             var product = _context.Products.Find(id);
             if (product != null)
@@ -145,15 +136,13 @@ namespace MyWeb2023.Controllers
                     //-- nếu không có true thì chỉ xoá dược những folder rỗng 
                     Directory.Delete(pathproduct, true);
                 }
-               
-               
                 _context.SaveChanges();
             }
             else
             {
                 //todo
             }
-            return RedirectToAction("Index");
+            return true;
         }
         //Update
         [HttpGet]

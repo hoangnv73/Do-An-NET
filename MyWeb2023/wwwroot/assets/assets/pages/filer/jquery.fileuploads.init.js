@@ -124,13 +124,13 @@ $(document).ready(function(){
 				name: "Desert.jpg",
 				size: 145,
 				type: "image/jpg",
-				file: "../files/assets/images/file-upload/Desert.jpg"
+				file: "~/assets/assets/images/file-upload/Desert.jpg"
 			},
 			{
 				name: "overflow.jpg",
 				size: 145,
 				type: "image/jpg",
-				file: "../files/assets/images/file-upload/Desert.jpg"
+				file: "~/assets/assets/images/file-upload/Desert.jpg"
 			}
 		],
         addMore: false,

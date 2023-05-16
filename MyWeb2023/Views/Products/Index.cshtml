@@ -10,7 +10,7 @@
         window.location.reload()
     }
     function DeleteProduct(id) {
-        axios.post('/Product/DeleteProduct', {
+        axios.post('/products/DeleteProduct', {
             'id': id
         }, {
             headers: {
@@ -46,7 +46,7 @@
     <div class="card-block">
         <div class="row">
             <div class="col-sm-3">
-                <a href="/Products/Create" class="btn btn-success btn-sm">Thêm</a>
+                <a href="/Products/Create" class="btn btn-info btn-sm">Thêm</a>
             </div>
             <div class="col-sm-3">
                 <form method="get" action="/Products/Index">
@@ -55,8 +55,10 @@
                         <option value="price_asc">Giá Thấp -> Cao</option>
                         <option value="price_desc">Giá Cao -> Thấp</option>
                     </select>
-                    <button type="submit">Lọc</button>
                 </form>
+            </div>
+            <div class="d-flex">
+                <button class="btn btn-info btn-sm" type="submit">Lọc</button>
             </div>
             <div class="col-sm-3">
                 <form class="d-flex">
@@ -107,8 +109,7 @@
                                 <button class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id')">Delete</button>
                             </td>
                         </tr>
-                        <form id="form-delete-@item.Id" action="@Url.Action("Delete","Products")" method="post">
-                        </form>
+                       
                     }
                 </tbody>
             </table>
