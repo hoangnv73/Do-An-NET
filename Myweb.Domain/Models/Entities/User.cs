@@ -15,7 +15,7 @@ namespace Myweb.Domain.Models.Entities
         public bool? Gender { get; set; }
         public int StatusId { get; set; }
         public string? Image { get; set; }
-        public string ResetPassword { get; set; } = string.Empty;
+        public string? ResetPassword { get; set; } = string.Empty;
 
         public User(string firstname, string lastName, string password, string email, bool? gender, 
             int statusId, string? image, string resetPassword)
