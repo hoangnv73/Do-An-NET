@@ -69,7 +69,6 @@ namespace MyWeb2023.Controllers
         }
         public string HashPassWord()
         {
-            //todo: nghiên cứu thêm cách làm hash SHA256/MD5 
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[8];
             var random = new Random();
