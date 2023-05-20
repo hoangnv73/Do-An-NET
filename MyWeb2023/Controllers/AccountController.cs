@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -19,6 +23,7 @@ namespace MyWeb2023.Controllers
 
         public IActionResult Login()
         {
+            SendMail();
             return View();
         }
 
@@ -96,6 +101,23 @@ namespace MyWeb2023.Controllers
                 }
                 return stringbuilder.ToString();
             }
+        }
+
+        public static async Task SendMail()
+        {
+            //string firstName = "Phong";
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var from_email = new EmailAddress("nguyenvanhoang73qb@gmail.com", "admin");
+            var subject = "Sending with Twilio SendGrid is Fun";
+            var to_email = new EmailAddress("maxgamingtvchannel@gmail.com", "Example User");
+            var plainTextContent = "";
+
+            var rootFolder = Directory.GetCurrentDirectory();
+            string path = @$"{rootFolder}\wwwroot\template\SignUp.html";
+            var htmlContent = System.IO.File.ReadAllText(path);
+            var msg = MailHelper.CreateSingleEmail(from_email, to_email, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg).ConfigureAwait(false); 
         }
     }
 }

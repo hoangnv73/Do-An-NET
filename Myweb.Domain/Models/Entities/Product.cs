@@ -17,12 +17,13 @@ namespace Myweb.Domain.Models.Entities
         {
 
         }
-        public Product(string name, double price, double? discount, bool trangThai, string description)
+        public Product(string name, double price, double? discount, bool status, string image, string description)
         {
             Name = name;
             Price = price;
             Discount = discount;
-            Status = trangThai;
+            Status = status;
+            Image = image;
             Description = description;
         }
 
@@ -33,6 +34,7 @@ namespace Myweb.Domain.Models.Entities
             Price = price;
             Discount = discount;
             Status = status;
+            Image = image;
             BrandId = brandId;
             Description = description;
         }
