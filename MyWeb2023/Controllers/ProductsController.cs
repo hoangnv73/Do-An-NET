@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Models;
@@ -14,8 +16,6 @@ namespace MyWeb2023.Controllers
         {
             _context = context;
         }
-
-
         public async Task<IActionResult> Index(string sort, int? page)
          {
             ViewBag.Page = page == null ? 1 : page;
@@ -36,27 +36,33 @@ namespace MyWeb2023.Controllers
                 Image = !string.IsNullOrEmpty(x.Image)
                         ? $"/data/{x.Id}/{x.Image}" 
                         : "/www/images/default-thumbnail.jpg",       
-                Name = ShowProductName(x.Name),
-                Brand= x.Brand,
+                Name = x.Name,
+                BrandId = x.Id,
                 Price = x.Price,
                 Discount = x.Discount,
                 Status = x.Status,
+                BrandName = ShowBrandName(x.BrandId),
             }).ToList();
             return View(result);
         }
-
-        public string ShowProductName(string productName)
+        public string ShowBrandName(int? brandId)
         {
-            if(productName == "Iphone 14 Pro Max") {
-                return productName + " [HOT]";
+            if(brandId == null)
+            {
+                return "-";
             }
-            return productName;
+            else
+            {
+                var brand = _context.Brands.Find(brandId);
+                string brandName = brand.Name;
+                return brandName;
+            }          
         }
-
+       
         // Create
         public IActionResult Create()
-        {
-            #region
+         {
+            #region Cach 1
             //var listBrands = new List<ComboboxDto> { };
             //var brands = _context.Brands.ToList();
             //foreach (var item in brands)
@@ -65,7 +71,6 @@ namespace MyWeb2023.Controllers
             //    listBrands.Add(obj);
             //}
             #endregion
-
             var listBrands = _context.Brands.Select(x => new ComboboxDto
             {
                 Id = x.Id,
@@ -79,15 +84,16 @@ namespace MyWeb2023.Controllers
         [HttpPost]
         public IActionResult Create(CreateProductModel request)
         {
-            var product  = new Product { 
+            var product = new Product {
                 Name = request.Name,
                 Price = request.Price,
-                Brand = request.Brand,
+                BrandId = request.BrandId,
                 //Biến = (điều kiện )? (Lệnh1 thực thi nếu đk đúng) : (lệnh 2 thực thi nếu đk sai);
-                Discount = request.Discount == null ? 0 : request.Discount,
                 // nếu như request.Discount not null thì giá trị = chính nó --> nếu như null thì gắn = 0
                 //Discount = request.Discount ?? 0,
-                Status = request.Status
+                Discount = request.Discount == null ? 0 : request.Discount,
+                Status = request.Status,
+                Description = request.Description
             };
             _context.Products.Add(product);
             _context.SaveChanges();
@@ -96,27 +102,50 @@ namespace MyWeb2023.Controllers
             if (request.File != null)
             {
                 string image = GetImage(product.Id, request.File);
-                // update
                 product.Image = image;
                 _context.SaveChanges();
             }
-            
             return RedirectToAction("Index");
         }
+
         // Delete
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<bool> DeleteProduct(int id)
         {
             var product = _context.Products.Find(id);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                var rootFolder = Directory.GetCurrentDirectory();
 
-            _context.Products.Remove(product);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+                string pathproduct = @$"{rootFolder}\wwwroot\data\{id}";
+                //--exists kiểm tra thư mục tồn tại có tồn tại hay không
+                if (Directory.Exists(pathproduct))
+                {
+                    //-- thêm true để xoá những folder có file
+                    //-- nếu không có true thì chỉ xoá dược những folder rỗng 
+                    Directory.Delete(pathproduct, true);
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                //todo
+            }
+            return true;
         }
         //Update
         [HttpGet]
         public ActionResult Update(int id)
         {
+            var listBrands = _context.Brands.Select(x => new ComboboxDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToList();
+
+            ViewBag.Brands = listBrands;
+
             var product = _context.Products.Find(id);
 
             if (product == null)
@@ -125,9 +154,10 @@ namespace MyWeb2023.Controllers
             }
             return View(product);
         }
+       
         [HttpPost]
-        public ActionResult Update(int id, string name, double price, double discount,
-            bool status, IFormFile file)
+        public ActionResult Update(int id, string name, float price, float discount, int brandId,
+           bool status, IFormFile? file)
         {
             //string CompleteUrl = this.Request.Url.AbsoluteUri;
             var product = _context.Products.Find(id);
@@ -136,17 +166,20 @@ namespace MyWeb2023.Controllers
                 ViewBag.Message = "San pham khong ton tai";
                 return View();
             }
-            product.Update(name, price, discount, status);
+
+            var image = product.Image;
+            if (file != null)
+            {
+               image = GetImage(product.Id, file);
+            }
+            product.Update(name, price, discount, status, image, brandId, "abc");
+           
             _context.SaveChanges();
-            
-            return RedirectToAction("Update", new {id});
+            return RedirectToAction("Update", new { id });
         }
 
         public string GetImage(int productId, IFormFile file)
         {
-
-            //if (file == null) return null;
-
             //// Get the current directory.
             var rootFolder = Directory.GetCurrentDirectory();
             //-- khai báo đường dẫn

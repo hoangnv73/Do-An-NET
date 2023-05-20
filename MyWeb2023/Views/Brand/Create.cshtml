@@ -1,0 +1,36 @@
+﻿@using MyWeb2023.Models.Dto;
+@{
+    List<ComboboxDto> brands = ViewBag.Brands;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>Tạo Sản Phẩm</h5>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm-3"> </div>
+            <div class="col-sm-6">
+                <form method="post" action="/Brand/Create" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Tên Thương Hiệu <span class="text-danger">*</span></label>
+                                <input name="name" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-info">Create</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-3"> </div>
+        </div>
+        <div>
+            <a type="button" href="/Brand" class="btn btn-default">Back</a>
+        </div>
+    </div>
+</div>
+@*Url.Action("Create","Products")*@

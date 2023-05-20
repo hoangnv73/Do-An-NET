@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\data\7\**" />
+    <Compile Remove="wwwroot\data\8\**" />
+    <Content Remove="wwwroot\data\7\**" />
+    <Content Remove="wwwroot\data\8\**" />
+    <EmbeddedResource Remove="wwwroot\data\7\**" />
+    <EmbeddedResource Remove="wwwroot\data\8\**" />
+    <None Remove="wwwroot\data\7\**" />
+    <None Remove="wwwroot\data\8\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\assets\bower_components\animate.css\css\animate.css" />
     <Content Include="wwwroot\assets\bower_components\bootstrap-daterangepicker\css\daterangepicker.css" />
     <Content Include="wwwroot\assets\bower_components\bootstrap-multiselect\css\bootstrap-multiselect.css" />
@@ -903,14 +914,17 @@
     <None Include="wwwroot\assets\bower_components\swiper\js\swiper.min.js" />
     <None Include="wwwroot\assets\bower_components\switchery\js\switchery.min.js" />
     <None Include="wwwroot\assets\bower_components\underscore\js\underscore-min.js" />
-    <None Include="wwwroot\data\7\DSC07956.jpg" />
-    <None Include="wwwroot\data\8\e8128e7a0f7fd021896e.jpg" />
+    <None Include="wwwroot\template\NotifyOrder.html" />
+    <None Include="wwwroot\template\SignUp.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="NewFolder\" />
+    <Folder Include="wwwroot\data\users\" />
     <Folder Include="wwwroot\data\products\" />
     <Folder Include="wwwroot\abc\" />
     <Folder Include="wwwroot\uploads\" />
+    <Folder Include="wwwroot\www\images\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -922,6 +936,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,28 @@
+﻿@using Myweb.Domain.Models.Entities;
+@model Brand
+
+<div class="card">
+    <div class="card-header">
+        <h5>Chỉnh sửa Sản Phẩm</h5>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm-3"> </div>
+            <div class="col-sm-6">
+                <form method="post" action="/Brand/Update">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input id="update" name="id" value="@Model.Id" type="hidden" /> 
+                                <label>Tên Thương Hiệu</label>
+                                <input name="name" value="@Model.Name" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <a type="button" href="/Brand" class="btn btn-default">Back</a>
+                    <button type="submit" class="btn btn-info">Update </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

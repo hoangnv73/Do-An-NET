@@ -1,6 +1,8 @@
-﻿@using Myweb.Domain.Models.Entities;
+﻿@using MyWeb2023.Models.Dto;
+@using Myweb.Domain.Models.Entities;
 @model Product
 @{
+    List<ComboboxDto> brands = ViewBag.Brands;
     var isCheckedActive = Model.Status ? "checked" : string.Empty;
     var isCheckedInActive = !Model.Status ? "checked" : string.Empty;
 }
@@ -31,20 +33,65 @@
                             </div>
                         </div>
                     </div>
-                    <span class="input-group-text">Status</span>
+                    <span class="input-group-text">Trạng thái</span>
                     <br />
-                    <br />
-                    <input name="status" value="True" type="radio" @isCheckedActive />
-                    <span> Hoạt động</span>
-                    <br />
-                    <input name="status" value="False" type="radio" @isCheckedInActive />
-                    <span>Không hoạt động</span>
-                    <br />
-                    <a type="button" href="/Products" class="btn btn-default">Back</a>
-                    <button type="submit" class="btn btn-info">Update</button>
+                    <div class="form-group">
+                        <input name="status" value="True" type="radio" @isCheckedActive />
+                        <span>Còn hàng</span>
+                        <br />
+                        <input name="status" value="False" type="radio" @isCheckedInActive />
+                        <span>Hết hàng</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Thương hiệu</label>
+                        <select class="form-control" name="brandId">
+                            <option value="">Chọn</option>
+                            @{
+                                var brand = Model.BrandId;
+                                foreach (var item in brands)
+                                {
+                                    //var abc = currentPage == item ? "active" : "";
+                                    var abc = brand == item.Id ? "selected" : "";
+                                    <!option @abc value="@item.Id">@item.Name</!option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                   
+                    <div id="editor"></div>
+                    <html lang="en">
+                    <head>
+                        <meta charset="utf-8">
+                        <title>CKEditor 5 – Classic editor</title>
+                        <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+                    </head>
+                    <body>
+                        <h1>Classic editor</h1>
+                        <div id="editor">
+                         
+                        </div>
+                        <script>
+                            ClassicEditor
+                                .create(document.querySelector('#editor'))
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
+                    </body>
+                </html>
+
+                    <input name="file" value="@Model.Image" type="file" />
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-info ">Update</button>
+                    </div>
                 </form>
             </div>
             <div class="col-sm-3"> </div>
+        </div>
+        <div>
+            <a type="button" href="/Products" class="btn btn-default">Back</a>
         </div>
     </div>
 </div>

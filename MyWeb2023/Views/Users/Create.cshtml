@@ -27,25 +27,18 @@
                         <label>Gender <span class="text-danger">*</span></label>
                         <input name="gender" type="text" class="form-control">
                     </div>
-
-                    @*//up ảnh*@
-                    <div class="j-input j-append-big-btn j-success-view">
-                        <label class="j-icon-left" for="file_input">
-                            <i class="icofont icofont-download"></i>
-                        </label>
-                        <div class="j-file-button">
-                            Browse
-                            <input type="file" name="file_name" onchange="document.getElementById('file_input').value = this.value;">
-                        </div>
-                        <input type="text" id="file_input" readonly="" placeholder="no file selected">
+                    <div class="form-group">
+                        <input type="file" name="file" />
                     </div>
-                    <br />
-
-                    <a type="button" href="/Users" class="btn btn-default">Back</a>
-                    <button type="submit" class="btn btn-info">Add</button>
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-info">Add</button>
+                    </div>
                 </form>
             </div>
             <div class="col-sm-3"> </div>
+        </div>
+        <div>
+            <a type="button" href="/Users" class="btn btn-default">Back</a>
         </div>
     </div>
 </div>

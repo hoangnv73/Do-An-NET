@@ -23,10 +23,10 @@ namespace Myweb.Domain.Models.Entities
 
         }
 
-        public void Update(string name, bool isactive)
+        public void Update(string name, bool isActive)
         {
             Name = name;
-            IsActive = isactive;
+            IsActive = isActive;
         }
     }
    
