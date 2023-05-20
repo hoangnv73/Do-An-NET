@@ -914,9 +914,12 @@
     <None Include="wwwroot\assets\bower_components\swiper\js\swiper.min.js" />
     <None Include="wwwroot\assets\bower_components\switchery\js\switchery.min.js" />
     <None Include="wwwroot\assets\bower_components\underscore\js\underscore-min.js" />
+    <None Include="wwwroot\template\NotifyOrder.html" />
+    <None Include="wwwroot\template\SignUp.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\data\users\" />
     <Folder Include="wwwroot\data\products\" />
     <Folder Include="wwwroot\abc\" />
@@ -933,6 +936,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
   </ItemGroup>
 
   <ItemGroup>

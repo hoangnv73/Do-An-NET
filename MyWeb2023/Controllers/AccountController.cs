@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Myweb.Domain;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Models;
+using Newtonsoft.Json.Linq;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -21,9 +26,10 @@ namespace MyWeb2023.Controllers
             _context = context;
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
-            SendMail();
+          //  SendMail();
             return View();
         }
 
@@ -103,21 +109,42 @@ namespace MyWeb2023.Controllers
             }
         }
 
-        public static async Task SendMail()
+        public List<ObjectMail> GetObjectMails()
         {
-            //string firstName = "Phong";
+            //var di = new Dictionary<string, string>();
+            //di.Add("firstName", "honga");
+            //var k = new List<KeyValuePair<string, string>>();
+    
+            var res = new List<ObjectMail>();
+            res.Add(new ObjectMail() { Key = "{FirstName}", Value = "Hoàng" });
+            res.Add(new ObjectMail() { Key = "{DateTime.Now}", Value = DateTime.Now.ToString() });
+            return res;
+        }
+
+        public async Task SendMail(string key, string mailTo)
+        {
+          
+
+
+            var objMails = GetObjectMails();
             var apiKey = "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";
             var client = new SendGridClient(apiKey);
-            var from_email = new EmailAddress("nguyenvanhoang73qb@gmail.com", "admin");
-            var subject = "Sending with Twilio SendGrid is Fun";
+            var from_email = new EmailAddress("nguyenvanhoang73qb@gmail.com", "Mamz Shop");
+            var subject = "Sending with Mamz Shop";
             var to_email = new EmailAddress("maxgamingtvchannel@gmail.com", "Example User");
             var plainTextContent = "";
-
             var rootFolder = Directory.GetCurrentDirectory();
             string path = @$"{rootFolder}\wwwroot\template\SignUp.html";
             var htmlContent = System.IO.File.ReadAllText(path);
+
+            foreach (var item in objMails)
+            {
+                htmlContent = htmlContent.Replace(item.Key, item.Value);
+            }
+
             var msg = MailHelper.CreateSingleEmail(from_email, to_email, subject, plainTextContent, htmlContent);
-            var response = await client.SendEmailAsync(msg).ConfigureAwait(false); 
+            var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
+
     }
 }
