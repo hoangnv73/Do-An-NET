@@ -77,11 +77,12 @@
                     <tr>
                         <th>STT</th>
                         <th>Avatar</th>
-                        <th>FirstName</th>
-                        <th>LastName</th>
+                        <th>Họ</th>
+                        <th>Tên</th>
                         <th>Email</th>
-                        <th>Gender</th>
-                        <th>Action</th>
+                        <th>Giới Tính</th>
+                        <th>Vai Trò</th>
+                        <th>Hành Động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,10 +91,11 @@
                         <tr>
                             <th scope="row">1</th>
                             <td><img src="@item.Image" width="50" height="50" /></td>
-                            <td>@item.FirstName</td>
                             <td>@item.LastName</td>
+                            <td>@item.FirstName</td>
                             <td>@item.Email</td>
                             <td>@item.GenderName</td>
+                            <td>@item.RoleName</td>
                             <td>
                                 <button class="btn btn-info btn-sm" onclick="resetPassword('@item.Id')">Reset</button>
                                 <a href="/Users/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>

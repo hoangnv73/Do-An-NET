@@ -10,5 +10,8 @@
         public int StatusId { get; set; }
         public string Image { get; set; } = string.Empty;
         public string ResetPassword { get; set; } = string.Empty;
+        public int? RoleId { get; set; }
+        public string RoleName { get; set; } = string.Empty;
+
     }
 }

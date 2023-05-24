@@ -30,9 +30,26 @@ namespace MyWeb2023.Controllers
                 Email = x.Email,
                 GenderName = x.Gender == null ? "-" : x.Gender == true ? "Nam" : "Nữ", //ifelseif
                 ResetPassword = HashPassWord(),
+                RoleId = x.RoleId,
+                //RoleName = ShowRoleName(x.RoleId)
             }).ToList();
             return View(result);
         }
+
+        //public string ShowRoleName(int? roleId)
+        //{
+        //    if (roleId == null)
+        //    {
+        //        return "_";
+        //    }
+        //    else
+        //    {
+        //        var role = _context.Roles.Find(roleId);
+        //        string roleName = role.Name;
+        //        return roleName;
+        //    }
+
+        //}
 
         /// <summary>
         /// Action reset password
@@ -98,6 +115,7 @@ namespace MyWeb2023.Controllers
                 Email = model.Email,
                 Gender = model.Gender,
                 ResetPassword = model.ResetPassword,
+                RoleId = model.RoleId,
             };
             _context.Users.Add(UserAdd);
             _context.SaveChanges();
@@ -129,7 +147,7 @@ namespace MyWeb2023.Controllers
         }
         [HttpPost]
         public IActionResult Update(int id, string firstname, string lastname, string password,
-            string email, bool gender, int statusid, IFormFile? file, string resetPassword)
+            string email, bool gender, int statusid, IFormFile? file, string resetPassword, int roleId)
         {
             var user = _context.Users.Find(id);
             if (user == null)
@@ -144,7 +162,7 @@ namespace MyWeb2023.Controllers
                 image = GetImage(user.Id, file);
             }
 
-            user.Update(firstname, lastname, password, email, gender, statusid, image, resetPassword);
+            user.Update(firstname, lastname, password, email, gender, statusid, image, resetPassword, roleId);
             _context.SaveChanges();
 
             return RedirectToAction("Update", new { id });

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
+using System.Data;
 
 namespace MyWeb2023.Models
 {
@@ -15,5 +16,6 @@ namespace MyWeb2023.Models
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }
