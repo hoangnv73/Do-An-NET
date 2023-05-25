@@ -919,6 +919,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\Dto\" />
+    <Folder Include="Areas\Admin\Views\Home\" />
+    <Folder Include="Areas\Admin\Views\Products\" />
     <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\data\users\" />
     <Folder Include="wwwroot\data\products\" />
