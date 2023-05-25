@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MyWeb2023.Models;
+using MyWeb2023.Areas.Admin.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -53,12 +53,12 @@ app.UseEndpoints(endpoints =>
     endpoints.MapAreaControllerRoute(
     name: "Admin",
     areaName: "Admin",
-    pattern: "Admin/{controller=Dashboard}/{action=Index}"
+    pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
     );
 
     endpoints.MapControllerRoute(
       name: "areas",
-      pattern: "{area:exists}/{controller}/{action}"
+      pattern: "{area:exists}/{controller}/{action}/{id?}"
     );
     endpoints.MapControllerRoute(
     name: "default",
