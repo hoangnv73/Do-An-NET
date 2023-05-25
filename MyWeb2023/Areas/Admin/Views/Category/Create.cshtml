@@ -1,0 +1,38 @@
+﻿@using MyWeb2023.Areas.Admin.Models.Dto;
+@using Myweb.Domain.Models.Entities;
+@model Category
+
+<div class="card">
+    <div class="card-header">
+        <h5>Tạo Danh Mục</h5>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm-3"> </div>
+            <div class="col-sm-6">
+                <form method="post" action="/Admin/Category/Create">
+                    <div class="form-group">
+                        <label>Category Name <span class="text-danger">*</span></label>
+                        <input name="name" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Trạng thái :</label>
+                                <br />
+                                <input name="isActive" value="true" type="radio" />
+                                <span>Hiển Thị</span>
+                                <input name="isActive" value="false" type="radio"/>
+                                <span>Ẩn</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a type="button" href="/Admin/Category" class="btn btn-default">Back</a>
+                    <button type="submit" class="btn btn-info">Add</button>
+                </form>
+            </div>
+            <div class="col-sm-3"> </div>
+        </div>
+    </div>
+</div>
