@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyWeb2023.Areas.Admin.Models;
+using MyWeb2023.Models;
 using System.Diagnostics;
 
 namespace MyWeb2023.Areas.Admin.Controllers
