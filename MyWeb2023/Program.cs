@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MyWeb2023.Models;
+using MyWeb2023.Areas.Admin.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -23,27 +23,47 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//app.UseHttpsRedirection();
+//app.UseStaticFiles();
+
+//app.UseRouting();
+
+//app.UseAuthorization();
+
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//if (app.Environment.IsDevelopment())
+//{
+//    //app.UseSwagger();
+//    //app.UseSwaggerUI();
+//}
+//app.UseHttpsRedirection();
+//app.UseAuthorization();
+//app.MapControllers();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapAreaControllerRoute(
+    name: "Admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+    );
 
-app.MapControllerRoute(
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller}/{action}/{id?}"
+    );
+    endpoints.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
-
-
-
-if (app.Environment.IsDevelopment())
-{
-    //app.UseSwagger();
-    //app.UseSwaggerUI();
-}
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
 
 app.Run();
