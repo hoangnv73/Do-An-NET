@@ -9,7 +9,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h5>Chỉnh sửa Sản Phẩm</h5>
+        <h5>Edit Products</h5>
     </div> 
     <div class="card-block">
         <div class="row">
@@ -24,27 +24,27 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-4">
-                                <label>Giá*:</label>
+                                <label>Price *:</label>
                                 <input name="price" value="@Model.Price" type="text" class="form-control">
                             </div>
                             <div class="col-sm-4">
-                                <label>Tỷ lệ giảm giá:</label>
+                                <label>Discount:</label>
                                 <input name="discount" value="@Model.Discount" type="text" class="form-control">
                             </div>
                         </div>
                     </div>
-                    <span class="input-group-text">Trạng thái</span>
+                    <span class="input-group-text">Status</span>
                     <br />
                     <div class="form-group">
                         <input name="status" value="True" type="radio" @isCheckedActive />
-                        <span>Còn hàng</span>
+                        <span>Stocking</span>
                         <br />
                         <input name="status" value="False" type="radio" @isCheckedInActive />
-                        <span>Hết hàng</span>
+                        <span>Out of stock</span>
                     </div>
 
                     <div class="form-group">
-                        <label>Thương hiệu</label>
+                        <label>Brand</label>
                         <select class="form-control" name="brandId">
                             <option value="">Chọn</option>
                             @{

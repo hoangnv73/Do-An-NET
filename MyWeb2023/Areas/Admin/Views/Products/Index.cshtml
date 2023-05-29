@@ -41,12 +41,12 @@
 </script>
 <div class="card">
     <div class="card-header">
-        <h5>Quản Lý Sản Phẩm</h5>
+        <h5>Product Management</h5>
     </div>
     <div class="card-block">
         <div class="row">
             <div class="col-sm-3">
-                <a href="/Admin/Products/Create" class="btn btn-info btn-sm">Thêm</a>
+                <a href="/Admin/Products/Create" class="btn btn-info btn-sm">Add</a>
             </div>
             <div class="col-sm-3">
                 <form method="get" action="/Products/Index">
@@ -58,7 +58,7 @@
                 </form>
             </div>
             <div class="d-flex">
-                <button class="btn btn-info btn-sm" type="submit">Lọc</button>
+                <button class="btn btn-info btn-sm" type="submit">Filter</button>
             </div>
             <div class="col-sm-3">
                 <form class="d-flex">
@@ -74,17 +74,17 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Hình ảnh</th>
-                        <th>Sản phẩm</th>
-                        <th>Thương hiệu</th>
-                        <th>Giá</th>
-                        <th>Mã giảm giá (%)</th>
-                        <th>Trạng thái</th>
-                        <th>Hành động</th>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                        <th>Discount (%)</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+                  
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -96,11 +96,11 @@
                             <td>@item.Discount</td>
                             @if (item.Status)
                             {
-                                <td><span class="badge badge-success">Còn Hàng</span></td>
+                                <td><span class="badge badge-success">Stocking</span></td>
                             }
                             else
                             {
-                                <td><span class="badge badge-danger">Hết Hàng</span></td>
+                                <td><span class="badge badge-danger">Out of stock</span></td>
                             }
                             <td>
                                 <a href="/Admin/Products/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>

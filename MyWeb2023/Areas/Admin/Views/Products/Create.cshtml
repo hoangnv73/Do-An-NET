@@ -20,22 +20,22 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-4">
-                                <label>Giá <span class="text-danger">*</span></label>
+                                <label>Price <span class="text-danger">*</span></label>
                                 <input name="price" type="text" class="form-control" required>
                             </div>
                             <div class="col-sm-4">
-                                <label>Tỷ lệ giảm giá:</label>
+                                <label>Discount:</label>
                                 <input name="discount" type="text" class="form-control">
                             </div>
-                            <div class="col-sm-4">
+                            @*<div class="col-sm-4">
                                 <label>Ngày hết hạn:</label>
                                 <input name="ab" type="date" class="form-control">
-                            </div>
+                            </div>*@
                         </div>
 
                     </div>
                     <div class="form-group">
-                        <label>Thương hiệu</label>
+                        <label>Brand</label>
                         <select class="form-control" name="brandid">
                             <option value="">Chọn</option>
                             @{
@@ -55,7 +55,7 @@
                         <span>Hết hàng</span>
                     </div>
                     <div class="form-group">
-                        <label>Mô tả</label>
+                        <label>Description</label>
                         <div id="editor" ></div>
                         <html lang="en">
                         <head>
