@@ -31,25 +31,16 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 GenderName = x.Gender == null ? "-" : x.Gender == true ? "Nam" : "Nữ", //ifelseif
                 ResetPassword = HashPassWord(),
                 RoleId = x.RoleId,
-                //RoleName = ShowRoleName(x.RoleId)
+                RoleName = x.RoleId == null ? "-" : ShowRoleName(x.RoleId.Value)
             }).ToList();
             return View(result);
         }
 
-        //public string ShowRoleName(int? roleId)
-        //{
-        //    if (roleId == null)
-        //    {
-        //        return "_";
-        //    }
-        //    else
-        //    {
-        //        var role = _context.Roles.Find(roleId);
-        //        string roleName = role.Name;
-        //        return roleName;
-        //    }
-
-        //}
+        public string ShowRoleName(int roleId)
+        {
+            var role = _context.Roles.Find(roleId);
+            return role == null ? "-" : role.Name;
+        }
 
         /// <summary>
         /// Action reset password
@@ -123,6 +114,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
 
 
             //-- nếu như ảnh not null thì cập nhật ảnh trong db & lưu ảnh trong folder 
+
             if (model.File != null)
             {
                 string image = GetImage(UserAdd.Id, model.File);
