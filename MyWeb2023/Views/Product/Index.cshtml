@@ -1,4 +1,9 @@
-﻿<section class="bg-cover" style="background:url(client/assets/img/banner-2.png) no-repeat;">
+﻿@using MyWeb.Infrastructure.Client;
+@using MyWeb2023.Areas.Admin.Models.Dto;
+@using Myweb.Domain.Models.Entities;
+@model List<ProductVM>
+
+<section class="bg-cover" style="background:url(client/assets/img/banner-2.png) no-repeat;">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -209,363 +214,40 @@
 
 		<!-- row -->
 		<div class="row align-items-center rows-products">
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/7.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
+			@foreach (var item in Model)
+			{
+				<!-- Single -->
+				<div class="col-xl-3 col-lg-4 col-md-6 col-6">
+					<div class="product_grid card b-0">
+						<div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
+						<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
+						<div class="card-body p-0">
+							<div class="shop_thumb position-relative">
+								
+								<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="@item.Image" alt="..."></a>
+								<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
+								<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
+									<div class="group_btn">
+										<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
+										<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
+										<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
+										<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
+							<div class="text-left">
+								<div class="text-center">
+									<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">@item.Name</a></h5>
+									<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$@item.Price</span><span class="ft-bold theme-cl fs-md">$@item.Price</span></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Beautiful Design Dress</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$129.00</span><span class="ft-bold theme-cl fs-md">$99.00</span></div>
-							</div>
-						</div>
-					</div>
 				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">New</div>
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/8.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/8-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Formal Men Lowers</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$129.00</span><span class="ft-bold theme-cl fs-md">$79.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/9.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/9-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Running Suit</a></h5>
-								<div class="elis_rty"><span class="ft-bold fs-md text-dark">$80.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<div class="badge bg-warning text-white position-absolute ft-regular ab-left text-upper">Hot</div>
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/10.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/10-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Fancy Lady Dress</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$149.00</span><span class="ft-bold theme-cl fs-md">$110.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/11.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/11-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Flix Flox Jeans</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$90.00</span><span class="ft-bold theme-cl fs-md">$49.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<div class="badge bg-danger text-white position-absolute ft-regular ab-left text-upper">Hot</div>
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/5.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/5-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Fancy Salwar Suits</a></h5>
-								<div class="elis_rty"><span class="ft-bold fs-md text-dark">$114.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/13.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/13-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Collot Full Dress</a></h5>
-								<div class="elis_rty"><span class="ft-bold theme-cl fs-md text-dark">$120.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/14.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/14-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Formal Fluex Kurti</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$149.00</span><span class="ft-bold theme-cl fs-md">$129.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<div class="badge bg-warning text-white position-absolute ft-regular ab-left text-upper">Hot</div>
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/12.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/12-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Fancy Lady Dress</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$149.00</span><span class="ft-bold theme-cl fs-md">$110.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/11.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/11-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Flix Flox Jeans</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$90.00</span><span class="ft-bold theme-cl fs-md">$49.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/2.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/2-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Beautiful Design Dress</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$129.00</span><span class="ft-bold theme-cl fs-md">$99.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Single -->
-			<div class="col-xl-3 col-lg-4 col-md-6 col-6">
-				<div class="product_grid card b-0">
-					<div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">New</div>
-					<button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-					<div class="card-body p-0">
-						<div class="shop_thumb position-relative">
-							<a class="card-img-top d-block overflow-hidden ovr-hide" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/1.jpg" alt="..."></a>
-							<a class="card-img-top d-block overflow-hidden ovr-show" href="shop-single-v1.html"><img class="card-img-top" src="~/client/assets/img/product/1-a.jpg" alt="..."></a>
-							<div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-								<div class="group_btn">
-									<a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-									<a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-						<div class="text-left">
-							<div class="text-center">
-								<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Formal Men Lowers</a></h5>
-								<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$129.00</span><span class="ft-bold theme-cl fs-md">$79.00</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
+			}
+			
 		</div>
 		<!-- row -->
 

@@ -7,7 +7,7 @@
 	<meta name="author" content="Themezhub" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Kumo- Fashion eCommerce HTML Template</title>
+	<title>VanHoang Shop</title>
 
 	<!-- Custom CSS -->
 	<link href="~/client/assets/css/styles.css" rel="stylesheet">
@@ -23,8 +23,6 @@
 	<!-- Main wrapper - style you can find in pages.scss -->
 	<!-- ============================================================== -->
 	<div id="main-wrapper">
-
-		<!-- ============================================================== -->
 		<!-- Top header  -->
 		<!-- ============================================================== -->
 		<!-- Top Header -->
@@ -37,7 +35,7 @@
 					</div>
 
 					<div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 hide-ipad">
-						<div class="top_second text-center"><p class="medium text-light m-0 p-0">Get Free delivery from $2000 <a href="#" class="medium text-dark text-underline">Shop Now</a></p></div>
+						<div class="top_second text-center"><p class="medium text-light m-0 p-0">Get Free delivery from $15 <a href="#" class="medium text-dark text-underline">Shop Now</a></p></div>
 					</div>
 
 					<!-- Right Menu -->
@@ -78,7 +76,7 @@
 						</div>
 
 						<div class="currency-selector dropdown js-dropdown float-right mr-3">
-							<a href="@Url.Action("profile","Product")" class="text-light medium">My Account</a>
+							<a href="@Url.Action("Profile","Account")" class="text-light medium">My Account</a>
 						</div>
 
 					</div>
@@ -125,58 +123,25 @@
 						<ul class="nav-menu">
 
 							<li>
-								<a href="#">Home</a>
+								<a href="@Url.Action("Index","Home")">Home</a>
+							</li>
+							<li>
+								<a href="@Url.Action("Index", "Product")">Products</a>
+							</li>
+
+							<li>
+								<a href="javascript:void(0);">Category</a>
 								<ul class="nav-dropdown nav-submenu">
-									<li><a href="index.html">Home 1</a></li>
-									<li><a href="home-2.html">Home 2</a></li>
-									<li><a href="home-3.html">Home 3</a></li>
-									<li><a href="home-4.html">Home 4</a></li>
-									<li><a href="home-5.html">Home 5</a></li>
+									<li><a href="about-us.html">Women</a></li>
+									<li><a href="blog.html">Men's</a></li>
 								</ul>
 							</li>
 
 							<li>
-								<a href="javascript:void(0);">Shop</a>
-								<ul class="nav-dropdown nav-submenu">
-									<li>
-										<a href="javascript:void(0);">Account Dashboard</a>
-										<ul class="nav-dropdown nav-submenu">
-											<li><a href="my-orders.html">My Order</a></li>
-											<li><a href="wishlist.html">Wishlist</a></li>
-											<li><a href="profile-info.html">Profile Info</a></li>
-											<li><a href="addresses.html">Addresses</a></li>
-											<li><a href="payment-methode.html">Payment Methode</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="@Url.Action("Index","Checkout")">Checkout</a>
-									</li>
-								</ul>
+								<a href="@Url.Action("Index","Checkout")">Checkout</a>
 							</li>
 
-							<li>
-								<a href="javascript:void(0);">Products</a>
-								<ul class="nav-dropdown nav-submenu">
-									<li><a href="shop-single-v1.html">Product Detail v01</a></li>
-									<li><a href="shop-single-v2.html">Product Detail v02</a></li>
-									<li><a href="shop-single-v3.html">Product Detail v03</a></li>
-									<li><a href="shop-single-v4.html">Product Detail v04</a></li>
-								</ul>
-							</li>
-
-							<li>
-								<a href="javascript:void(0);">Pages</a>
-								<ul class="nav-dropdown nav-submenu">
-									<li><a href="blog.html">Blog Style</a></li>
-									<li><a href="about-us.html">About Us</a></li>
-									<li><a href="contact.html">Contact</a></li>
-									<li><a href="404.html">404 Page</a></li>
-									<li><a href="privacy.html">Privacy Policy</a></li>
-									<li><a href="faq.html">FAQs</a></li>
-								</ul>
-							</li>
-
-							<li><a href="docs.html">Docs</a></li>
+							<li><a href="docs.html">About</a></li>
 
 						</ul>
 
@@ -186,8 +151,9 @@
 									<i class="lni lni-search-alt"></i>
 								</a>
 							</li>
+							@*to do login*@
 							<li>
-								<a href="#" data-toggle="modal" data-target="#login">
+								<a href="@Url.Action("Login","Account")"@* data-toggle="modal" data-target="#login"*@>
 									<i class="lni lni-user"></i>
 								</a>
 							</li>
@@ -422,18 +388,18 @@
 								<img src="~/client/assets/img/logo-light.png" class="img-footer small mb-2" alt="" />
 
 								<div class="address mt-3">
-									3298 Grant Street Longview, TX<br>United Kingdom 75601
+									65 Dinh Tien Hoang Street,<br>Thanh Khe, Da nang
 								</div>
 								<div class="address mt-3">
-									1-202-555-0106<br>help@shopper.com
+									0974 725 128<br>nguyenvanhoang73qb@gmail.com
 								</div>
 								<div class="address mt-3">
 									<ul class="list-inline">
-										<li class="list-inline-item"><a href="#"><i class="lni lni-facebook-filled"></i></a></li>
-										<li class="list-inline-item"><a href="#"><i class="lni lni-twitter-filled"></i></a></li>
-										<li class="list-inline-item"><a href="#"><i class="lni lni-youtube"></i></a></li>
-										<li class="list-inline-item"><a href="#"><i class="lni lni-instagram-filled"></i></a></li>
-										<li class="list-inline-item"><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
+										<li class="list-inline-item"><a  href="https://www.facebook.com/nvhmam2003/" target="_blank"><i class="lni lni-facebook-filled"></i></a></li>
+										<li class="list-inline-item"><a href=""><i class="lni lni-twitter-filled"></i></a></li>
+										<li class="list-inline-item"><a href="https://www.youtube.com/channel/UCx99PFXcEfbb5lf7wqY2HUA" target="_blank"><i class="lni lni-youtube"></i></a></li>
+										<li class="list-inline-item"><a href="https://www.instagram.com/_nv.hoangg/" target="_blank"><i class="lni lni-instagram-filled"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="lni lni-linkedin-original" target="_blank"></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -505,7 +471,7 @@
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-lg-12 col-md-12 text-center">
-							<p class="mb-0">© 2021 Kumo. Designd By <a href="https://themezhub.com/">ThemezHub</a>.</p>
+							<p class="mb-0">© 2023 - Designd By <a href="https://www.facebook.com/nvhmam2003/" target="_blank">Nguyen Van Hoang</a>.</p>
 						</div>
 					</div>
 				</div>
@@ -875,7 +841,7 @@
 			</div>
 		</div>
 
-		<!-- Cart -->
+		<!-- Cart /Product List -->
 		<div class="w3-ch-sideBar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="Cart">
 			<div class="rightMenu-scroll">
 				<div class="d-flex align-items-center justify-content-between slide-head py-3 px-3">
@@ -883,9 +849,51 @@
 					<button onclick="closeCart()" class="close_slide"><i class="ti-close"></i></button>
 				</div>
 				<div class="right-ch-sideBar">
-
 					<div class="cart_select_items py-2">
-					
+						<!-- Single Item -->
+						<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
+							<div class="cart_single d-flex align-items-center">
+								<div class="cart_selected_single_thumb">
+									<a href="#"><img src="~/client/assets/img/product/4.jpg" width="60" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="cart_single_caption pl-2">
+									<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Women Striped Shirt Dress</h4>
+									<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
+									<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
+								</div>
+							</div>
+							<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
+							<div class="cart_single d-flex align-items-center">
+								<div class="cart_selected_single_thumb">
+									<a href="#"><img src="~/client/assets/img/product/7.jpg" width="60" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="cart_single_caption pl-2">
+									<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Floral Print Jumpsuit</h4>
+									<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
+									<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
+								</div>
+							</div>
+							<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="d-flex align-items-center justify-content-between px-3 py-3">
+							<div class="cart_single d-flex align-items-center">
+								<div class="cart_selected_single_thumb">
+									<a href="#"><img src="~/client/assets/img/product/8.jpg" width="60" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="cart_single_caption pl-2">
+									<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Solid A-Line Dress</h4>
+									<p class="mb-2"><span class="text-dark ft-medium small">30</span>, <span class="text-dark small">Blue</span></p>
+									<h4 class="fs-md ft-medium mb-0 lh-1">$100</h4>
+								</div>
+							</div>
+							<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+						</div>
 
 					</div>
 
