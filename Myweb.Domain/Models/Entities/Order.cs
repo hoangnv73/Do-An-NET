@@ -9,9 +9,11 @@ namespace Myweb.Domain.Models.Entities
 {
     public class Order: EntityBase
     {
-        public string Code { get; set; } = string.Empty;
-        public bool Status { get; set; }
-        public double Total { get; set; }
+        public int Status { get; set; }
+        public DateTime OrderDate { get; set; }
+        public string Address { get; set; } 
+        public int Phone { get; set; }
+        public string Note { get; set; }
 
         public Order()
         {

@@ -19,9 +19,11 @@ namespace MyWeb2023.Areas.Admin.Controllers
             var result = orders.Select(x => new OrderDto
             {
                 Id = x.Id,
-                Code = x.Code,
                 Status = x.Status,
-                Total = x.Total
+                OrderDate = x.OrderDate,
+                Address = x.Address,
+                Phone = x.Phone,    
+                Note = x.Note,
             }).ToList();
             return View(result);
         }
