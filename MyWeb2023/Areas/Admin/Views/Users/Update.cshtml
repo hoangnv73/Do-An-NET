@@ -1,4 +1,8 @@
-﻿<div class="card">
+﻿@using MyWeb2023.Areas.Admin.Models.Dto;
+@{
+    List<RoleDto> roles = ViewBag.Roles;
+}
+<div class="card">
     <div class="card-header">
         <h5>Edit User</h5>
     </div>
@@ -36,8 +40,20 @@
                         <input name="gender" value="False" type="radio" @isCheckedInActive />
                         <span>Nữ</span>
                     </div>
-*@ 
-               
+*@
+                   @* <div class="form-group">
+                        <label>Roles</label>
+                        <select class="form-control" name="roleId">
+                            <option value="">Chọn</option>
+                            @{
+                                foreach (var item in roles)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>*@
+
                 <input name="file" value="@Model.Image" type="file" />
                 <div class="form-group text-right">
                     <button type="submit" class="btn btn-info ">Update</button>

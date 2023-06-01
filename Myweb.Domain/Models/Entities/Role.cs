@@ -10,14 +10,11 @@ namespace Myweb.Domain.Models.Entities
     public class Role : EntityBase
     {
         public string Name { get; set; } = string.Empty;
-        public int RoleId { get; set; }
 
-        public void Update(string name, int roleId)
+        public void Update(string name)
         {
             Name = name;
-            RoleId = roleId;
         }
-       
         public Role()
         {
 

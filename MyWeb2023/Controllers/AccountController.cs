@@ -38,7 +38,7 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string email, string password)
+        public ActionResult Login(string email, string password, int roleId )
         {
             // Kiểm tra email có tồn tại hay không
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
@@ -56,7 +56,10 @@ namespace MyWeb2023.Controllers
                 ViewBag.Message = "Mật khẩu không đúng";
                 return View();
             }
-
+            if (user.RoleId == 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             // Nếu mật khẩu đúng thì đăng nhập thành công
             return RedirectToAction("Index", "Home");
 
