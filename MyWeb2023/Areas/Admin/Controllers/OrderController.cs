@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
 
@@ -26,6 +27,25 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Note = x.Note,
             }).ToList();
             return View(result);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(OrderDto model)
+        {
+            var addOrder = new Order
+            {
+                OrderDate = model.OrderDate,
+                Address = model.Address,
+                Phone = model.Phone,
+                Note = model.Note,
+                Status = model.Status,
+            }; 
+
+            return View();
         }
     }
 }

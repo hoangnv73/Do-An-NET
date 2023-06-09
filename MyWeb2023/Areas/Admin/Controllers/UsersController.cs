@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
-using System.Drawing.Drawing2D;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
@@ -93,6 +92,13 @@ namespace MyWeb2023.Areas.Admin.Controllers
         // Create
         public IActionResult Create()
         {
+            var listRoles = _context.Roles.Select(x => new RoleDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToList();
+
+            ViewBag.Roles = listRoles;
             return View();
         }
         [HttpPost]
@@ -130,6 +136,13 @@ namespace MyWeb2023.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
+            //var listRoles = _context.Roles.Select(x => new RoleDto
+            //{
+            //    Id = x.Id,
+            //    Name = x.Name,
+            //}).ToList();
+            //ViewBag.Roles = listRoles;
+
             var user = _context.Users.Find(id);
             if (user == null)
             {

@@ -26,7 +26,9 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Description = x.Description,
                 DisplayLink = x.DisplayLink,
                 Link = x.Link,
-                Image = x.Image,
+                Image = !string.IsNullOrEmpty(x.Image)
+                        ? $"/data/banners/{x.Id}/{x.Image}"
+                        : "/www/images/default-thumbnail.jpg",
                 IsActive = x.IsActive,
                 Position = x.Position,
             }).ToList();
@@ -77,8 +79,20 @@ namespace MyWeb2023.Areas.Admin.Controllers
         public async Task<bool> DeleteBanners(int id)
         {
             var banner = _context.Banners.Find(id);
-            _context.Banners.Remove(banner);
-            _context.SaveChanges();
+            if (banner != null)
+            {
+                _context.Banners.Remove(banner);
+                var rootFolder = Directory.GetCurrentDirectory();
+
+                string pathproduct = @$"{rootFolder}\wwwroot\data\banners\{id}";
+              
+                if (Directory.Exists(pathproduct))
+                {
+                    Directory.Delete(pathproduct, true);
+                }
+                _context.SaveChanges();
+            }
+           
             return true;
         }
         //Update 
@@ -102,7 +116,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
         public string GetImage(int bannerId, IFormFile file)
         {
             var rootFolder = Directory.GetCurrentDirectory();
-            string pathbanner = @$"{rootFolder}\wwwroot\data\banner\{bannerId}";
+            string pathbanner = @$"{rootFolder}\wwwroot\data\banners\{bannerId}";
 
             if (!Directory.Exists(pathbanner))
             {

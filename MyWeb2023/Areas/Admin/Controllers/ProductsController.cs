@@ -34,7 +34,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             {
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)
-                        ? $"/data/{x.Id}/{x.Image}"
+                        ? $"/data/products/{x.Id}/{x.Image}"
                         : "/www/images/default-thumbnail.jpg",
                 Name = x.Name,
                 BrandId = x.Id,
@@ -119,7 +119,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 _context.Products.Remove(product);
                 var rootFolder = Directory.GetCurrentDirectory();
 
-                string pathproduct = @$"{rootFolder}\wwwroot\data\{id}";
+                string pathproduct = @$"{rootFolder}\wwwroot\data\products\{id}";
                 //--exists kiểm tra thư mục tồn tại có tồn tại hay không
                 if (Directory.Exists(pathproduct))
                 {

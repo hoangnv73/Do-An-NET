@@ -40,10 +40,10 @@
 
 <div class="card">
     <div class="card-header">
-        <h5>Quản Lý Thương Hiệu</h5>
+        <h5>Brand Management</h5>
     </div>
     <div class="col-sm-3">
-        <a href="/Brand/Create" class="btn btn-success btn-sm">Create</a>
+        <a href="/Admin/Brand/Create" class="btn btn-success btn-sm">Create</a>
     </div>
     <div class="card-block table-border-style">
         <div class="table-responsive">
@@ -51,8 +51,8 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên Thương hiệu</th>
-                        <th>Hành động</th>
+                        <th>Brand Name</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,7 +66,7 @@
                             <th scope="row">@stt</th>
                             <td>@item.Name</td>
                             <td>
-                                <a href="/Brand/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
+                                <a href="/Admin/Brand/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
 
                                 <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
                                 <button class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id')">Delete</button>

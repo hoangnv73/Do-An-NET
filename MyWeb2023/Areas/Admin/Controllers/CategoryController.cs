@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models;
@@ -23,6 +24,9 @@ namespace MyWeb2023.Areas.Admin.Controllers
             var result = categories.Select(x => new CategoryDto
             {
                 Id = x.Id,
+                Image = !string.IsNullOrEmpty(x.Image)
+                        ? $"/data/{x.Id}/{x.Image}"
+                        : "/admin/www/images/default.jpg",
                 Name = x.Name,
                 IsActive = x.IsActive,
 
@@ -38,9 +42,20 @@ namespace MyWeb2023.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(CreateCategoryModel model)
         {
-            var AddCategory = new Category(model.Name, model.IsActive);
+            var AddCategory = new Category
+            {
+                Name = model.Name,
+                IsActive = model.IsActive,
+            };
             _context.Categories.Add(AddCategory);
             _context.SaveChanges();
+            //-- nếu như ảnh not null thì cập nhật ảnh trong db & lưu ảnh trong folder 
+            if (model.File != null)
+            {
+                string image = GetImage(AddCategory.Id, model.File);
+                AddCategory.Image = image;
+                _context.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
         // Delete
@@ -67,6 +82,30 @@ namespace MyWeb2023.Areas.Admin.Controllers
             category.Update(name, isActive);
             _context.SaveChanges(true);
             return RedirectToAction("Update", new { id });
+        }
+
+
+        public string GetImage(int categoryId, IFormFile file)
+        {
+            //// Get the current directory.
+            var rootFolder = Directory.GetCurrentDirectory();
+            //-- khai báo đường dẫn
+            string pathcategory = @$"{rootFolder}\wwwroot\admin\data\{categoryId}";
+
+            //-- Kiểm tra folder đã tồn tại hay chưa
+            if (!Directory.Exists(pathcategory))
+            {
+                //-- Nếu chưa có thì tạo mới
+                Directory.CreateDirectory(pathcategory);
+            }
+            string filename = file.FileName;
+            var filepath = Path.Combine(pathcategory, filename);
+
+            using (FileStream filestream = System.IO.File.Create(filepath))
+            {
+                file.CopyTo(filestream);
+            }
+            return filename;
         }
 
     }

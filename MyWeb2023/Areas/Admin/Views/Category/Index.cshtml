@@ -50,6 +50,7 @@
                 <thead>
                     <tr>
                         <th>STT</th>
+                        <th>Image</th>
                         <th>Category Name</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -64,6 +65,7 @@
                         stt = stt + 1;
                         <tr>
                             <th scope="row">@stt</th>
+                            <td> <img src="@item.Image" width="50" height="50" /> </td>
                             <td>@item.Name</td>
                             @if (@item.IsActive == true)
                             {

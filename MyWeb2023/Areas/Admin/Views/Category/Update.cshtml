@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h5>Chỉnh sửa Danh Mục</h5>
+        <h5>Edit Category</h5>
     </div>
     <div class="card-block">
         <div class="row">
@@ -12,7 +12,7 @@
                 <form method="post" action="/Admin/Category/Update">
                    <div class="form-group">
                         <input id="update" name="id" value="@Model.Id" type="hidden" />
-                        <label>Tên Danh Mục <span class="text-danger">*</span></label>
+                        <label>Category Name <span class="text-danger">*</span></label>
                         <input name="name" value="@Model.Name" type="text" class="form-control">
                     </div>
                     <div class="form-group">
@@ -22,14 +22,19 @@
                                 var isCheckedInActive = !Model.IsActive ? "checked" : string.Empty;
                             }
                             <div class="col-sm-4">
-                                <label>Trạng thái :</label>
+                                <label>Status :</label>
                                 <br />
                                 <input name="isActive" value="true" type="radio" @isCheckedActive />
-                                <span>Hiển Thị</span>
+                                <span>Display</span>
                                 <input name="isActive" value="false" type="radio" @isCheckedInActive />
-                                <span>Ẩn</span>
+                                <span>Hide</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Image:</label>
+                        <br />
+                        <input type="file" name="" />
                     </div>
                     <a type="button" href="/Admin/Category" class="btn btn-default">Back</a>
                     <button type="submit" class="btn btn-info">Update</button>
