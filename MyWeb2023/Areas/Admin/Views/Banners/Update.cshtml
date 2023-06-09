@@ -1,0 +1,66 @@
+﻿@using Myweb.Domain.Models.Entities;
+@model Banner
+
+@{
+    var isCheckedActive = Model.IsActive ? "checked" : string.Empty;
+    var isCheckedInActive = !Model.IsActive ? "checked" : string.Empty;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>Edit Banner</h5>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm-3"> </div>
+            <div class="col-sm-6">
+                <form method="post" action="/Admin/Banners/Update">
+                    <input id="update" name="id" value="@Model.Id" type="hidden" />
+                    <div class="form-group">
+                        <input id="update" name="id" value="@Model.Id" type="hidden" />
+                    </div>
+                    <div class="form-group">
+                        <label>Title<span class="text-danger">*</span></label>
+                        <input name="title" type="text" class="form-control" value="@Model.Title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description<span class="text-danger">*</span></label>
+                        <input name="description" type="text" class="form-control" value="@Model.Description" required>
+                    </div>
+                    <div class="form-group">
+                        <label>DisplayLink<span class="text-danger">*</span></label>
+                        <input name="displaylink" type="text" class="form-control" value="@Model.DisplayLink" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Link<span class="text-danger">*</span></label>
+                        <input name="link" type="text" class="form-control" value="@Model.Link" required>
+                    </div>
+                    <div class="form-group">
+                        <label>IsActive<span class="text-danger">*</span></label>
+                        <div class="form-group">
+                            <input name="isactive" value="True" type="radio" @isCheckedActive />
+                            <span>Display</span>
+                            <br />
+                            <input name="isactive" value="False" type="radio" @isCheckedInActive />
+                            <span>Hide</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Position<span class="text-danger">*</span></label>
+                        <input name="position" type="text" class="form-control" value="@Model.Position" required>
+                    </div>
+                    <br />
+
+                    <input name="file" value="@Model.Image" type="file" />
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-info ">Update</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-3"> </div>
+        </div>
+        <div>
+            <a type="button" href="/Admin/Banners" class="btn btn-default">Back</a>
+        </div>
+    </div>
+</div>
