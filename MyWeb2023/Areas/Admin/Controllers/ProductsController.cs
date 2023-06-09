@@ -160,8 +160,13 @@ namespace MyWeb2023.Areas.Admin.Controllers
         public ActionResult Update(int id, string name, float price, float discount, int brandId,
            bool status, IFormFile? file, string description)
         {
-            //string CompleteUrl = this.Request.Url.AbsoluteUri;
             var product = _context.Products.Find(id);
+            // delete ảnh cũ trong folder
+            var rootFolder = Directory.GetCurrentDirectory();
+            var photoName = product.Image;
+            string pathproduct = @$"{rootFolder}\wwwroot\data\products\{id}\" + photoName;
+            System.IO.File.Delete(pathproduct);
+
             if (product == null)
             {
                 ViewBag.Message = "San pham khong ton tai";
@@ -173,8 +178,8 @@ namespace MyWeb2023.Areas.Admin.Controllers
             {
                 image = GetImage(product.Id, file);
             }
+            
             product.Update(name, price, discount, status, image, brandId, description);
-
             _context.SaveChanges();
             return RedirectToAction("Update", new { id });
         }
