@@ -22,7 +22,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             {
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)
-                        ? $"/data/{x.Id}/{x.Image}"
+                        ? $"/data/users/{x.Id}/{x.Image}"
                         : "/www/images/default.jpg",
                 FirstName = x.FirstName,
                 LastName = x.LastName,
@@ -179,7 +179,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             //// Get the current directory.
             var rootFolder = Directory.GetCurrentDirectory();
             //-- khai báo đường dẫn
-            string pathUser = @$"{rootFolder}\wwwroot\data\users{UserId}";
+            string pathUser = @$"{rootFolder}\wwwroot\data\users\{UserId}";
 
             //-- Kiểm tra folder đã tồn tại hay chưa
             if (!Directory.Exists(pathUser))

@@ -25,7 +25,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             {
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)
-                        ? $"/data/{x.Id}/{x.Image}"
+                        ? $"/data/categories/{x.Id}/{x.Image}"
                         : "/admin/www/images/default.jpg",
                 Name = x.Name,
                 IsActive = x.IsActive,
@@ -84,18 +84,14 @@ namespace MyWeb2023.Areas.Admin.Controllers
             return RedirectToAction("Update", new { id });
         }
 
-
         public string GetImage(int categoryId, IFormFile file)
         {
-            //// Get the current directory.
             var rootFolder = Directory.GetCurrentDirectory();
-            //-- khai báo đường dẫn
-            string pathcategory = @$"{rootFolder}\wwwroot\admin\data\{categoryId}";
 
-            //-- Kiểm tra folder đã tồn tại hay chưa
+            string pathcategory = @$"{rootFolder}\wwwroot\data\categories\{categoryId}";
+
             if (!Directory.Exists(pathcategory))
             {
-                //-- Nếu chưa có thì tạo mới
                 Directory.CreateDirectory(pathcategory);
             }
             string filename = file.FileName;

@@ -158,7 +158,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
 
         [HttpPost]
         public ActionResult Update(int id, string name, float price, float discount, int brandId,
-           bool status, IFormFile? file)
+           bool status, IFormFile? file, string description)
         {
             //string CompleteUrl = this.Request.Url.AbsoluteUri;
             var product = _context.Products.Find(id);
@@ -173,7 +173,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             {
                 image = GetImage(product.Id, file);
             }
-            product.Update(name, price, discount, status, image, brandId, "abc");
+            product.Update(name, price, discount, status, image, brandId, description);
 
             _context.SaveChanges();
             return RedirectToAction("Update", new { id });
@@ -184,7 +184,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             //// Get the current directory.
             var rootFolder = Directory.GetCurrentDirectory();
             //-- khai báo đường dẫn
-            string pathproduct = @$"{rootFolder}\wwwroot\data\{productId}";
+            string pathproduct = @$"{rootFolder}\wwwroot\data\products\{productId}";
 
             //-- Kiểm tra folder đã tồn tại hay chưa
             if (!Directory.Exists(pathproduct))

@@ -102,12 +102,13 @@ namespace MyWeb2023.Areas.Admin.Controllers
             var banner = _context.Banners.Find(id);
             return View(banner);
         }
+
         [HttpPost]
         public IActionResult Update(int id, string title, string description, string displaylink,
-            string link, string image, bool isactive, int position)
+            string link, IFormFile? file, bool isactive, int position)
         {
             var banner = _context.Banners.Find(id);
-            banner.Update(title, description, displaylink, link, image, isactive, position);
+            //banner.Update(title, description, displaylink, link, image, isactive, position);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
