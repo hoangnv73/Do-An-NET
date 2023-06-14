@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Myweb.Domain.Models.Entities;
 using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
@@ -24,7 +25,7 @@ namespace MyWeb2023.Controllers
             {
 				Id = x.Id,
 				Image = !string.IsNullOrEmpty(x.Image)
-						? $"/data/{x.Id}/{x.Image}"
+						? $"/data/products/{x.Id}/{x.Image}"
 						: "/www/images/default-thumbnail.jpg",
 				Name = x.Name,
 				BrandId = x.Id,
@@ -34,11 +35,36 @@ namespace MyWeb2023.Controllers
 			}).ToList();
 			return View(result);
 		}
+		// Reviews
+		public async Task<IActionResult> Details()
+		{
+			var review = await _context.Reviews.ToListAsync();
+			var result = review.Select(x => new ReviewDto
+			{
+				Id = x.Id,
+				Name = x.Name,
+				Rating = x.Rating,
+				Comment = x.Comment,
+				PostDate = x.PostDate,
+			}).ToList();
+			return View(result);
+		}
 		
+	   [HttpPost]
+		public IActionResult Comment(string name, int rating, string comment)
+		{
+			var addReview = new Review
+			{
+				Name = name,
+				Rating = rating,
+				Comment = comment,
+				PostDate = DateTime.Now,
+			};
+			_context.Reviews.Add(addReview);
+			_context.SaveChanges();
+			return RedirectToAction("Details");
+		}
 
-        public IActionResult Details()
-        {
-            return View();
-        }
-    }
+
+	}
 }
