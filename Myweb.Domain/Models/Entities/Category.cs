@@ -12,11 +12,13 @@ namespace Myweb.Domain.Models.Entities
     {
         public string Name { get; set; } = string.Empty;
         public bool IsActive { get; set; }
+        public string? Image { get; set; }
 
-        public Category(string name, bool isActive)
+        public Category(string name, bool isActive, string image)
         {
             Name = name;
             IsActive = isActive;
+            Image = image;
         }
         public Category()
         {

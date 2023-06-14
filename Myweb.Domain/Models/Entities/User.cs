@@ -15,13 +15,10 @@ namespace Myweb.Domain.Models.Entities
         public bool? Gender { get; set; }
         public int StatusId { get; set; }
         public string? Image { get; set; }
-        public string? ResetPassword { get; set; } = string.Empty;
         public int? RoleId { get; set; }
 
-
-
         public User(string firstname, string lastName, string password, string email, bool? gender, 
-            int statusId, string? image, string resetPassword)
+            int statusId, string? image)
         {
             FirstName = firstname;
             LastName = lastName;
@@ -30,10 +27,9 @@ namespace Myweb.Domain.Models.Entities
             Gender = gender;
             StatusId = statusId;
             Image = image;
-            ResetPassword = resetPassword;
         }
         public void Update(string firstname, string lastname, string password,string email, bool gender,
-            int statusid,string? image, string resetPassword, int roleId)
+            int statusid,string? image, int roleId)
         {
             FirstName = firstname;
             LastName = lastname;
@@ -42,7 +38,6 @@ namespace Myweb.Domain.Models.Entities
             Gender = gender;
             StatusId = statusid;
             Image = image;
-            ResetPassword = resetPassword;
             RoleId = roleId;
         }
 
