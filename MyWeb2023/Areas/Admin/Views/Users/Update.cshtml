@@ -12,7 +12,8 @@
             <div class="col-sm-6">
                 <form method="post" action="/Admin/Users/Update">
                     <div class="form-group">
-                        <input id="update" name="id" value="@Model.Id" type="hidden" />
+                        <input id="update" name="id" value="@Model.Id" type="hidden">
+                        <input name="password" value="@Model.Password" type="hidden">
                         <label>FirstName: <span class="text-danger">*</span></label>
                         <input name="firstname" value="@Model.FirstName" type="text" class="form-control">
                     </div>
@@ -29,9 +30,9 @@
                         </div>
                     </div>
 
-               @*     @{
-                        var isCheckedActive = Model.Status ? "checked" : string.Empty;
-                        var isCheckedInActive = !Model.Status ? "checked" : string.Empty;
+                    @{
+                        var isCheckedActive = Model.Gender ? "checked" : string.Empty;
+                        var isCheckedInActive = !Model.Gender ? "checked" : string.Empty;
                     }
                     <div class="form-group">
                         <input name="gender" value="True" type="radio" @isCheckedActive />
@@ -40,30 +41,33 @@
                         <input name="gender" value="False" type="radio" @isCheckedInActive />
                         <span>Nữ</span>
                     </div>
-*@
-                   @* <div class="form-group">
-                        <label>Roles</label>
-                        <select class="form-control" name="roleId">
-                            <option value="">Chọn</option>
-                            @{
-                                foreach (var item in roles)
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
-                            }
-                        </select>
-                    </div>*@
 
-                <input name="file" value="@Model.Image" type="file" />
-                <div class="form-group text-right">
-                    <button type="submit" class="btn btn-info ">Update</button>
-                </div>
-            </form>
+                    @*<div class="form-group">
+                    <label>Roles</label>
+                    <select class="form-control" name="roleId">
+                    <option value="">Chọn</option>
+                    @{
+                    foreach (var item in roles)
+                    {
+                    <option value="@item.Id">@item.Name</option>
+                    }
+                    }
+                    </select>
+                    </div>*@
+                    <label>Image:</label>
+                    <div>
+                        <img src="~/data/users/@Model.Id/@Model.Image" width="100px" height="100px" />
+                    </div>
+                    <input name="file" value="@Model.Image" type="file" />
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-info ">Update</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-3"> </div>
         </div>
-        <div class="col-sm-3"> </div>
-    </div>
-    <div>
+        <div>
             <a type="button" href="/Admin/Users" class="btn btn-default">Back</a>
+        </div>
     </div>
-</div>
 </div>

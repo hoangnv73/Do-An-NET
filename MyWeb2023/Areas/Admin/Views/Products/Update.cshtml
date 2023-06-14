@@ -10,14 +10,14 @@
 <div class="card">
     <div class="card-header">
         <h5>Edit Products</h5>
-    </div> 
+    </div>
     <div class="card-block">
         <div class="row">
             <div class="col-sm-3"> </div>
             <div class="col-sm-6">
                 <form method="post" action="/Admin/Products/Update" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input id="update" name="id" value="@Model.Id" type="hidden"/>
+                        <input id="update" name="id" value="@Model.Id" type="hidden" />
                         <label>Tên sản phẩm <span class="text-danger">*</span></label>
                         <input name="name" value="@Model.Name" type="text" class="form-control">
                     </div>
@@ -69,7 +69,6 @@
                     <body>
                         <h1>Classic editor</h1>
                         <div id="editor">
-                         
                         </div>
                         <script>
                             ClassicEditor
@@ -81,17 +80,22 @@
                     </body>
                 </html>
 
-                    <input name="file" value="@Model.Image" type="file" />
+                <label>Image:</label>
+                <div>
+                    <img src="~/data/products/@Model.Id/@Model.Image" width="100px" height="100px" />
+                </div>
+                <br />
+                <input name="file" value="@Model.Image" type="file" />
 
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-info ">Update</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-sm-3"> </div>
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-info ">Update</button>
+                </div>
+            </form>
         </div>
-        <div>
-            <a type="button" href="/Admin/Products" class="btn btn-default">Back</a>
-        </div>
+        <div class="col-sm-3"> </div>
     </div>
+    <div>
+        <a type="button" href="/Admin/Products" class="btn btn-default">Back</a>
+    </div>
+</div>
 </div>

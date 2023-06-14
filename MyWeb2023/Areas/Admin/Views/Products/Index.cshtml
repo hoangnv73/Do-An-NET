@@ -46,24 +46,24 @@
     <div class="card-block">
         <div class="row">
             <div class="col-sm-3">
-                <a href="/Admin/Products/Create" class="btn btn-info btn-sm">Add</a>
+                <a href="/Admin/Products/Create" class="btn btn-success btn-sm">Add</a>
             </div>
             <div class="col-sm-3">
-                <form method="get" action="/Products/Index">
+                <form method="get" action="Admin/Products/Index">
                     <select name="sort" class="form-control btn-md">
-                        <option>Lọc</option>
-                        <option value="price_asc">Giá Thấp -> Cao</option>
-                        <option value="price_desc">Giá Cao -> Thấp</option>
+                        <option>Filter</option>
+                        <option value="price_asc">Price Low => High</option>
+                        <option value="price_desc">Price High => Low</option>
                     </select>
                 </form>
             </div>
             <div class="d-flex">
-                <button class="btn btn-info btn-sm" type="submit">Filter</button>
+                <button class="btn btn-success btn-sm" type="submit">Filter</button>
             </div>
             <div class="col-sm-3">
                 <form class="d-flex">
                     <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="btn btn-success btn-sm" type="submit">Search</button>
                 </form>
             </div>
         </div>
@@ -108,11 +108,9 @@
                                 <button class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id')">Delete</button>
                             </td>
                         </tr>
-                       
                     }
                 </tbody>
             </table>
-      
         </div>
         
     </div>
