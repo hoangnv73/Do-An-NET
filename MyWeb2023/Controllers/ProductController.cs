@@ -22,11 +22,12 @@ namespace MyWeb2023.Controllers
 
             if (sort == "price_asc")
             {
-                products = products.OrderBy(x => x.Price).ToList();
+                //var price = item.Price - (item.Price / 100) * item.Discount;
+                products = products.OrderBy(x => x.Price-((x.Price/100)*x.Discount)).ToList();
             }
             if (sort == "price_desc")
             {
-                products = products.OrderByDescending(x => x.Price).ToList();
+                products = products.OrderByDescending(x => x.Price - ((x.Price / 100) * x.Discount)).ToList();
             }
             var result = products.Select(x => new ProductVM
             {
@@ -54,27 +55,15 @@ namespace MyWeb2023.Controllers
             return View(product);
         }
 
-
-        // Reviews
-        //      public async Task<IActionResult> Details()
-        //{
-        //          var review = await _context.Reviews.ToListAsync();
-        //	var result = review.Select(x => new ReviewDto
-        //	{
-        //		Id = x.Id,
-        //		Name = x.Name,
-        //		Rating = x.Rating,
-        //		Comment = x.Comment,
-        //		PostDate = x.PostDate,
-        //	}).ToList();
-        //	return View(result);
-        //}
-        public async Task<IActionResult> Details()
+      
+        [HttpGet]
+        // Đây là id truyền vào
+        public async Task<IActionResult> Details(int id)
         {
             //--- response
             var response = new ProductDetailsDto();
-            //-- Get Reviews
-            var listReviews = await _context.Reviews.ToListAsync();
+            //-- Get Reviews 
+            var listReviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();
             var reviews = listReviews.Select(x => new ReviewDto
             {
                 Comment = x.Comment,
@@ -84,6 +73,25 @@ namespace MyWeb2023.Controllers
                 Rating = x.Rating
             }).ToList();
 
+            //--Get product
+            var product = _context.Products.Find(id);
+            var productVM = new ProductVM
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                Status = product.Status,
+                Discount = product.Discount,
+                BrandId = product.BrandId,
+                BrandName = "ass",
+                Image = product.Image,
+            };
+
+            response.Reviews = reviews;
+           response.Product = productVM;
+
+            return View(response);
             //var reviews = new List<ReviewDto>();
 
             //foreach (var item in listReviews)
@@ -95,12 +103,6 @@ namespace MyWeb2023.Controllers
             //    };
             //    reviews.Add(reviewI0tem);
             //}
-
-
-
-            //--Get product
-
-            return View(response);
         }
 
         [HttpPost]
