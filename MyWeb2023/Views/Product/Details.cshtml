@@ -1,7 +1,7 @@
 ﻿@using MyWeb.Infrastructure.Client;
 @using MyWeb2023.Areas.Admin.Models.Dto;
 @using Myweb.Domain.Models.Entities;
-@model List<ReviewDto>
+@model ProductDetailsDto
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -59,78 +59,82 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                        <div class="prd_details">
-
-                            <div class="prt_01 mb-2"><span class="text-success bg-light-success rounded px-2 py-1">Women's Suit</span></div>
-                            <div class="prt_02 mb-3">
-                                <h2 class="ft-bold mb-1">Women Striped Shirt Dress</h2>
-                                <div class="text-left">
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span class="small">(412 Reviews)</span>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-medium text-muted line-through fs-md mr-2">$199</span><span class="ft-bold theme-cl fs-lg">$110</span></div>
-                                </div>
-                            </div>
-
-                            <div class="prt_03 mb-4">
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-                            </div>
-
-                            <div class="prt_04 mb-4">
-                                <p class="d-flex align-items-center mb-1">Category:<strong class="fs-sm text-dark ft-medium ml-1">Salwar Suit, Women's</strong></p>
-                                <p class="d-flex align-items-center mb-0">SKU:<strong class="fs-sm text-dark ft-medium ml-1">KUMO42568</strong></p>
-                            </div>
-
-                            <div class="prt_05 mb-4">
-                                <div class="form-row mb-7">
-                                    <div class="col-12 col-lg-auto">
-                                        <!-- Quantity -->
-                                        <select class="mb-2 custom-select">
-                                            <option value="1" selected="">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12 col-lg">
-                                        <!-- Submit -->
-                                        <button type="submit" class="btn btn-block custom-height bg-dark mb-2">
-                                            <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
-                                        </button>
-                                    </div>
-                                    <div class="col-12 col-lg-auto">
-                                        <!-- Wishlist -->
-                                        <button class="btn custom-height btn-default btn-block mb-2 text-dark" data-toggle="button">
-                                            <i class="lni lni-heart mr-2"></i>Wishlist
-                                        </button>
+                    <form method="post" action="/Product/Details">
+                        <input id="update" name="id" value="@Model.Product.Id" type="hidden" />
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                            <div class="prd_details">
+                                <div class="prt_01 mb-2"><span class="text-success bg-light-success rounded px-2 py-1">Women's Suit</span></div>
+                                <div class="prt_02 mb-3">
+                                    <h2 class="ft-bold mb-1">@Model.Product.Name</h2>
+                                    <div class="text-left">
+                                        <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star"></i>
+                                            <span class="small">(412 Reviews)</span>
+                                        </div>
+                                        <div class="elis_rty"><span class="ft-medium text-muted line-through fs-md mr-2">$@Model.Product.Price</span><span class="ft-bold theme-cl fs-lg">$@Model.Product.Price</span></div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="prt_06">
-                                <p class="mb-0 d-flex align-items-center">
-                                    <span class="mr-4">Share:</span>
-                                    <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted mr-2" href="#!">
-                                        <i class="fab fa-twitter position-absolute"></i>
-                                    </a>
-                                    <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted mr-2" href="#!">
-                                        <i class="fab fa-facebook-f position-absolute"></i>
-                                    </a>
-                                    <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted" href="#!">
-                                        <i class="fab fa-pinterest-p position-absolute"></i>
-                                    </a>
-                                </p>
-                            </div>
+                                <div class="prt_03 mb-4">
+                                    <p>@Model.Product.Description</p>
+                                </div>
 
+                                <div class="prt_04 mb-4">
+                                    <p class="d-flex align-items-center mb-1">Category:<strong class="fs-sm text-dark ft-medium ml-1">Salwar Suit, Women's</strong></p>
+                                    <p class="d-flex align-items-center mb-0">SKU:<strong class="fs-sm text-dark ft-medium ml-1">KUMO42568</strong></p>
+                                </div>
+
+                                <div class="prt_05 mb-4">
+                                    <div class="form-row mb-7">
+                                        <div class="col-12 col-lg-auto">
+                                            <!-- Quantity -->
+                                            <select class="mb-2 custom-select">
+                                                <option value="1" selected="">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-lg">
+                                            <!-- Submit -->
+                                            <button type="submit" class="btn btn-block custom-height bg-dark mb-2">
+                                                <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
+                                            </button>
+                                        </div>
+                                        <div class="col-12 col-lg-auto">
+                                            <!-- Wishlist -->
+                                            <button class="btn custom-height btn-default btn-block mb-2 text-dark" data-toggle="button">
+                                                <i class="lni lni-heart mr-2"></i>Wishlist
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="prt_06">
+                                    <p class="mb-0 d-flex align-items-center">
+                                        <span class="mr-4">Share:</span>
+                                        <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted mr-2" href="#!">
+                                            <i class="fab fa-twitter position-absolute"></i>
+                                        </a>
+                                        <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted mr-2" href="#!">
+                                            <i class="fab fa-facebook-f position-absolute"></i>
+                                        </a>
+                                        <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted" href="#!">
+                                            <i class="fab fa-pinterest-p position-absolute"></i>
+                                        </a>
+                                    </p>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
+
                 </div>
             </div>
         </section>
@@ -155,6 +159,7 @@
                         <div class="tab-content" id="myTabContent">
 
                             <!-- Description Content -->
+
                             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                                 <div class="description_info">
                                     <p class="p-0 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -198,7 +203,7 @@
                                     <div class="single_rev d-flex align-items-start br-bottom py-3">
                                     </div>
                                     @{
-                                        foreach (var item in Model)
+                                        foreach (var item in Model.Reviews)
                                         {
                                             <!-- Single Review -->
                                             <div class="single_rev d-flex align-items-start py-3">
@@ -211,11 +216,19 @@
                                                     </div>
                                                     <div class="single_capt_right">
                                                         <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
-                                                            <i class="fas fa-star "></i>
-                                                            <i class="fas fa-star "></i>
-                                                            <i class="fas fa-star "></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star "></i>
+                                                            @{
+                                                                var stars = new List<int> { 1, 2, 3, 4, 5 };
+
+                                                                var star = @item.Rating;
+                                                                bool b = Convert.ToBoolean(star);
+                                                                var filled = b ? "filled" : "";
+
+
+                                                                foreach (var i in stars)
+                                                                {
+                                                                    <i class="fas fa-star @filled"></i>
+                                                                }
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -234,10 +247,7 @@
                                             <div class="revie_stars d-flex align-items-center justify-content-between px-2 py-2 gray rounded mb-2 mt-1">
                                                 <div class="srt_013">
                                                     <div class="submit-rating">
-                                                        @{
-                                                            var stars = new List<int> { 1, 2, 3, 4, 5 };
-                                                           
-                                                        }
+
                                                         <input id="star-5" type="radio" name="rating" value="5" />
                                                         <label for="star-5" title="5 stars">
                                                             <i class="active fa fa-star" aria-hidden="true"></i>
@@ -380,7 +390,7 @@
                                 <div class="prd_details">
                                     <div class="prt_01 mb-1"><span class="text-light bg-info rounded px-2 py-1">Dresses</span></div>
                                     <div class="prt_02 mb-2">
-                                        <h2 class="ft-bold mb-1">Women Striped Shirt Dress</h2>
+                                        <h2 class="ft-bold mb-1">Women ggggggggg Shirt Dress</h2>
                                         <div class="text-left">
                                             <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
                                                 <i class="fas fa-star filled"></i>
@@ -506,6 +516,7 @@
 
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

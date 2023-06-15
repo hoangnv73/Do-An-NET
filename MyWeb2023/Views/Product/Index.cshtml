@@ -35,28 +35,27 @@
                     </ol>
                 </nav>
             </div>
-
+            <form method="get">
             <div class="col-xl-9 col-lg-8 col-md-7 col-sm-12">
                 <div class="filter_wraps elspo_wrap d-flex align-items-center justify-content-end">
                     <div class="single_fitres elspo_filter mr-2 br-right">
                         <a href="#filterBox" class="simple-button px-2" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="filterBox"><i class="lni lni-text-align-right mr-2"></i><span class="hide_mob">Filters</span></a>
                     </div>
-                    <div class="single_fitres mr-2 br-right">
-                        <select class="custom-select simple">
+                        <div class="single_fitres mr-2 br-right">
+                        <select name="sort" class="custom-select simple">
                             <option value="1" selected="">Default Sorting</option>
-                            <option value="2">Sort by price: Low price</option>
-                            <option value="3">Sort by price: Hight price</option>
-                            <option value="4">Sort by rating</option>
-                            <option value="5">Sort by trending</option>
+                            <option value="price_asc">Sort by price: Low => Hight</option>
+                            <option value="price_desc">Sort by price: Hight => Low</option>
                         </select>
                     </div>
+                   
                     <div class="single_fitres">
-                        <a href="shop-style-4.html" class="simple-button mr-1"><i class="ti-layout-grid3"></i></a>
-                        <a href="shop-grid-3.html" class="simple-button mr-1"><i class="ti-layout-grid2"></i></a>
-                        <a href="shop-list-view.html" class="simple-button active"><i class="ti-view-list"></i></a>
+                       <button type="submit" class="btn btn-success btn-sm">Filter</button>
                     </div>
+                  
                 </div>
             </div>
+            </form>
         </div>
 
         <div class="row align-items-center justify-content-center">
@@ -78,8 +77,6 @@
                                                     <li><a href="#">Sandels<span>82</span></a></li>
                                                     <li><a href="#">Sneakers<span>56</span></a></li>
                                                     <li><a href="#">Boots<span>101</span></a></li>
-                                                    <li><a href="#">Casual Shoes<span>212</span></a></li>
-                                                    <li><a href="#">Flats Sandel<span>92</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -100,49 +97,6 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Choose Category -->
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                                <div class="single_filter_title mb-2"><h6 class="mb-0 fs-sm ft-medium text-muted">Choose Size</h6></div>
-                                <div class="text-left pb-0 pt-2">
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="size" id="a26">
-                                        <label class="form-option-label" for="a26">26</label>
-                                    </div>
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="size" id="a28">
-                                        <label class="form-option-label" for="a28">28</label>
-                                    </div>
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="sizes" id="a30" checked>
-                                        <label class="form-option-label" for="a30">30</label>
-                                    </div>
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="sizes" id="a32">
-                                        <label class="form-option-label" for="a32">32</label>
-                                    </div>
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="sizes" id="a34">
-                                        <label class="form-option-label" for="a34">34</label>
-                                    </div>
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="sizes" id="a36">
-                                        <label class="form-option-label" for="a36">36</label>
-                                    </div>
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="sizes" id="a38">
-                                        <label class="form-option-label" for="a38">38</label>
-                                    </div>
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="sizes" id="a40">
-                                        <label class="form-option-label" for="a40">40</label>
-                                    </div>
-                                    <div class="form-check form-option form-check-inline mb-2">
-                                        <input class="form-check-input" type="radio" name="sizes" id="a42">
-                                        <label class="form-option-label" for="a42">42</label>
                                     </div>
                                 </div>
                             </div>
@@ -190,15 +144,7 @@
                                 </div>
                             </div>
 
-                            <!-- Choose Category -->
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                                <div class="single_filter_title mb-2"><h6 class="mb-0 fs-sm ft-medium text-muted">Filter By Price</h6></div>
-                                <div class="side-list mb-2">
-                                    <div class="rg-slider">
-                                        <input type="text" class="js-range-slider" name="my_range" value="" />
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                         </div>
                     </div>
@@ -229,8 +175,9 @@
                         <button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
                         <div class="card-body p-0">
                             <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden ovr-hide" href="@Url.Action("Details", "Product")"><img class="card-img-top" src="@item.Image"></a>
-                                <a class="card-img-top d-block overflow-hidden ovr-show" href="@Url.Action("Details", "Product")"><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
+                                <a class="card-img-top d-block overflow-hidden ovr-hide" href="/Product/Details/@item.Id"><img class="card-img-top" src="@item.Image"></a>
+                                <a class="card-img-top d-block overflow-hidden ovr-show" href="/Product/Details/@item.Id"><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
+                                
                                 <div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
                                     <div class="group_btn">
                                         <a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
