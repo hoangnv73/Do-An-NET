@@ -111,13 +111,10 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Password = model.Password,
                 Email = model.Email,
                 Gender = model.Gender,
-                ResetPassword = model.ResetPassword,
                 RoleId = model.RoleId,
             };
             _context.Users.Add(UserAdd);
             _context.SaveChanges();
-
-
 
             //-- nếu như ảnh not null thì cập nhật ảnh trong db & lưu ảnh trong folder 
 
@@ -152,7 +149,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
         }
         [HttpPost]
         public IActionResult Update(int id, string firstname, string lastname, string password,
-            string email, bool gender, int statusid, IFormFile? file, string resetPassword, int roleId)
+            string email, bool gender, int statusid, IFormFile? file, int roleId)
         {
             var user = _context.Users.Find(id);
             if (user == null)
@@ -167,7 +164,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 image = GetImage(user.Id, file);
             }
 
-            user.Update(firstname, lastname, password, email, gender, statusid, image, resetPassword, roleId);
+            user.Update(firstname, lastname, password, email, gender, statusid, image, roleId);
             _context.SaveChanges();
 
             return RedirectToAction("Update", new { id });

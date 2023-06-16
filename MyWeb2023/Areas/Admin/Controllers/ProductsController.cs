@@ -166,7 +166,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             var photoName = product.Image;
             string pathproduct = @$"{rootFolder}\wwwroot\data\products\{id}\" + photoName;
             System.IO.File.Delete(pathproduct);
-
+             
             if (product == null)
             {
                 ViewBag.Message = "San pham khong ton tai";
@@ -174,6 +174,8 @@ namespace MyWeb2023.Areas.Admin.Controllers
             }
 
             var image = product.Image;
+
+            //nếu file = null thì không cho cập nhật image
             if (file != null)
             {
                 image = GetImage(product.Id, file);

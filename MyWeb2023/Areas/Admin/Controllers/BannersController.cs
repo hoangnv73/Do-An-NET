@@ -34,21 +34,11 @@ namespace MyWeb2023.Areas.Admin.Controllers
             }).ToList();
             return View(result);
         }
+
         //Create
+        [HttpGet]
         public IActionResult Create()
         {
-            var listBanners = _context.Banners.Select(x => new BannerDto
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Description = x.Description,
-                DisplayLink = x.DisplayLink,
-                Link = x.Link,
-                Image = x.Image,
-                IsActive = x.IsActive,
-                Position = x.Position,
-            }).ToList();
-            ViewBag.Roles = listBanners;
             return View();
         }
         [HttpPost]
@@ -108,7 +98,12 @@ namespace MyWeb2023.Areas.Admin.Controllers
             string link, IFormFile? file, bool isactive, int position)
         {
             var banner = _context.Banners.Find(id);
-            //banner.Update(title, description, displaylink, link, image, isactive, position);
+            var image = banner.Image;
+            if (file != null)
+            {
+                image = GetImage(banner.Id, file);
+            }
+            banner.Update(title, description, displaylink, link, image, isactive, position);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -49,17 +49,20 @@
                 <a href="/Admin/Products/Create" class="btn btn-success btn-sm">Add</a>
             </div>
             <div class="col-sm-3">
-                <form method="get" action="Admin/Products/Index">
-                    <select name="sort" class="form-control btn-md">
-                        <option>Filter</option>
-                        <option value="price_asc">Price Low => High</option>
-                        <option value="price_desc">Price High => Low</option>
-                    </select>
+                <form method="get">
+                    <div class="d-flex flex-row">
+                        <div>
+                            <select name="sort" class="form-control btn-md">
+                                <option>Filter</option>
+                                <option value="price_asc">Price Low => High</option>
+                                <option value="price_desc">Price High => Low</option>
+                            </select>
+                        </div>
+                        <div><button class="btn btn-success btn-sm" type="submit">Filter</button></div>
+                    </div>
                 </form>
             </div>
-            <div class="d-flex">
-                <button class="btn btn-success btn-sm" type="submit">Filter</button>
-            </div>
+
             <div class="col-sm-3">
                 <form class="d-flex">
                     <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
@@ -84,7 +87,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                  
+
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -112,21 +115,21 @@
                 </tbody>
             </table>
         </div>
-        
+
     </div>
     <div class="card-block">
-        <div >
+        <div>
             <ul class="pagination justify-content-center">
                 <li class="page-item">
                     <a class="page-link" href="@Url.Action("Index", new {page = currentPage - 1})">Previous</a>
-                    </li>
+                </li>
 
                 @{
                     foreach (var item in pages)
                     {
                         var active = currentPage == item ? "active" : "";
                         <li class="page-item @active">
-                        <a class="page-link" href="@Url.Action("Index", new {page = item})">@item</a>
+                            <a class="page-link" href="@Url.Action("Index", new {page = item})">@item</a>
                         </li>
                     }
                 }
@@ -134,7 +137,7 @@
             </ul>
 
         </div>
-        </div>
     </div>
+</div>
 </div>
 

@@ -17,5 +17,6 @@ namespace MyWeb2023.Areas.Admin.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }
