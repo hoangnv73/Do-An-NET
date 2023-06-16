@@ -162,9 +162,8 @@
 
                             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                                 <div class="description_info">
-                                    <p class="p-0 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                    <p class="p-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-                                </div>
+                                    <p class="p-0 mb-2">@Model.Product.Description</p>
+                                      </div>
                             </div>
 
                             <!-- Additional Content -->
@@ -211,19 +210,18 @@
                                                 <div class="single_rev_caption d-flex align-items-start pl-3">
                                                     <div class="single_capt_left">
                                                         <h5 class="mb-0 fs-md ft-medium lh-1">@item.Name</h5>
-                                                        <span class="small">@item.PostDate.ToString("dd/mm/yyyy")</span>
+                                                        <span class="small">@item.CreateDate.ToString("dd/mm/yyyy")</span>
                                                         <p>@item.Comment</p>
                                                     </div>
                                                     <div class="single_capt_right">
                                                         <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
                                                             @{
+                                                                //todo
                                                                 var stars = new List<int> { 1, 2, 3, 4, 5 };
 
                                                                 var star = @item.Rating;
                                                                 bool b = Convert.ToBoolean(star);
                                                                 var filled = b ? "filled" : "";
-
-
                                                                 foreach (var i in stars)
                                                                 {
                                                                     <i class="fas fa-star @filled"></i>

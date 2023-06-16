@@ -1,6 +1,13 @@
-﻿@await Html.PartialAsync("_Banner")
+﻿@using MyWeb2023.Models.Dto;
+@model HomeDto
+@*@{
+    var banners = new List<HomeDto> {
+    };
+    List<BannerDto> asbc = ViewBag.Banners;
+}
+
+@await Html.PartialAsync("_Banner", Model.Banners)*@
 <!-- ======================= All Category ======================== -->
 @await Html.PartialAsync("_Category")
-
 <!-- ======================= Products Lists ======================== -->
 @await Html.PartialAsync("_Products")

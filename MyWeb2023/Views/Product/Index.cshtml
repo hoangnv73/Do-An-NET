@@ -175,8 +175,9 @@
                         <button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
                         <div class="card-body p-0">
                             <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden ovr-hide" href="/Product/Details/@item.Id"><img class="card-img-top" src="@item.Image"></a>
-                                <a class="card-img-top d-block overflow-hidden ovr-show" href="/Product/Details/@item.Id"><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
+                                <a class="card-img-top d-block overflow-hidden ovr-hide" href="">
+                                    <img class="card-img-top" src="@item.Image"></a>
+                                <a class="card-img-top d-block overflow-hidden ovr-show" href=""><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
                                 
                                 <div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
                                     <div class="group_btn">
@@ -191,7 +192,8 @@
                         <div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
                             <div class="text-left">
                                 <div class="text-center">
-                                    <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="@Url.Action("Details","Product")">@item.Name</a></h5>
+                                    <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1">
+                                        <a href="/Product/Details?id=@item.Id">@item.Name</a></h5>
                                     @{
                                         var price = item.Price - (item.Price / 100) * item.Discount;
                                         if (item.Discount == 0)
