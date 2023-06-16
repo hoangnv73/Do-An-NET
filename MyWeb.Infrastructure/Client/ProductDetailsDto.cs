@@ -9,7 +9,6 @@ namespace MyWeb.Infrastructure.Client
 {
     public class ProductDetailsDto
     {
-      
         public ProductVM Product { get; set; }
         public List<ReviewDto> Reviews { get; set; }
     }

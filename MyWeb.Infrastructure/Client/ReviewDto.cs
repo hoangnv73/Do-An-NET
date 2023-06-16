@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public int Rating { get; set; }
         public string Comment { get; set; }
-        public DateTime PostDate { get; set; }
+        public DateTime CreateDate { get; set; }
+        public int ProductId { get; set; }
     }
 }
