@@ -55,7 +55,6 @@ namespace MyWeb2023.Controllers
             return View(product);
         }
 
-      
         [HttpGet]
         // Đây là id truyền vào
         public async Task<IActionResult> Details(int id)
@@ -63,14 +62,16 @@ namespace MyWeb2023.Controllers
             //--- response
             var response = new ProductDetailsDto();
             //-- Get Reviews 
+            // where database ProductId = id truyền vào 
             var listReviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();
             var reviews = listReviews.Select(x => new ReviewDto
             {
                 Comment = x.Comment,
                 Id = x.Id,
                 Name = x.Name,
-                PostDate = x.PostDate,
-                Rating = x.Rating
+                CreateDate = x.CreateDate,
+                Rating = x.Rating,
+                ProductId = x.ProductId,
             }).ToList();
 
             //--Get product
@@ -83,13 +84,10 @@ namespace MyWeb2023.Controllers
                 Description = product.Description,
                 Status = product.Status,
                 Discount = product.Discount,
-                BrandId = product.BrandId,
-                BrandName = "ass",
-                Image = product.Image,
             };
 
             response.Reviews = reviews;
-           response.Product = productVM;
+            response.Product = productVM;
 
             return View(response);
             //var reviews = new List<ReviewDto>();
@@ -113,7 +111,7 @@ namespace MyWeb2023.Controllers
                 Name = name,
                 Rating = rating,
                 Comment = comment,
-                PostDate = DateTime.Now,
+                CreateDate = DateTime.Now,
             };
             _context.Reviews.Add(addReview);
             _context.SaveChanges();

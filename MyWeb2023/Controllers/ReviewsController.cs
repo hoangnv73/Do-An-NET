@@ -22,7 +22,7 @@ namespace MyWeb2023.Controllers
                 Name = x.Name,
                 Rating = x.Rating,
                 Comment = x.Comment,
-                PostDate = x.PostDate,
+                CreateDate = x.CreateDate,
             }).ToList();
             return View(result);
         }
