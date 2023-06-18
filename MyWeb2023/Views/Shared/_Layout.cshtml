@@ -64,10 +64,6 @@
 						</div>
 
 						<div class="currency-selector dropdown js-dropdown float-right mr-3">
-							<a href="javascript:void(0);" class="text-light medium">Wishlist</a>
-						</div>
-
-						<div class="currency-selector dropdown js-dropdown float-right mr-3">
 							<a href="@Url.Action("Profile","Account")" class="text-light medium">My Account</a>
 						</div>
 
@@ -96,11 +92,6 @@
 								<li>
 									<a href="#" data-toggle="modal" data-target="#login">
 										<i class="lni lni-user"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#" onclick="openWishlist()">
-										<i class="lni lni-heart"></i><span class="dn-counter">2</span>
 									</a>
 								</li>
 								<li>
@@ -149,11 +140,7 @@
 									<i class="lni lni-user"></i>
 								</a>
 							</li>
-							<li>
-								<a href="#" onclick="openWishlist()">
-									<i class="lni lni-heart"></i><span class="dn-counter">2</span>
-								</a>
-							</li>
+							
 							<li>
 								<a href="#" onclick="openCart()">
 									<i class="lni lni-shopping-basket"></i><span class="dn-counter theme-bg">3</span>
@@ -692,25 +679,6 @@
 					<button onclick="closeWishlist()" class="close_slide"><i class="ti-close"></i></button>
 				</div>
 				<div class="right-ch-sideBar">
-
-					<div class="cart_select_items py-2">
-						<!-- Single Item -->
-						<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
-							<div class="cart_single d-flex align-items-center">
-								<div class="cart_selected_single_thumb">
-									<a href="#"><img src="~/client/assets/img/product/4.jpg" width="60" class="img-fluid" alt="" /></a>
-								</div>
-								<div class="cart_single_caption pl-2">
-									<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Váy Nữ Màu Hồng</h4>
-									<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
-									<h4 class="fs-md ft-medium mb-0 lh-1">$99999</h4>
-								</div>
-							</div>
-							<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
-						</div>
-
-
-					</div>
 
 					<div class="d-flex align-items-center justify-content-between br-top br-bottom px-3 py-3">
 						<h6 class="mb-0">Subtotal</h6>
