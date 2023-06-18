@@ -87,11 +87,14 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    @{
+                        var stt = 0;
+                    }
                     @foreach (var item in Model)
                     {
+                        stt = stt + 1;
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">@stt</th>
                             <td> <img src="@item.Image" width="50" height="50" /> </td>
                             <td>@item.Name</td>
                             <td>@item.BrandName</td>
@@ -99,11 +102,11 @@
                             <td>@item.Discount</td>
                             @if (item.Status)
                             {
-                                <td><span class="badge badge-success">Stocking</span></td>
+                                <td><span class="badge badge-success">Display</span></td>
                             }
                             else
                             {
-                                <td><span class="badge badge-danger">Out of stock</span></td>
+                                <td><span class="badge badge-danger">Hide</span></td>
                             }
                             <td>
                                 <a href="/Admin/Products/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
