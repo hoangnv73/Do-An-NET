@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Myweb.Domain;
 using Myweb.Domain.Models.Entities;
+using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
 using Newtonsoft.Json.Linq;
 using SendGrid;
@@ -25,12 +28,31 @@ namespace MyWeb2023.Controllers
         {
             _context = context;
         }
-        public IActionResult Profile()
-        {
-            return View();
-        }
 
         [HttpGet]
+        public async Task<ActionResult> Profile(int id)
+        {
+            var profile = _context.Users.Find(id);
+            var profileDto = new ProfileDto
+            {
+                Id = profile.Id,
+                Email = profile.Email,
+                FirstName = profile.FirstName,
+                LastName = profile.LastName,
+            };
+            return View(profileDto);
+        }
+
+        [HttpPost]
+        public IActionResult Profile(int id, string firstname, string lastname, string email)
+        {
+            var profile = _context.Users.Find(id);
+            profile.Update(firstname, lastname, email);
+            _context.SaveChanges();
+            return RedirectToAction("Profile", new {id = id});     
+        }
+
+
         public IActionResult Login()
         {
             //  SendMail();
@@ -38,7 +60,7 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string email, string password, int roleId )
+        public ActionResult Login(string email, string password, int roleId)
         {
             // Kiểm tra email có tồn tại hay không
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
@@ -150,6 +172,7 @@ namespace MyWeb2023.Controllers
             var msg = MailHelper.CreateSingleEmail(from_email, to_email, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
+
 
     }
 }
