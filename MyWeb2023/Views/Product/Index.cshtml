@@ -169,15 +169,14 @@
                         @{
                             if (item.Discount != 0)
                             {
-                                <div class="badge bg-danger text-white position-absolute ft-regular ab-left text-upper">@item.Discount %</div>
+                                <div class="badge bg-danger text-white position-absolute ft-regular ab-left text-upper">- @item.Discount%</div>
                             }
                         }
                         <button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
                         <div class="card-body p-0">
                             <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden ovr-hide" href="">
-                                    <img class="card-img-top" src="@item.Image"></a>
-                                <a class="card-img-top d-block overflow-hidden ovr-show" href=""><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
+                                <a class="card-img-top d-block overflow-hidden ovr-hide" href="/Product/Details?id=@item.Id"><img class="card-img-top" src="@item.Image"></a>
+                                <a class="card-img-top d-block overflow-hidden ovr-show" href="/Product/Details?id=@item.Id"><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
                                 
                                 <div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
                                     <div class="group_btn">
