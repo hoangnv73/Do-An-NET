@@ -14,16 +14,16 @@
             .then(function (response) {
                 console.log(response);
                 Swal.fire(
-                    'Thành công!',
-                    'Password mới là: ' + response.data,
+                    'Success!',
+                    'Password new: ' + response.data,
                     'success'
                 )
             })
             .catch(function (error) {
                 console.log(error);
                 Swal.fire(
-                    'Lỗi hệ thống!',
-                    'Vui lòng liên hệ admin để biết thêm',
+                    'Error!',
+                    'Error!',
                     'error'
                 )
             });

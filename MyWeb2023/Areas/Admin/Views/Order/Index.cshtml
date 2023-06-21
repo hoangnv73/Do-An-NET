@@ -18,6 +18,7 @@
                         <th>Phone</th>
                         <th>Note</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,16 +32,23 @@
                                 <td>@item.Phone</td>
                                 <td>@item.Note</td>
                                 @{
+                                    if (item.Status == 0)
+                                    {
+                                        <td><span class="badge badge-warning">Processing</span></td>
+                                    }
                                     if (item.Status == 1)
                                     {
                                         <td><span class="badge badge-success">Success</span></td>
                                     }
-                                    else
+                                    if (item.Status == 2)
                                     {
-                                        <td><span class="badge badge-warning" >Processing</span></td>
+                                        <td><span class="badge badge-danger">Fails</span></td>
                                     }
                                 }
-                               
+                               <td>
+                                    <a href="/Admin/Order/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
+
+                               </td>
                             </tr>
                         }
                     }

@@ -35,20 +35,20 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
+    <script src="~/client/assets/www.js"></script>
 </head>
 <body class="fix-menu">
     <script>
-        function Login(){
+        function Login() {
             console.log("aaa");
             let email = document.getElementById('email').value;
             let password = document.getElementById('password').value
 
-            if(email == null || email == ""){
+            if (email == null || email == "") {
                 document.getElementById("email-message").innerHTML = "Email không hợp lệ";
-               return;
+                return;
             }
-            else{
+            else {
                 document.getElementById("email-message").innerHTML = "";
             }
 
@@ -68,12 +68,21 @@
                     'content-type': 'application/x-www-form-urlencoded'
                 }
             })
-                .then(function (response) {
-                    console.log(response);
+                .then(function (res) {
+                    console.log(res);
+                    if(res.data.code == 400){
+                        //alert(`${res.data.message}`);
+                        showMessageError();
+                    }
+                    if(res.data.code == 200){
+                        window.location.href = "/";
+                    }
+                  
                 })
         }
-            
+
     </script>
+
     <h1>@ViewBag.Message</h1>
     <section class="login-block">
         <div class="container">

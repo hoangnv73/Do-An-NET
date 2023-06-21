@@ -1,9 +1,43 @@
 ﻿@using MyWeb.Infrastructure.Client;
 @model List<CheckoutDto>
 
+<script>
+    function Checkout(){
+        let email = document.getElementById('email').value;
+        let phone = document.getElementById('phone').value;
+        let address = document.getElementById('address').value;
+        let note = document.getElementById('note').value;
+        let orderdate = document.getElementById('orderdate').value;
+        
+        axios.post('/checkout/index', {
+            'email': email,
+            'phone': phone,
+            'address': address,
+            'note': note,
+            'orderdate': orderdate
+        }, {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+                //show payment success
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Payment success!',
+                    showConfirmButton: false,
+                    timer: 2200
+                })
+            })
+    }
+   
+
+</script>
+
 <section class="middle">
     <div class="container">
-
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="text-center d-block mb-5">
@@ -11,43 +45,43 @@
                 </div>
             </div>
         </div>
-        <form method="post" action="/Checkout/Index">
+       @* <form method="post" action="/Checkout/Index">*@
             <div class="row justify-content-between">
                 <div class="col-12 col-lg-7 col-md-12">
                     <h5 class="mb-4 ft-medium">Billing Details</h5>
                     <div class="row mb-2">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        @*<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="form-group">
                                 <label class="text-dark">First Name *</label>
-                                <input name="firstname" type="text" class="form-control" placeholder="First Name" />
+                                <input id="firstname" name="firstname" type="text" class="form-control" placeholder="First Name" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="form-group">
                                 <label class="text-dark">Last Name *</label>
-                                <input name="lastname" type="text" class="form-control" placeholder="Last Name" />
+                                <input id="lastname" name="lastname" type="text" class="form-control" placeholder="Last Name" />
                             </div>
-                        </div>
+                        </div>*@
 
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label class="text-dark">Email *</label>
-                                <input name="email" type="email" class="form-control" placeholder="Email" />
+                                <input id="email" name="email" type="email" class="form-control" placeholder="Email" />
                             </div>
                         </div>
 
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label class="text-dark">Mobile Number *</label>
-                                <input name="phone" type="text" class="form-control" placeholder="Mobile Number" />
+                                <label class="text-dark">Phone Number *</label>
+                                <input id="phone" name="phone" type="text" class="form-control" placeholder="Mobile Number" />
                             </div>
                         </div>
 
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label class="text-dark">Address*</label>
-                                <input name="address" type="text" class="form-control" placeholder="Address " />
+                                <label class="text-dark">Address *</label>
+                                <input id="address" name="address" type="text" class="form-control" placeholder="Address " />
                             </div>
                         </div>
 
@@ -67,10 +101,10 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label class="text-dark">Additional Information</label>
-                                <textarea name="note" class="form-control ht-50"></textarea>
+                                <textarea id="note" name="note" class="form-control ht-50"></textarea>
                             </div>
                         </div>
-
+                    <input id="orderdate" name="orderdate" type="hidden"/>
                     </div>
 
                     <h5 class="mb-4 ft-medium">Payments</h5>
@@ -92,7 +126,7 @@
                                                 <input type="text" class="form-control simple" placeholder="paypal@gmail.com">
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-dark btm-md full-width">Pay 400.00 USD</button>
+                                            <button onclick="Checkout()" type="submit" class="btn btn-dark btm-md full-width">Pay 400.00 USD</button>
                                             </div>
                                         </div>
                                     </div>
@@ -151,7 +185,7 @@
                     <a class="btn btn-block btn-dark mb-3" href="checkout.html">Place Your Order</a>
 
                 </div>
-        </form>
+       @* </form>*@
     </div>
 
 </section>
