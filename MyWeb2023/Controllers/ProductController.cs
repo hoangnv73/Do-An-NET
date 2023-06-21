@@ -61,8 +61,8 @@ namespace MyWeb2023.Controllers
                 Discount = product.Discount,
                 Image = product.Image,
             };
-
-			var listReviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();
+            
+            var listReviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();
 			var reviews = listReviews.Select(x => new ReviewDto
 			{
 				Comment = x.Comment,
@@ -80,7 +80,7 @@ namespace MyWeb2023.Controllers
 
 		[HttpPost]
 		public IActionResult Comment(string name, int rating, string comment, int productId)
-		{
+		 {
 			var addReview = new Review
 			{
 				Name = name,

@@ -37,7 +37,7 @@ namespace MyWeb2023.Controllers
                 Address = model.Address,
                 Phone = model.Phone,
                 Note = model.Note,
-                OrderDate = model.OrderDate,
+                OrderDate = DateTime.Now,
             };
             _context.Orders.Add(checkout);
             _context.SaveChanges();
