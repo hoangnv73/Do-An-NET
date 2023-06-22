@@ -19,6 +19,11 @@ namespace Myweb.Domain.Models.Entities
         {
 
         }
+
+        public void Update(int status)
+        {
+            Status = status;
+        }
     }
 
 }

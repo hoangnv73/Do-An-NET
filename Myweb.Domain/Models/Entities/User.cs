@@ -41,6 +41,13 @@ namespace Myweb.Domain.Models.Entities
             RoleId = roleId;
         }
 
+        public void Update(string firstname, string lastname, string email)
+        {
+            FirstName = firstname;
+            LastName = lastname;
+            Email = email;
+        }
+
         public void UpdatePassword(string newPassword)
         {
             Password = newPassword;

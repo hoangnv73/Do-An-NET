@@ -22,14 +22,7 @@
         })
             .then(function (response) {
                 console.log(response);
-                //show payment success
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Payment success!',
-                    showConfirmButton: false,
-                    timer: 2200
-                })
+                paySuccess()
             })
     }
    
@@ -45,7 +38,6 @@
                 </div>
             </div>
         </div>
-       @* <form method="post" action="/Checkout/Index">*@
             <div class="row justify-content-between">
                 <div class="col-12 col-lg-7 col-md-12">
                     <h5 class="mb-4 ft-medium">Billing Details</h5>
@@ -136,13 +128,11 @@
                     </div>
                 </div>
 
-
                 <!-- Product -->
                 <div class="col-12 col-lg-4 col-md-12">
                     <div class="d-block mb-3">
                         <h5 class="mb-4">Order Items (3)</h5>
                         <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x mb-4">
-
                             <li class="list-group-item">
                                 <div class="row align-items-center">
                                     <div class="col-3">
@@ -159,7 +149,6 @@
                                     </div>
                                 </div>
                             </li>
-
                         </ul>
                     </div>
 
@@ -181,11 +170,9 @@
                             </ul>
                         </div>
                     </div>
-
                     <a class="btn btn-block btn-dark mb-3" href="checkout.html">Place Your Order</a>
-
                 </div>
-       @* </form>*@
+         </div>
     </div>
 
 </section>

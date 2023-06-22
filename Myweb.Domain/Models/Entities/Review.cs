@@ -16,7 +16,7 @@ namespace Myweb.Domain.Models.Entities
         public DateTime CreateDate { get; set; }
         public int ProductId { get; set; }
 
-        public Review(string name, int rating, string comment, DateTime createDate)
+        public Review(string name, int rating, string comment, DateTime createDate, int productId)
         {
             Name = name;
             Rating = rating;
@@ -25,7 +25,7 @@ namespace Myweb.Domain.Models.Entities
         }
         public Review()
         {
-
+           
         }
     }
 
