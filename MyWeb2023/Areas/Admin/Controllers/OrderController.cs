@@ -47,5 +47,22 @@ namespace MyWeb2023.Areas.Admin.Controllers
 
             return View();
         }
+
+        //Update
+        [HttpGet]
+        public ActionResult Update(int id)
+        {
+            var order = _context.Orders.Find(id);
+            return View(order);
+        }
+        [HttpPost]
+        public ActionResult Update(int id, int status)
+        {
+            var order = _context.Orders.Find(id);
+
+            order.Update(status);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Order");
+        }
     }
 }
