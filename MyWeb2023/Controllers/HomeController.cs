@@ -21,7 +21,9 @@ namespace MyWeb2023.Controllers
 
         public IActionResult Index()
         {
-            return View();
+			var home = new HomeDto();
+			List<string> myList = new List<string> { "nguyen", "van", "hoang" };
+			return View(home);
         }
 
         public IActionResult Privacy()
@@ -52,5 +54,25 @@ namespace MyWeb2023.Controllers
             }).ToList();
             return View(result);
         }
+
+        //// Product
+        //public async Task<IActionResult> _Products()
+        //{
+        //    // Status = true thì hiển thị product
+        //    var products = await _context.Products.Where(x => x.Status == true).ToListAsync();
+        //    var result = products.Select(x => new ProductDto
+        //    {
+        //        Id = x.Id,
+        //        Image = !string.IsNullOrEmpty(x.Image)
+        //                ? $"/data/products/{x.Id}/{x.Image}"
+        //                : "/www/images/default-thumbnail.jpg",
+        //        Name = x.Name,
+        //        BrandId = x.Id,
+        //        Price = x.Price,
+        //        Discount = x.Discount,
+        //        Status = x.Status,
+        //    }).ToList();
+        //    return View(result);
+        //}
     }
 }

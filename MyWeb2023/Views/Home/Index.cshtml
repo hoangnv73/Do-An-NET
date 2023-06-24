@@ -1,5 +1,6 @@
 ﻿@using MyWeb2023.Models.Dto;
 @model HomeDto
+
 @*@{
     var banners = new List<HomeDto> {
     };
@@ -10,4 +11,4 @@
 <!-- ======================= All Category ======================== -->
 @await Html.PartialAsync("_Category")
 <!-- ======================= Products Lists ======================== -->
-@await Html.PartialAsync("_Products")
+@await Html.PartialAsync("_Products", Model.Products)

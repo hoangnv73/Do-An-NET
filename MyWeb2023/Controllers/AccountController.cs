@@ -14,6 +14,7 @@ using SendGrid.Helpers.Mail;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -29,8 +30,9 @@ namespace MyWeb2023.Controllers
             _context = context;
         }
 
+        //todo
         [HttpGet]
-        public async Task<ActionResult> Profile(int id)
+        public IActionResult Profile(int id)
         {
             var profile = _context.Users.Find(id);
             var profileDto = new ProfileDto
@@ -49,18 +51,19 @@ namespace MyWeb2023.Controllers
             var profile = _context.Users.Find(id);
             profile.Update(firstname, lastname, email);
             _context.SaveChanges();
-            return RedirectToAction("Profile", new {id = id});     
+            return RedirectToAction("Profile", new { id });     
         }
+
 
 
         public IActionResult Login()
         {
-            //  SendMail();
+            //SendMail();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(string email, string password, int roleId)
+        public object Login(string email, string password, int roleId)
         {
             // Kiểm tra email có tồn tại hay không
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
@@ -69,21 +72,29 @@ namespace MyWeb2023.Controllers
             // Nếu không tồn tại thì show lỗi
             if (user == null)
             {
-                ViewBag.Message = "Tài khoản kh tồn tại";
-                return View();
+                return new
+                {
+                    code = HttpStatusCode.BadRequest,
+                    message = "Account does not exist"
+                };
             }
             // Nếu tồn tại thì kiểm tra password 
             if (user.Password != password)
             {
-                ViewBag.Message = "Mật khẩu không đúng";
-                return View();
+                return new
+                {
+                    code = 400,
+                    message = "Wrong Password"
+                };
             }
-            if (user.RoleId == 1)
+           
+            var obj = new
             {
-                return RedirectToAction("Index", "Home");
-            }
-            // Nếu mật khẩu đúng thì đăng nhập thành công
-            return RedirectToAction("Index", "Home");
+                code = HttpStatusCode.OK,
+                roleId = user.RoleId
+            };
+           
+            return obj;
 
 
         }
@@ -110,6 +121,8 @@ namespace MyWeb2023.Controllers
                 };
                 _context.Users.Add(UserAdd);
                 _context.SaveChanges();
+                //SendMail();
+
             }
             else
             {
@@ -117,6 +130,8 @@ namespace MyWeb2023.Controllers
                 ViewBag.Message = "Tài khoản đã tồn tại";
                 return View();
             }
+            
+
             return View();
         }
 
@@ -138,6 +153,12 @@ namespace MyWeb2023.Controllers
             }
         }
 
+        public IActionResult ForgotPassword()
+        {
+
+            return View();
+        }
+
         public List<ObjectMail> GetObjectMails()
         {
             //var di = new Dictionary<string, string>();
@@ -152,7 +173,6 @@ namespace MyWeb2023.Controllers
 
         public async Task SendMail(string key, string mailTo)
         {
-
             var objMails = GetObjectMails();
             var apiKey = "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";
             var client = new SendGridClient(apiKey);

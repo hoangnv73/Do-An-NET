@@ -2,6 +2,7 @@
 {
     public class HomeDto
     {
-        public BannerDto Banners { get; set; }
+        public List<BannerDto> Banners { get; set; }
+        public List<ProductDto> Products { get; set; }
     }
 }
