@@ -943,6 +943,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Myweb.Domain\Myweb.Domain.csproj" />
+    <ProjectReference Include="..\MyWeb.Infrastructure\MyWeb.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
