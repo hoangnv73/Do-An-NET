@@ -1,9 +1,8 @@
-﻿namespace MyWeb2023.Areas.Admin.Models.Dto
+﻿namespace MyWeb.Infrastructure.Client
 {
     public class ReviewDto
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
         public string Name { get; set; }
         public int Rating { get; set; }
         public string Comment { get; set; }
