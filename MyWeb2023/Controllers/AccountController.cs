@@ -51,7 +51,7 @@ namespace MyWeb2023.Controllers
             var profile = _context.Users.Find(id);
             profile.Update(firstname, lastname, email);
             _context.SaveChanges();
-            return RedirectToAction("Profile", new { id });     
+            return RedirectToAction("Profile", new { id = 56 });     
         }
 
 
@@ -77,7 +77,21 @@ namespace MyWeb2023.Controllers
                     code = HttpStatusCode.BadRequest,
                     message = "Account does not exist"
                 };
+            } 
+
+            // check @gmail.com
+            string somestring = email;
+            string emailCheck = somestring.Substring(somestring.Length - 10, 10);
+
+            if (emailCheck != "@gmail.com")
+            {
+                return new
+                {
+                    code = 400,
+                    message = "Enter the correct format: @gmail.com"
+                };
             }
+
             // Nếu tồn tại thì kiểm tra password 
             if (user.Password != password)
             {
@@ -87,7 +101,8 @@ namespace MyWeb2023.Controllers
                     message = "Wrong Password"
                 };
             }
-           
+
+
             var obj = new
             {
                 code = HttpStatusCode.OK,
@@ -124,6 +139,7 @@ namespace MyWeb2023.Controllers
                 //SendMail();
 
             }
+            
             else
             {
                 // Nếu not null kh cho tạo và show "TK đã tồn tại"
@@ -155,7 +171,6 @@ namespace MyWeb2023.Controllers
 
         public IActionResult ForgotPassword()
         {
-
             return View();
         }
 

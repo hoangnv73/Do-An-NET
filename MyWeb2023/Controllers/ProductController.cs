@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
-using MyWeb2023.Areas.Admin.Models.Dto;
 
 namespace MyWeb2023.Controllers
 {
@@ -85,8 +84,7 @@ namespace MyWeb2023.Controllers
                 Id = x.Id,
                 Name = x.Name,
                 CreateDate = x.CreateDate,
-                Rating = x.Rating,
-                ProductId = x.ProductId,
+                Rating = x.Rating
             }).ToList();
 
             response.Product = productVM;

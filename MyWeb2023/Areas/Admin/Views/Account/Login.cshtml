@@ -25,40 +25,26 @@
     <link rel="icon" href="https://colorlib.com//polygon/adminty/files/assets/images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="~/assets/bower_components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/admin/assets/bower_components/bootstrap/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="~/assets/assets/icon/themify-icons/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="~/admin/assets/icon/themify-icons/themify-icons.css">
 
-    <link rel="stylesheet" type="text/css" href="~/assets/assets/icon/icofont/css/icofont.css">
+    <link rel="stylesheet" type="text/css" href="~/admin/assets/icon/icofont/css/icofont.css">
 
-    <link rel="stylesheet" type="text/css" href="~/assets/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/admin/assets/css/style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
+    <script src="~/client/assets/www.js"></script>
+    <link href="~/client/assets/css/login.css" rel="stylesheet" />
 </head>
+
 <body class="fix-menu">
     <script>
-        function Login(){
-            console.log("aaa");
+        function Login() {
+            console.log("ok");
             let email = document.getElementById('email').value;
             let password = document.getElementById('password').value
-
-            if(email == null || email == ""){
-                document.getElementById("email-message").innerHTML = "Email không hợp lệ";
-               return;
-            }
-            else{
-                document.getElementById("email-message").innerHTML = "";
-            }
-
-            if (password == null || password == "") {
-                document.getElementById("password-message").innerHTML = "Password không hợp lệ";
-                return;
-            }
-            else {
-                document.getElementById("password-message").innerHTML = "";
-            }
 
             axios.post('/account/login', {
                 'email': email,
@@ -68,101 +54,63 @@
                     'content-type': 'application/x-www-form-urlencoded'
                 }
             })
-                .then(function (response) {
-                    console.log(response);
+                .then(function (res) {
+                    console.log(res);
+                    if (res.data.code == 400) {
+                        //alert(`${res.data.message}`);
+                        showMessageError(res.data.message);
+                    }
+                    if (res.data.code == 200 & res.data.roleId == 1) {
+                        window.location.href = "/Admin";
+                    }
+                    if (res.data.code == 200 & res.data.roleId != 1) {
+                        window.location.href = "/";
+                    }
                 })
         }
-            
     </script>
-    <h1>@ViewBag.Message</h1>
-    <section class="login-block">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center">
-                        <img src="~/assets/assets/images/logo.png" alt="logo.png">
-                    </div>
-                    <div class="auth-box card">
-                        <div class="card-block">
-                            <div class="row m-b-20">
-                                <div class="col-md-12">
-                                    <h3 class="text-center">Đăng Nhập</h3>
-                                </div>
-                            </div>
-                            <div class="form-group form-primary">
-                                <input id="email" type="text" name="email" class="form-control" required="" placeholder="Nhập Email">
-                                <span id="email-message" class="text-danger"></span>
-                            </div>
-                            <div class="form-group form-primary">
-                                <input id="password" type="password" name="password" class="form-control" required="" placeholder="Nhập Password">
-                                <span id="password-message" class="text-danger"></span>
-                            </div>
 
-                            <div class="row m-t-25 text-left">
-                                <div class="col-12">
-                                    <div class="checkbox-fade fade-in-primary d-">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                            <span class="text-inverse">Remember me</span>
-                                        </label>
-                                    </div>
-                                    <div class="forgot-phone text-right f-right">
-                                        <a href="auth-reset-password.html" class="text-right f-w-600"> Quên Mật khẩu?</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row m-t-30">
-                                <div class="col-md-12">
-                                    <button onclick="Login()" type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Đăng nhập</button>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <p class="text-inverse text-left"><a href="index.html"><b class="f-w-600">Trở lại</b></a></p>
-                                </div>
-                                <div class="col-md-2">
-                                    <img src="~/assets/assets/images/auth/Logo-small-bottom.png" alt="small-logo.png">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                         class="img-fluid" alt="Phone image">
                 </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example13">Email address</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example23">Password</label>
+                    </div>
+
+                    <div class="d-flex justify-content-around align-items-center mb-4">
+                        <a href="@Url.Action("ForgotPassword","Account")">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button onclick="Login()" type="submit" class="btn btn-success btn-lg btn-block">Sign in</button>
+
+                    <div class="divider d-flex align-items-center my-4">
+                        <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                    </div>
+                    <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b71ca" href="@Url.Action("Register","Account")"
+                       role="button">
+                        <i class="fab fa-twitter me-2"></i>Register
+                    </a>
+                </div>
             </div>
-
         </div>
-
     </section>
-
-
-    <script type="text/javascript" src="~/assets/bower_components/jquery/js/jquery.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/popper.js/js/popper.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/bootstrap/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="~/assets/bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
-
-    <script type="text/javascript" src="~/assets/bower_components/modernizr/js/modernizr.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/modernizr/js/css-scrollbars.js"></script>
-
-    <script type="text/javascript" src="~/assets/bower_components/i18next/js/i18next.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
-    <script type="text/javascript" src="~/assets/assets/js/common-pages.js"></script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-23581568-13');
-    </script>
 </body>
 </html>
+
+
 

@@ -21,9 +21,7 @@ namespace MyWeb2023.Controllers
 
         public IActionResult Index()
         {
-			var home = new HomeDto();
-			List<string> myList = new List<string> { "nguyen", "van", "hoang" };
-			return View(home);
+			return View();
         }
 
         public IActionResult Privacy()
