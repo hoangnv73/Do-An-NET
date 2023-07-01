@@ -19,9 +19,51 @@ namespace MyWeb2023.Controllers
             _context = context;
         }
 
+
         public IActionResult Index()
         {
-			return View();
+            #region lưu lại để học
+            //var home = new HomeDto();
+            //var products = new List<ProductDto>();
+            //products.Add(new ProductDto() { Id = 1, Name = "hoang" });
+            //products.Add(new ProductDto() { Id = 2, Name = "van" });
+            //products.Add(new ProductDto() { Id = 3, Name = "fvv" });
+            //products.Add(new ProductDto() { Id = 4, Name = "dđ" });
+
+            //var banners = new List<BannerDto>();
+            //banners.Add(new BannerDto() { Id = 1, Title = "hioab" });
+            //banners.Add(new BannerDto() { Id = 2, Title = "van" });
+            //banners.Add(new BannerDto() { Id = 3, Title = "giodfd" });
+
+            //home.Products = products;
+            //home.Banners = banners;
+            #endregion
+
+            var home = new HomeDto();
+            var products = new List<ProductDto>();
+            products = _context.Products.Select(x => new ProductDto
+            {
+                Id = x.Id,
+                Image = x.Image,
+                Name = x.Name,
+                Price = x.Price,
+                Discount = x.Discount
+            }).ToList();
+
+            var banners = new List<BannerDto>();
+			banners = _context.Banners.Select(x => new BannerDto
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Link = x.Link,
+                Image = x.Image
+            }).ToList();
+
+            home.Products = products;
+            home.Banners = banners;
+
+            return View(home);
         }
 
         public IActionResult Privacy()
@@ -35,42 +77,23 @@ namespace MyWeb2023.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpGet]
-        public async Task<IActionResult> _Banner()
-        {
-            var banners = await _context.Banners.ToListAsync();
-            var result = banners.Select(x => new BannerDto
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Description = x.Description,
-                DisplayLink = x.DisplayLink,
-                Link = x.Link,
-                Image = x.Image,
-                IsActive = x.IsActive,
-                Position = x.Position,
-            }).ToList();
-            return View(result);
-        }
-
-        //// Product
-        //public async Task<IActionResult> _Products()
+        //[HttpGet]
+        //public async Task<IActionResult> _Banner()
         //{
-        //    // Status = true thì hiển thị product
-        //    var products = await _context.Products.Where(x => x.Status == true).ToListAsync();
-        //    var result = products.Select(x => new ProductDto
+        //    var banners = await _context.Banners.ToListAsync();
+        //    var result = banners.Select(x => new BannerDto
         //    {
         //        Id = x.Id,
-        //        Image = !string.IsNullOrEmpty(x.Image)
-        //                ? $"/data/products/{x.Id}/{x.Image}"
-        //                : "/www/images/default-thumbnail.jpg",
-        //        Name = x.Name,
-        //        BrandId = x.Id,
-        //        Price = x.Price,
-        //        Discount = x.Discount,
-        //        Status = x.Status,
+        //        Title = x.Title,
+        //        Description = x.Description,
+        //        DisplayLink = x.DisplayLink,
+        //        Link = x.Link,
+        //        Image = x.Image,
+        //        IsActive = x.IsActive,
+        //        Position = x.Position,
         //    }).ToList();
         //    return View(result);
         //}
+
     }
 }
