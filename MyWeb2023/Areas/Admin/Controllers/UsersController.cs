@@ -41,11 +41,6 @@ namespace MyWeb2023.Areas.Admin.Controllers
             return role == null ? "-" : role.Name;
         }
 
-        /// <summary>
-        /// Action reset password
-        /// </summary>
-        /// <param name="id">id người dùng</param>
-        /// <returns></returns>
         [HttpPost]
         public async Task<string> ResetPassword(int id)
         {

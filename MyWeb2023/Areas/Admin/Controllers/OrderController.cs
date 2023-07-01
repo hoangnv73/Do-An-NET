@@ -62,7 +62,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
 
             order.Update(status);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Order");
+            return RedirectToAction("Order", "Admin");
         }
     }
 }
