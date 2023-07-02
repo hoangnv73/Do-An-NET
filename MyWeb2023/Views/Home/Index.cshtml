@@ -3,6 +3,6 @@
 
 @await Html.PartialAsync("_Banner", Model.Banners)
 <!-- ======================= All Category ======================== -->
-@await Html.PartialAsync("_Category")
+@await Html.PartialAsync("_Category", Model.Categories)
 <!-- ======================= Products Lists ======================== -->
 @await Html.PartialAsync("_Products", Model.Products)
