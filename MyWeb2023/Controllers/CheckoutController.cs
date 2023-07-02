@@ -19,7 +19,7 @@ namespace MyWeb2023.Controllers
         public async Task<IActionResult> Index()
         {
             var checkout = await _context.Orders.ToListAsync();
-            var result = checkout.Select(x => new CheckoutDto
+            var result = checkout.Select(x => new CheckoutVM
             {
                 Address = x.Address,
                 Phone = x.Phone,
@@ -30,17 +30,35 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(CheckoutDto model)
+        public IActionResult Index(CheckoutVM model)
         {
-            var checkout = new Order
+            var order = new Order
             {
                 Address = model.Address,
                 Phone = model.Phone,
                 Note = model.Note,
                 OrderDate = DateTime.Now,
             };
-            _context.Orders.Add(checkout);
+            _context.Orders.Add(order);
             _context.SaveChanges();
+
+            int orderId = order.Id;
+            var productIds = new List<int> { 55, 56, 57};
+           
+            foreach (var item in productIds)
+            {
+                var product = _context.Products.Find(item);
+                var orderDetail = new OrderDetails
+                {
+                    OrderId = orderId,
+                    ProductId = item,
+                    Price = product.Price,
+                };
+                _context.OrderDetails.Add(orderDetail);
+                _context.SaveChanges();
+            }
+
+            
             return View();
         }
     }
