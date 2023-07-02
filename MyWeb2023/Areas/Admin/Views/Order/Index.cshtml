@@ -23,10 +23,14 @@
                 </thead>
                 <tbody>
                     @{
+                        var stt = 0;
+                    }
+                    @{
                         foreach (var item in Model)
                         {
+                            stt = stt + 1;
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row">@stt</th>
                                 <td>@item.OrderDate.ToString("MM/dd/yyyy")</td>
                                 <td>@item.Address</td>
                                 <td>@item.Phone</td>

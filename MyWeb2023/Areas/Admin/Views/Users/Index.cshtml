@@ -90,10 +90,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{
+                        var stt = 0;
+                    }
                     @foreach (var item in Model)
                     {
+                        stt = stt + 1;
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">@stt</th>
                             <td><img src="@item.Image" width="50" height="50" /></td>
                             <td>@item.FirstName</td>
                             <td>@item.LastName</td>

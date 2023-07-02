@@ -1,13 +1,13 @@
-﻿@using Myweb.Domain.Models.Entities
-@using MyWeb2023.Areas.Admin.Models.Dto
-@model List<BannerDto>
+﻿@using MyWeb2023.Areas.Admin.Models.Dto;
+@using Myweb.Domain.Models.Entities;
+@model List<Catalog>
 
 <script>
     function reloadPage() {
         window.location.reload()
     }
-    function DeleteBanners(id) {
-        axios.post('/Banners/DeleteBanners', {
+    function DeleteCatalog(id) {
+        axios.post('/Catalog/DeleteCatalog', {
             'id': id
         }, {
 
@@ -32,7 +32,7 @@
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {
-                DeleteBanners(id);
+                DeleteCatalog(id);
             }
         })
     }
@@ -40,16 +40,17 @@
 
 <div class="card">
     <div class="card-header">
-        <h5>Banner Management</h5>
+        <h5>Catalog Management</h5>
     </div>
+
     <div class="card-block">
         <div class="row">
             <div class="col-sm-3">
-                <a href="/Admin/Banners/Create" class="btn btn-success btn-sm">Create</a>
+                <a href="/Admin/Catalog/Create" class="btn btn-success btn-sm">Create</a>
             </div>
         </div>
     </div>
-   
+
     <div class="card-block table-border-style">
         <div class="table-responsive">
             <table class="table">
@@ -58,7 +59,7 @@
                         <th>STT</th>
                         <th>Image</th>
                         <th>Title</th>
-                        <th>IsActive</th>
+                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -71,26 +72,20 @@
                         stt = stt + 1;
                         <tr>
                             <th scope="row">@stt</th>
-                            <td><img src="@item.Image" width="100" height="50" /></td>
+                            <td><image href=" @item.Image"></image></td>
                             <td>@item.Title</td>
-                            @if (item.IsActive)
-                            {
-                                <td><span class="badge badge-success">Display</span></td>
-                            }
-                            else
-                            {
-                                <td><span class="badge badge-danger">Hide</span></td>
-                            }
-
+                            <td>@item.Description</td>
                             <td>
-                                <a href="/Admin/Banners/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
+                                <a href="/Admin/Catalog/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
+
                                 <input form="form-delete-@item.Id" name="Id" value="@item.Id" type="hidden" />
                                 <button class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id')">Delete</button>
                             </td>
-                            <form id="form-delete-@item.Id" action="@Url.Action("Delete","Banners")" method="post">
+                            <form id="form-delete-@item.Id" action="@Url.Action("Delete","Catalog")" method="post">
                             </form>
                         </tr>
                     }
+
                 </tbody>
             </table>
         </div>
