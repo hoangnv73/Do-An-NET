@@ -144,7 +144,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
         }
         [HttpPost]
         public IActionResult Update(int id, string firstname, string lastname, string password,
-            string email, bool gender, int statusid, IFormFile? file, int roleId)
+            string email, bool gender, int statusid, IFormFile? file)
         {
             var user = _context.Users.Find(id);
             if (user == null)
@@ -159,7 +159,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 image = GetImage(user.Id, file);
             }
 
-            user.Update(firstname, lastname, password, email, gender, statusid, image, roleId);
+            user.Update(firstname, lastname, password, email, gender, statusid, image);
             _context.SaveChanges();
 
             return RedirectToAction("Update", new { id });

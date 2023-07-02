@@ -34,6 +34,8 @@ namespace MyWeb2023.Controllers
         [HttpGet]
         public IActionResult Profile(int id)
         {
+            //todo : hardcode
+            id = 132;
             var profile = _context.Users.Find(id);
             var profileDto = new ProfileDto
             {
@@ -51,7 +53,7 @@ namespace MyWeb2023.Controllers
             var profile = _context.Users.Find(id);
             profile.Update(firstname, lastname, email);
             _context.SaveChanges();
-            return RedirectToAction("Profile", new { id = 56 });     
+            return RedirectToAction("Profile", new { id = id });     
         }
 
 

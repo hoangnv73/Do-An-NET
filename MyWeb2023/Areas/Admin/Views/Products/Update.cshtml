@@ -59,7 +59,9 @@
                         </select>
                     </div>
 
-                    <div id="editor"></div>
+                    <div id="editor" name="description">
+                       @Model.Description
+                    </div>
                     <html lang="en">
                     <head>
                         <meta charset="utf-8">
@@ -67,7 +69,6 @@
                         <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
                     </head>
                     <body>
-                        <h1>Classic editor</h1>
                         <div id="editor">
                         </div>
                         <script>
