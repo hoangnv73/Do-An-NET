@@ -19,7 +19,7 @@ namespace MyWeb2023.Controllers
             ViewBag.Page = page == null ? 1 : page;
 
             // Status = true thì hiển thị product
-            var products = await _context.Products.Where(x => x.Status == true).ToListAsync();
+            var products = await _context.Products.Where(x => x.Status == true).Take(12).ToListAsync();
 
             if (sort == "price_asc")
             {

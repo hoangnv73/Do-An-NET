@@ -48,7 +48,7 @@ namespace MyWeb2023.Controllers
                 Name = x.Name,
                 Price = x.Price,
                 Discount = x.Discount
-            }).ToList();
+            }).Take(12).ToList();
 
             var banners = new List<BannerDto>();
 			banners = _context.Banners.Select(x => new BannerDto
@@ -60,9 +60,19 @@ namespace MyWeb2023.Controllers
                 Image = x.Image
             }).ToList();
 
+            var categories = new List<CategoryDto>();
+            categories = _context.Categories.Select(x => new CategoryDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Image = x.Image,
+                IsActive = x.IsActive
+            }).ToList();
+
+
             home.Products = products;
             home.Banners = banners;
-
+            home.Categories = categories;
             return View(home);
         }
 
@@ -77,23 +87,7 @@ namespace MyWeb2023.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> _Banner()
-        //{
-        //    var banners = await _context.Banners.ToListAsync();
-        //    var result = banners.Select(x => new BannerDto
-        //    {
-        //        Id = x.Id,
-        //        Title = x.Title,
-        //        Description = x.Description,
-        //        DisplayLink = x.DisplayLink,
-        //        Link = x.Link,
-        //        Image = x.Image,
-        //        IsActive = x.IsActive,
-        //        Position = x.Position,
-        //    }).ToList();
-        //    return View(result);
-        //}
+        
 
     }
 }
