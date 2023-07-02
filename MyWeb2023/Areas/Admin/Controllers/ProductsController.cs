@@ -41,6 +41,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Price = x.Price,
                 Discount = x.Discount,
                 Status = x.Status,
+                Description = x.Description,
                 BrandName = ShowBrandName(x.BrandId),
             }).ToList();
             return View(result);

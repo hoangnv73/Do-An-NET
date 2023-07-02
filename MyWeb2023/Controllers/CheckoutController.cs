@@ -42,23 +42,41 @@ namespace MyWeb2023.Controllers
             _context.Orders.Add(order);
             _context.SaveChanges();
 
-            int orderId = order.Id;
-            var productIds = new List<int> { 55, 56, 57};
+            //int orderId = order.Id;
+            //var productIds = new List<int> { 55, 56, 57};
            
-            foreach (var item in productIds)
+            //foreach (var item in productIds)
+            //{
+            //    var product = _context.Products.Find(item);
+            //    var orderDetail = new OrderDetails
+            //    {
+            //        OrderId = orderId,
+            //        ProductId = item,
+            //        Price = product.Price,
+            //    };
+            //    _context.OrderDetails.Add(orderDetail);
+            //    _context.SaveChanges();
+            //}
+
+            var requestProducts = new List<ProductModel>();
+            requestProducts.Add(new ProductModel { ProductId = 55, Quantity = 1 });
+            requestProducts.Add(new ProductModel { ProductId = 56, Quantity = 2 });
+            requestProducts.Add(new ProductModel { ProductId = 57, Quantity = 5 });
+
+            foreach (var item in requestProducts)
             {
-                var product = _context.Products.Find(item);
+                var product = _context.Products.Find(item.ProductId);
+                if (product == null) continue;
                 var orderDetail = new OrderDetails
                 {
-                    OrderId = orderId,
-                    ProductId = item,
+                    OrderId = order.Id,
+                    ProductId = item.ProductId,
                     Price = product.Price,
+                    Quantity = item.Quantity,
                 };
                 _context.OrderDetails.Add(orderDetail);
-                _context.SaveChanges();
             }
-
-            
+            _context.SaveChanges();
             return View();
         }
     }

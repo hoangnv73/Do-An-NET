@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
+using PagedList;
 
 namespace MyWeb2023.Controllers
 {

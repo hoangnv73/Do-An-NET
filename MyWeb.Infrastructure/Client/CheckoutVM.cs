@@ -15,5 +15,12 @@ namespace MyWeb.Infrastructure.Client
         public string Note { get; set; }
 
         //public List<int> ProductIds { get; set; }
+        //public List<ProductModel> Products { get; set; }
+    }
+
+    public class ProductModel
+    {
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }
