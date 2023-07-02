@@ -4,5 +4,6 @@
     {
         public List<BannerDto> Banners { get; set; }
         public List<ProductDto> Products { get; set; }
+        public List<CategoryDto> Categories { get; set; }
     }
 }

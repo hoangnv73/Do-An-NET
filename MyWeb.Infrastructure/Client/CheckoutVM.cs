@@ -13,5 +13,7 @@ namespace MyWeb.Infrastructure.Client
         public string Address { get; set; } 
         public int Phone { get; set; }
         public string Note { get; set; }
+
+        //public List<int> ProductIds { get; set; }
     }
 }
