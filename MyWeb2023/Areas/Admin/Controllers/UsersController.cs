@@ -23,7 +23,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)
                         ? $"/data/users/{x.Id}/{x.Image}"
-                        : "/www/images/default.jpg",
+                        : "/client/assets/img/default.jpg",
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
@@ -147,13 +147,17 @@ namespace MyWeb2023.Areas.Admin.Controllers
             string email, bool gender, int statusid, IFormFile? file)
         {
             var user = _context.Users.Find(id);
+            var rootFolder = Directory.GetCurrentDirectory();
+            var photoName = user.Image;
+            string pathproduct = @$"{rootFolder}\wwwroot\data\users\{id}\" + photoName;
+            System.IO.File.Delete(pathproduct);
             if (user == null)
             {
                 ViewBag.Message = "San pham khong ton tai";
                 return View();
             }
-
             var image = user.Image;
+
             if (file != null)
             {
                 image = GetImage(user.Id, file);

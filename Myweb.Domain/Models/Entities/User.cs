@@ -13,6 +13,10 @@ namespace Myweb.Domain.Models.Entities
         public string Password { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public bool? Gender { get; set; }
+
+        /// <summary>
+        /// StatusId = 1: pending
+        /// </summary>
         public int StatusId { get; set; }
         public string? Image { get; set; }
         public int? RoleId { get; set; }
@@ -29,7 +33,7 @@ namespace Myweb.Domain.Models.Entities
             Image = image;
         }
         public void Update(string firstname, string lastname, string password,string email, bool gender,
-            int statusid,string? image, int roleId)
+            int statusid,string? image)
         {
             FirstName = firstname;
             LastName = lastname;
@@ -38,7 +42,6 @@ namespace Myweb.Domain.Models.Entities
             Gender = gender;
             StatusId = statusid;
             Image = image;
-            RoleId = roleId;
         }
 
         public void Update(string firstname, string lastname, string email)

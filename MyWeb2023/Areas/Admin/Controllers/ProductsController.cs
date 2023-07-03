@@ -90,9 +90,6 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Name = request.Name,
                 Price = request.Price,
                 BrandId = request.BrandId,
-                //Biến = (điều kiện )? (Lệnh1 thực thi nếu đk đúng) : (lệnh 2 thực thi nếu đk sai);
-                // nếu như request.Discount not null thì giá trị = chính nó --> nếu như null thì gắn = 0
-                //Discount = request.Discount ?? 0,
                 Discount = request.Discount == null ? 0 : request.Discount,
                 Status = request.Status,
                 Description = request.Description
@@ -139,7 +136,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
         //Update
         [HttpGet]
         public ActionResult Update(int id)
-        {
+          {
             var listBrands = _context.Brands.Select(x => new ComboboxDto
             {
                 Id = x.Id,

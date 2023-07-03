@@ -56,8 +56,6 @@ namespace MyWeb2023.Controllers
             return RedirectToAction("Profile", new { id = id });     
         }
 
-
-
         public IActionResult Login()
         {
             //SendMail();
@@ -80,20 +78,6 @@ namespace MyWeb2023.Controllers
                     message = "Account does not exist"
                 };
             } 
-
-            // check @gmail.com
-            string somestring = email;
-            string emailCheck = somestring.Substring(somestring.Length - 10, 10);
-
-            if (emailCheck != "@gmail.com")
-            {
-                return new
-                {
-                    code = 400,
-                    message = "Enter the correct format: @gmail.com"
-                };
-            }
-
             // Nếu tồn tại thì kiểm tra password 
             if (user.Password != password)
             {
@@ -103,7 +87,6 @@ namespace MyWeb2023.Controllers
                     message = "Wrong Password"
                 };
             }
-
 
             var obj = new
             {
@@ -139,7 +122,6 @@ namespace MyWeb2023.Controllers
                 _context.Users.Add(UserAdd);
                 _context.SaveChanges();
                 //SendMail();
-
             }
             
             else
@@ -148,8 +130,6 @@ namespace MyWeb2023.Controllers
                 ViewBag.Message = "Tài khoản đã tồn tại";
                 return View();
             }
-            
-
             return View();
         }
 
@@ -169,6 +149,50 @@ namespace MyWeb2023.Controllers
                 }
                 return stringbuilder.ToString();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId">userId</param>
+        /// <returns></returns>
+        public IActionResult MyOrder(int userId) 
+        {
+            // khai bao doi tuong
+            var response = new List<MyOrderDto>();
+            var orders = _context.Orders.Where(x => x.UserId == userId).ToList();
+
+            foreach (var order in orders)
+            { 
+                var orderDetails = _context.OrderDetails.Where(x => x.OrderId == order.Id).ToList();
+                var details = new List<MyOrderDetailsDto>();
+               
+                foreach (var orderDetail in orderDetails)
+                {
+                    var product = _context.Products.Find(orderDetail.ProductId);
+                    var aa = new MyOrderDetailsDto()
+                    {
+                        Image = !string.IsNullOrEmpty(product.Image)
+                        ? $"/data/products/{product.Id}/{product.Image}"
+                        : "/www/images/default-thumbnail.jpg",
+                        Name = product.Name,
+                        Price = orderDetail.Price
+                    };
+                    details.Add(aa);
+                }
+                // gan du lieu
+                var myOrder = new MyOrderDto()
+                {
+                    Id = order.Id,
+                    Address = order.Address,
+                    Status = order.Status,
+                    OrderDate = order.OrderDate,
+                    Details = details
+                };
+                response.Add(myOrder);
+            }
+
+            return View(response);
         }
 
         public IActionResult ForgotPassword()
