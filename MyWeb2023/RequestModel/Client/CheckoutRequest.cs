@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyWeb2023.RequestModel.Client
+﻿namespace MyWeb2023.RequestModel.Client
 {
     public class CheckoutRequest
     {
@@ -17,10 +11,10 @@ namespace MyWeb2023.RequestModel.Client
         /// cod, paypal
         /// </summary>
         public string Payment { get; set; } = "cod";
-        public List<ProductModel> Products { get; set; } = new List<ProductModel> { };
+        public List<CartItem> CartItems { get; set; } = new List<CartItem> { };
     }
 
-    public class ProductModel
+    public class CartItem
     {
         public int ProductId { get; set; }
         public int Quantity { get; set; }

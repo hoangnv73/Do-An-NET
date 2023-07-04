@@ -7,11 +7,11 @@ function showMessageError(message) {
     })
 }
 
-function paySuccess() {
+function CommonMessage(type, message) {
     Swal.fire({
         position: 'center',
-        icon: 'success',
-        title: 'Payment success!',
+        icon: type,
+        title: message,
         showConfirmButton: false,
         timer: 2200
     })

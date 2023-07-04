@@ -28,7 +28,7 @@ namespace MyWeb2023.Controllers
             _context.Orders.Add(order);
             _context.SaveChanges();
           
-            foreach (var item in request.Products)
+            foreach (var item in request.CartItems)
             {
                 var product = _context.Products.Find(item.ProductId);
                 if (product == null) continue;

@@ -35,6 +35,7 @@ function getCookie(name) {
 
 function bindingCart() {
     let arr = getCarts();
+    console.log("arr", arr);
     axios.post('/cart', {
         'request': arr
     }, {
@@ -46,6 +47,9 @@ function bindingCart() {
 
             var div = document.getElementById('render-cart');
             div.innerHTML = res.data;
+
+            var div2 = document.getElementById('render-cart-2');
+            div2.innerHTML = res.data;
         })
 }
 
@@ -59,4 +63,70 @@ function RemoveToCart(productId) {
     bindingCart();
 }    
 
-            
+function ResetCookie() {
+    let arr = [];
+    var json_str = JSON.stringify(arr);
+    document.cookie = "productIds=" + json_str;
+}
+
+function Checkout() {
+    let email = document.getElementById('email').value;
+    let phone = document.getElementById('phone').value;
+    let address = document.getElementById('address').value;
+    let note = document.getElementById('note').value;
+    let customerName = document.getElementById('customerName').value;
+    let cartItems = getCarts();
+
+    if (IsEmpty(email)) {
+        ShowMessage("error", "Emai is required");
+        return;
+    }
+    if (IsEmpty(phone)) {
+        ShowMessage("error", "Phone is required");
+        return;
+    }
+    if (IsEmpty(address)) {
+        ShowMessage("error", "Address is required");
+        return;
+    }
+    if (IsEmpty(customerName)) {
+        ShowMessage("error", "Full name is required");
+        return;
+    }
+    if (cartItems.length == 0) {
+        ShowMessage("error", "Cart is empty");
+        return;
+    }
+
+    axios.post('/checkout/index', {
+        'email': email,
+        'phone': phone,
+        'address': address,
+        'note': note,
+        'customerName': customerName,
+        'cartItems': cartItems
+    }, {
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(function (response) {
+            ShowMessage("success", "Order successfully!");
+            ResetCookie();
+            location.href = '/account/myorder'
+        })
+}
+
+function IsEmpty(val) {
+    return (val === undefined || val == null || val.length <= 0) ? true : false;
+}
+
+function ShowMessage(type, message) {
+    Swal.fire({
+        position: 'center',
+        icon: type,
+        title: message,
+        showConfirmButton: false,
+        timer: 2200
+    })
+}
