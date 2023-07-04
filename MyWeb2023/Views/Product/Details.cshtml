@@ -127,46 +127,17 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link active" id="description-tab" href="#description" data-toggle="tab" role="tab" aria-controls="description" aria-selected="true">Description</a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" href="#information" id="information-tab" data-toggle="tab" role="tab" aria-controls="information" aria-selected="false">Additional information</a>
-                        </li>
+                       
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" href="#reviews" id="reviews-tab" data-toggle="tab" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
                         </li>
                     </ul>
 
                     <div class="tab-content" id="myTabContent">
-
                         <!-- Description Content -->
                         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                             <div class="description_info">
-                                <p class="p-0 mb-2">@Model.Product.Description</p>
-                            </div>
-                        </div>
-
-                        <!-- Additional Content -->
-                        <div class="tab-pane fade" id="information" role="tabpanel" aria-labelledby="information-tab">
-                            <div class="additionals">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th class="ft-medium text-dark">ID</th>
-                                            <td>#1253458</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="ft-medium text-dark">SKU</th>
-                                            <td>KUM125896</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="ft-medium text-dark">Color</th>
-                                            <td>Sky Blue</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="ft-medium text-dark">Weight</th>
-                                            <td>450 Gr</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                             @Html.Raw(@Model.Product.Description)
                             </div>
                         </div>
 
@@ -271,63 +242,7 @@
         </div>
     </section>
     <!-- ======================= Product Description End ==================== -->
-    <!-- ======================= Customer Features ======================== -->
-    <section class="px-0 py-3 br-top">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="d-flex align-items-center justify-content-start py-2">
-                        <div class="d_ico">
-                            <i class="fas fa-shopping-basket"></i>
-                        </div>
-                        <div class="d_capt">
-                            <h5 class="mb-0">Free Shipping</h5>
-                            <span class="text-muted">Capped at $10 per order</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="d-flex align-items-center justify-content-start py-2">
-                        <div class="d_ico">
-                            <i class="far fa-credit-card"></i>
-                        </div>
-                        <div class="d_capt">
-                            <h5 class="mb-0">Secure Payments</h5>
-                            <span class="text-muted">Up to 6 months installments</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="d-flex align-items-center justify-content-start py-2">
-                        <div class="d_ico">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="d_capt">
-                            <h5 class="mb-0">15-Days Returns</h5>
-                            <span class="text-muted">Shop with fully confidence</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <div class="d-flex align-items-center justify-content-start py-2">
-                        <div class="d_ico">
-                            <i class="fas fa-headphones-alt"></i>
-                        </div>
-                        <div class="d_capt">
-                            <h5 class="mb-0">24x7 Fully Support</h5>
-                            <span class="text-muted">Get friendly support</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- ======================= Customer Features ======================== -->
+   
     <!-- Product View Modal -->
     <div class="modal fade lg-modal" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickviewmodal" aria-hidden="true">
         <div class="modal-dialog modal-xl login-pop-form" role="document">
