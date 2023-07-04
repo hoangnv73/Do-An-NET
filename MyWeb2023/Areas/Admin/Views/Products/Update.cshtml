@@ -82,9 +82,13 @@
                 </html>
 
                 <label>Image:</label>
-                <div>
-                    <img src="~/data/products/@Model.Id/@Model.Image" width="100px" height="100px" />
-                </div>
+                @if (Model.Image != null)
+                    {
+                    <div>
+                        <img src="~/data/products/@Model.Id/@Model.Image" width="100px" height="100px" />
+                    </div>
+                    }
+               
                 <br />
                 <input name="file" value="@Model.Image" type="file" />
 

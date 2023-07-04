@@ -36,7 +36,7 @@ namespace MyWeb2023.Controllers
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)
                         ? $"/data/products/{x.Id}/{x.Image}"
-                        : "/www/images/default-thumbnail.jpg",
+                        : "/data/default.png",
                 Name = x.Name,
                 BrandId = x.Id,
                 Price = x.Price,

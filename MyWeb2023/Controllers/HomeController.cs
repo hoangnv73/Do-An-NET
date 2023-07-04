@@ -46,7 +46,7 @@ namespace MyWeb2023.Controllers
             }).ToList();
 
             var categories = new List<CategoryDto>();
-            categories = _context.Categories.Select(x => new CategoryDto
+            categories = _context.Categories.Where(x => x.IsActive).Select(x => new CategoryDto
             {
                 Id = x.Id,
                 Name = x.Name,
