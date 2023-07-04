@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
+using MyWeb2023.Models;
+using System.Reflection;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
@@ -145,26 +147,20 @@ namespace MyWeb2023.Areas.Admin.Controllers
         }
         [HttpPost]
         public IActionResult Update(int id, string firstname, string lastname, string password,
-            string email, bool gender, int statusid, IFormFile? file)
+            bool gender, int statusid, IFormFile? file)
         {
             var user = _context.Users.Find(id);
-            var rootFolder = Directory.GetCurrentDirectory();
-            var photoName = user.Image;
-            string pathproduct = @$"{rootFolder}\wwwroot\data\users\{id}\" + photoName;
-            System.IO.File.Delete(pathproduct);
-            if (user == null)
-            {
-                ViewBag.Message = "San pham khong ton tai";
-                return View();
-            }
-            var image = user.Image;
-
+            if (user == null) return RedirectToAction("NotFound", "Common");
             if (file != null)
             {
-                image = GetImage(user.Id, file);
+                var rootFolder = Directory.GetCurrentDirectory();
+                var photoName = user.Image;
+                string pathproduct = @$"{rootFolder}\wwwroot\data\users\{id}\" + photoName;
+                System.IO.File.Delete(pathproduct);
+                user.Image = file.FileName;
+                CommonFunction.UploadImage(file, $"users/{user.Id}");
             }
-
-            user.Update(firstname, lastname, password, email, gender, statusid, image);
+            user.Update(firstname, lastname, password, gender, statusid, user.Image);
             _context.SaveChanges();
 
             return RedirectToAction("Update", new { id });
