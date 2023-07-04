@@ -3,6 +3,7 @@
 @model Product
 @{
     List<ComboboxDto> brands = ViewBag.Brands;
+    List<ComboboxDto> categories = ViewBag.Categories;
     var isCheckedActive = Model.Status ? "checked" : string.Empty;
     var isCheckedInActive = !Model.Status ? "checked" : string.Empty;
 }
@@ -18,17 +19,17 @@
             <form method="post" action="/Admin/Products/Update" enctype="multipart/form-data">
                     <div class="form-group">
                         <input id="update" name="id" value="@Model.Id" type="hidden" />
-                        <label>Tên sản phẩm <span class="text-danger">*</span></label>
+                        <label>Product Name <span class="text-danger">*</span></label>
                         <input name="name" value="@Model.Name" type="text" class="form-control">
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-4">
-                                <label>Price *:</label>
+                                <label>Price<span class="text-danger">*</span></label>
                                 <input name="price" value="@Model.Price" type="text" class="form-control">
                             </div>
                             <div class="col-sm-4">
-                                <label>Discount:</label>
+                                <label>Discount (%)</label>
                                 <input name="discount" value="@Model.Discount" type="text" class="form-control">
                             </div>
                         </div>
@@ -46,12 +47,11 @@
                     <div class="form-group">
                         <label>Brand</label>
                         <select class="form-control" name="brandId">
-                            <option value="">Chọn</option>
+                            <option value="">Choose</option>
                             @{
                                 var brand = Model.BrandId;
                                 foreach (var item in brands)
                                 {
-                                    //var abc = currentPage == item ? "active" : "";
                                     var abc = brand == item.Id ? "selected" : "";
                                     <!option @abc value="@item.Id">@item.Name</!option>
                                 }
@@ -59,16 +59,27 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select class="form-control" name="brandId">
+                            <option value="">Choose</option>
+                            @{
+                                var category = Model.CategoryId;
+                                foreach (var item in brands)
+                                {
+                                    var abc = category == item.Id ? "selected" : "";
+                                    <!option @abc value="@item.Id">@item.Name</!option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+
                     <div id="editor" name="description">
                        @Model.Description
                     </div>
-                    <html lang="en">
-                    <head>
-                        <meta charset="utf-8">
-                        <title>CKEditor 5 – Classic editor</title>
-                        <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
-                    </head>
-                    <body>
+                   
+                    <div>
                         <div id="editor">
                         </div>
                         <script>
@@ -78,8 +89,7 @@
                                     console.error(error);
                                 });
                         </script>
-                    </body>
-                </html>
+                    </div>
 
                 <label>Image:</label>
                 @if (Model.Image != null)

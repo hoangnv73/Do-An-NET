@@ -147,7 +147,14 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Name = x.Name,
             }).ToList();
 
+            var categories = _context.Categories.Select(x => new ComboboxDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToList();
+
             ViewBag.Brands = listBrands;
+            ViewBag.Categories = categories;
 
             var product = _context.Products.Find(id);
 
