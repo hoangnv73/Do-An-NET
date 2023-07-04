@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Myweb.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,9 @@ namespace Myweb.Domain.Models.Entities
     public class Order: EntityBase
     {
         public int? UserId { get; set; }
+        /// <summary>
+        /// <see cref="ORDER_STATUS"/>
+        /// </summary>
         public int Status { get; set; }
         public DateTime OrderDate { get; set; }
         public string Address { get; set; } 
