@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Myweb.Domain.Common;
 using MyWeb.Infrastructure.Admin;
 using MyWeb2023.Areas.Admin.Models;
 
@@ -15,8 +16,8 @@ namespace MyWeb2023.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var orders = _context.Orders.Where(x => x.Status == 1);
-            var totalUsers = _context.Users.Count(x => x.StatusId == 1);
+            var orders = _context.Orders.Where(x => x.Status == ORDER_STATUS.Delivered);
+            var totalUsers = _context.Users.Count(x => x.StatusId == USER_STATUS.Active);
             var totalRevenu = _context.OrderDetails.Sum(x => x.Price * x.Quantity);
             var dashboard = new DashboardDto()
             {
