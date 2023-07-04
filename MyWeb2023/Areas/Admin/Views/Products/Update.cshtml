@@ -65,7 +65,7 @@
                             <option value="">Choose</option>
                             @{
                                 var category = Model.CategoryId;
-                                foreach (var item in brands)
+                                foreach (var item in categories)
                                 {
                                     var abc = category == item.Id ? "selected" : "";
                                     <!option @abc value="@item.Id">@item.Name</!option>

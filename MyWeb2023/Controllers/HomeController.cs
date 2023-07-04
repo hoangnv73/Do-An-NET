@@ -36,7 +36,7 @@ namespace MyWeb2023.Controllers
             }).Take(12).ToList();
 
             var banners = new List<BannerDto>();
-			banners = _context.Banners.Select(x => new BannerDto
+			banners = _context.Banners.Where(x => x.IsActive).Select(x => new BannerDto
             {
                 Id = x.Id,
                 Title = x.Title,
