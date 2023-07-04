@@ -18,12 +18,24 @@ namespace Myweb.Domain.Models.Entities
         public DateTime OrderDate { get; set; }
         public string Address { get; set; } 
         public int Phone { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
         public string CustomerName { get; set; }
 
         public Order()
         {
 
+        }
+
+        public Order(int? userId, string address,
+            int phone, string? note, string customerName)
+        {
+            UserId = userId;
+            Status = ORDER_STATUS.Pending.Id;
+            OrderDate = DateTime.Now;
+            Address = address;
+            Phone = phone;
+            Note = note;
+            CustomerName = customerName;
         }
 
         public void Update(int status)

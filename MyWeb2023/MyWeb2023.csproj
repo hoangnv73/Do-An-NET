@@ -921,7 +921,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Home\" />
-    <Folder Include="RequestModel\Client\" />
     <Folder Include="wwwroot\admin\data\users\" />
     <Folder Include="wwwroot\admin\data\products\" />
     <Folder Include="wwwroot\admin\uploads\" />

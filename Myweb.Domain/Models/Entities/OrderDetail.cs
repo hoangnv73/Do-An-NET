@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Myweb.Domain.Models.Entities
 {
-    public class OrderDetails : EntityBase 
+    public class OrderDetail : EntityBase 
     {
         public int OrderId { get; set; }
         public int ProductId { get; set; }
