@@ -74,14 +74,10 @@
                         </select>
                     </div>
 
-
-                    <div id="editor" name="description">
-                       @Model.Description
-                    </div>
-                   
                     <div>
-                        <div id="editor">
-                        </div>
+                        <textarea id="editor" name="description" rows="6">
+                        @Model.Description
+                        </textarea>
                         <script>
                             ClassicEditor
                                 .create(document.querySelector('#editor'))
