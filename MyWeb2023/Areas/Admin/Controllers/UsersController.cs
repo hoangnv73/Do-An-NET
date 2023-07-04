@@ -107,6 +107,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Email = model.Email,
                 Gender = model.Gender,
                 RoleId = model.RoleId,
+                LastLogin = DateTime.Now,
             };
             _context.Users.Add(UserAdd);
             _context.SaveChanges();

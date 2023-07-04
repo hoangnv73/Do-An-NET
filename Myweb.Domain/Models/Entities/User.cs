@@ -20,9 +20,11 @@ namespace Myweb.Domain.Models.Entities
         public int StatusId { get; set; }
         public string? Image { get; set; }
         public int? RoleId { get; set; }
+        public int? CheckLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
 
         public User(string firstname, string lastName, string password, string email, bool? gender, 
-            int statusId, string? image)
+            int statusId, string? image, int checkLogin)
         {
             FirstName = firstname;
             LastName = lastName;
@@ -31,6 +33,9 @@ namespace Myweb.Domain.Models.Entities
             Gender = gender;
             StatusId = statusId;
             Image = image;
+            CheckLogin = checkLogin;
+            LastLogin = DateTime.Now;
+
         }
         public void Update(string firstname, string lastname, string password,string email, bool gender,
             int statusid,string? image)

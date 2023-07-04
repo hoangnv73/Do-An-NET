@@ -44,21 +44,6 @@
             let firstname = document.getElementById('firstname').value;
             let lastname = document.getElementById('lastname').value
 
-            //if (email == null || email == "") {
-            //    document.getElementById("email-message").innerHTML = "Email không hợp lệ";
-            //    return;
-            //}
-            //else {
-            //    document.getElementById("email-message").innerHTML = "";
-            //}
-            //if (password == null || password == "") {
-            //    document.getElementById("password-message").innerHTML = "Password không hợp lệ";
-            //    return;
-            //}
-            //else {
-            //    document.getElementById("password-message").innerHTML = "";
-            //}
-
             axios.post('/account/register', {
                 'email': email,
                 'password': password,
@@ -79,8 +64,10 @@
                         icon: 'success',
                         title: 'Register success!',
                         showConfirmButton: false,
-                        timer: 2200
+                        timer: 2000
+                      
                     })
+                   
 
                 })
         }

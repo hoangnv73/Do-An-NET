@@ -63,12 +63,22 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public object Login(string email, string password, int roleId)
+        public object Login(string email, string password)
         {
             // Kiểm tra email có tồn tại hay không
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
-            password = HashPassword(password);
+             password = HashPassword(password);
+            
+            if (user.CheckLogin >= 3 && (user.LastLogin?.AddMinutes(5) >= DateTime.Now))
+            {
+                return new
+                {
+                    code = HttpStatusCode.BadRequest,
+                    message = "Account Locked"
+                };
+            }
+
             // Nếu không tồn tại thì show lỗi
             if (user == null)
             {
@@ -81,6 +91,9 @@ namespace MyWeb2023.Controllers
             // Nếu tồn tại thì kiểm tra password 
             if (user.Password != password)
             {
+                user.CheckLogin = user.CheckLogin + 1;
+                user.LastLogin = DateTime.Now;
+                _context.SaveChanges();
                 return new
                 {
                     code = 400,
@@ -93,9 +106,10 @@ namespace MyWeb2023.Controllers
                 code = HttpStatusCode.OK,
                 roleId = user.RoleId
             };
-           
-            return obj;
 
+            user.CheckLogin = 0;
+            _context.SaveChanges();
+            return obj;
 
         }
 
@@ -118,6 +132,7 @@ namespace MyWeb2023.Controllers
                     Password = HashPassword(password),
                     Email = email,
                     Gender = null,
+                    LastLogin = DateTime.Now,
                 };
                 _context.Users.Add(UserAdd);
                 _context.SaveChanges();
@@ -197,6 +212,16 @@ namespace MyWeb2023.Controllers
 
         public IActionResult ForgotPassword()
         {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[8];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+            var finalString = new string(stringChars);
+
             return View();
         }
 
