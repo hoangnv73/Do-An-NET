@@ -163,52 +163,7 @@
         <div class="row align-items-center rows-products">
             @foreach (var item in Model)
             {
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        @{
-                            if (item.Discount != 0)
-                            {
-                                <div class="badge bg-danger text-white position-absolute ft-regular ab-left text-upper">- @item.Discount%</div>
-                            }
-                        }
-                        <button class="snackbar-wishlist btn btn_love position-absolute ab-right"><i class="far fa-heart"></i></button>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden ovr-hide" href="/Product/Details?id=@item.Id"><img class="card-img-top" src="@item.Image"></a>
-                                <a class="card-img-top d-block overflow-hidden ovr-show" href="/Product/Details?id=@item.Id"><img class="card-img-top" src="~/client/assets/img/product/7-a.jpg" alt="..."></a>
-                                
-                                <div class="product-hover-overlay btn d-flex align-items-center justify-content-center">
-                                    <div class="group_btn">
-                                        <a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
-                                        <a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
-                                        <a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i></a>
-                                        <a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
-                            <div class="text-left">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1">
-                                        <a href="/Product/Details?id=@item.Id">@item.Name</a></h5>
-                                    @{
-                                        var price = item.Price - (item.Price / 100) * item.Discount;
-                                        if (item.Discount == 0)
-                                        {
-                                            <div class="elis_rty"><span class="ft-bold theme-cl fs-md">$@price</span></div>
-                                        }
-                                        else
-                                        {
-                                            <div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$@item.Price</span><span class="ft-bold theme-cl fs-md">$@price</span></div>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @await Html.PartialAsync("_ProductItem", item)
             }
 
         </div>

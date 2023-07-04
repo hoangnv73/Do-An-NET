@@ -22,29 +22,14 @@ namespace MyWeb2023.Controllers
 
         public IActionResult Index()
         {
-            #region lưu lại để học
-            //var home = new HomeDto();
-            //var products = new List<ProductDto>();
-            //products.Add(new ProductDto() { Id = 1, Name = "hoang" });
-            //products.Add(new ProductDto() { Id = 2, Name = "van" });
-            //products.Add(new ProductDto() { Id = 3, Name = "fvv" });
-            //products.Add(new ProductDto() { Id = 4, Name = "dđ" });
-
-            //var banners = new List<BannerDto>();
-            //banners.Add(new BannerDto() { Id = 1, Title = "hioab" });
-            //banners.Add(new BannerDto() { Id = 2, Title = "van" });
-            //banners.Add(new BannerDto() { Id = 3, Title = "giodfd" });
-
-            //home.Products = products;
-            //home.Banners = banners;
-            #endregion
-
             var home = new HomeDto();
-            var products = new List<ProductDto>();
-            products = _context.Products.Select(x => new ProductDto
+            var products = new List<ProductVM>();
+            products = _context.Products.Select(x => new ProductVM
             {
                 Id = x.Id,
-                Image = x.Image,
+                Image = !string.IsNullOrEmpty(x.Image)
+                        ? $"/data/products/{x.Id}/{x.Image}"
+                        : "/www/images/default-thumbnail.jpg",
                 Name = x.Name,
                 Price = x.Price,
                 Discount = x.Discount
