@@ -17,9 +17,10 @@
 						</div>
 						<div class="cart_single_caption pl-2">
 							<h4 class="product_title fs-sm ft-medium mb-0 lh-1">@item.Name</h4>
+							<div><input value="@item.Quantity" type="number" /></div>
 							<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
 							<h4 class="fs-md ft-medium mb-0 lh-1">$@item.Price</h4>
-							<div><input value="@item.Quantity" type="number" /></div>
+							
 						</div>
 					</div>
 					<div class="fls_last"><button class="close_slide gray" onclick="RemoveToCart('@item.Id')"><i class="ti-close"></i></button></div>
