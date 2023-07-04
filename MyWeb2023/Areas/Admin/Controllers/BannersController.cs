@@ -1,9 +1,10 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
+using MyWeb2023.Models;
+using MyWeb2023.RequestModel.Admin;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
@@ -11,21 +12,27 @@ namespace MyWeb2023.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Constructors
+        /// </summary>
+        /// <param name="context"></param>
         public BannersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// GET List banners
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var banner = await _context.Banners.ToListAsync();
-            var result = banner.Select(x => new BannerDto
+            var banners = await _context.Banners.OrderBy(x => x.Position).ToListAsync();
+            var result = banners.Select(x => new BannerDto
             {
                 Id = x.Id,
                 Title = x.Title,
-                Description = x.Description,
-                DisplayLink = x.DisplayLink,
-                Link = x.Link,
                 Image = !string.IsNullOrEmpty(x.Image)
                         ? $"/data/banners/{x.Id}/{x.Image}"
                         : "/www/images/default-thumbnail.jpg",
@@ -35,61 +42,60 @@ namespace MyWeb2023.Areas.Admin.Controllers
             return View(result);
         }
 
-        //Create
+        /// <summary>
+        /// Page create banner
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
+
+        /// <summary>
+        /// CREATE banner
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
-        public IActionResult Create(CreateBannerModel model)
+        public IActionResult Create(CreateBannerModel request)
         {
-            var addBanner = new Banner
-            {
-                Title = model.Title,
-                Description = model.Description,
-                DisplayLink = model.DisplayLink,
-                Link = model.Link,
-                IsActive = model.IsActive,
-                Position = model.Position,
-            };
-            _context.Banners.Add(addBanner);
+            //-- Add banner
+            var banner = new Banner(request.Title, request.Description, request.DisplayLink, request.Link, request.File.FileName, request.Position);
+            _context.Banners.Add(banner);
             _context.SaveChanges();
 
-            if (model.File != null)
-            {
-                string image = GetImage(addBanner.Id, model.File);
-                addBanner.Image = image;
-                _context.SaveChanges();
-            }
+            //-- Save Image
+            CommonFunction.UploadImage(request.File, $"banners/{banner.Id}");
             return RedirectToAction("Index");
         }
-        //Delete
+        
+        /// <summary>
+        /// Delete Banner
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<bool> DeleteBanners(int id)
+        public bool DeleteBanner(int id)
         {
             var banner = _context.Banners.Find(id);
             if (banner != null)
             {
                 _context.Banners.Remove(banner);
                 var rootFolder = Directory.GetCurrentDirectory();
-
                 string pathproduct = @$"{rootFolder}\wwwroot\data\banners\{id}";
-              
-                if (Directory.Exists(pathproduct))
-                {
-                    Directory.Delete(pathproduct, true);
-                }
+                if (Directory.Exists(pathproduct)) Directory.Delete(pathproduct, true);
                 _context.SaveChanges();
             }
-           
             return true;
         }
-        //Update 
+        
+        
         [HttpGet]
         public IActionResult Update(int id)
         {
             var banner = _context.Banners.Find(id);
+            if (banner == null) return RedirectToAction("NotFound", "Common");
             return View(banner);
         }
 
@@ -98,34 +104,15 @@ namespace MyWeb2023.Areas.Admin.Controllers
             string link, IFormFile? file, bool isactive, int position)
         {
             var banner = _context.Banners.Find(id);
-            var image = banner.Image;
+            if (banner == null) return RedirectToAction("NotFound", "Common");
             if (file != null)
             {
-                image = GetImage(banner.Id, file);
+                banner.Image = file.FileName;
+                CommonFunction.UploadImage(file, $"banners/{banner.Id}");
             }
-            banner.Update(title, description, displaylink, link, image, isactive, position);
+            banner.Update(title, description, displaylink, link, banner.Image, isactive, position);
             _context.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        //Up anh
-        public string GetImage(int bannerId, IFormFile file)
-        {
-            var rootFolder = Directory.GetCurrentDirectory();
-            string pathbanner = @$"{rootFolder}\wwwroot\data\banners\{bannerId}";
-
-            if (!Directory.Exists(pathbanner))
-            {
-                Directory.CreateDirectory(pathbanner);
-            }
-            string filename = file.FileName;
-            var filepath = Path.Combine(pathbanner, filename);
-
-            using (FileStream filestream = System.IO.File.Create(filepath))
-            {
-                file.CopyTo(filestream);
-            }
-            return filename;
         }
     }
 }

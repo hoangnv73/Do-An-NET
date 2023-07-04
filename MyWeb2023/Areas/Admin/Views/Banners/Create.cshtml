@@ -12,46 +12,30 @@
                 <form method="post" action="/Admin/Banners/Create" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Title<span class="text-danger">*</span></label>
-                        <input name="title" type="text" class="form-control" required>
+                        <input name="title" type="text" class="form-control" required placeholder="Press title ...">
                     </div>
                     <div class="form-group">
-                        <label>Description<span class="text-danger">*</span></label>
+                        <label>Description</label>
                         <textarea name="description" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>DisplayLink<span class="text-danger">*</span></label>
-                        <input name="displaylink" type="text" class="form-control" required>
+                        <label>DisplayLink</label>
+                        <input name="displaylink" type="text" class="form-control" title="Press display link ...">
                     </div>
                     <div class="form-group">
-                        <label>Link<span class="text-danger">*</span></label>
-                        <input name="link" type="text" class="form-control" required>
+                        <label>Link</label>
+                        <input name="link" type="text" class="form-control" placeholder="Press link ...">
                     </div>
-
-                   @* @{
-                    var isCheckedActive = Model.IsActive ? "checked" : string.Empty;
-                    var isCheckedInActive = !Model.IsActive ? "checked" : string.Empty;
-                    }
-                    <div class="form-group">
-                        <label>IsActive<span class="text-danger">*</span></label>
-                        <div class="form-group">
-                            <input name="isactive" value="True" type="radio" @isCheckedActive />
-                            <span>Display</span>
-                            <br />
-                            <input name="isactive" value="False" type="radio" @isCheckedInActive />
-                            <span>Hide</span>
-                        </div>
-                    </div>
-*@
                     <div class="form-group">
                         <label>Position<span class="text-danger">*</span></label>
-                        <input name="position" type="text" class="form-control" required>
+                        <input name="position" type="number" min="1" class="form-control" required>
                     </div>
                     <br />
                     <div class="form-group">
-                        <input type="file" name="file" />
+                        <input type="file" name="file" required />
                     </div>
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-info">Add</button>
+                        <button type="submit" class="btn btn-info">Create</button>
                     </div>
                 </form>
             </div>
