@@ -19,7 +19,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = await _context.Orders.OrderByDescending(x => x.OrderDate).ToListAsync();
             var result = orders.Select(x => new OrderDto
             {
                 Id = x.Id,
