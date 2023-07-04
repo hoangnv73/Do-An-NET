@@ -28,8 +28,8 @@ namespace MyWeb2023.Controllers
                         : "/data/default.png",
                 Name = x.Name,
                 Quantity = request.FirstOrDefault(r => r.ProductId == x.Id)?.Quantity ?? 0,
-				Price = x.Price * (request.FirstOrDefault(r => r.ProductId == x.Id)?.Quantity ?? 0),
-                //Price = x.Price - (x.Price/100 * x.Discount) 
+                Price = (x.Price - (x.Price / 100 * x.Discount ?? 0))
+                * (request.FirstOrDefault(r => r.ProductId == x.Id)?.Quantity ?? 0)
             }).ToList();
             return PartialView("_Cart", response);
         }

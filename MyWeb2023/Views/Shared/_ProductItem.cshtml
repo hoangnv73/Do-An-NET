@@ -4,7 +4,7 @@
 <div class="col-xl-3 col-lg-4 col-md-6 col-6">
     <div class="product_grid card b-0">
         @{
-            if (Model.Discount != 0)
+            if (Model.Discount != null && Model.Discount > 0)
             {
                 <div class="badge bg-danger text-white position-absolute ft-regular ab-left text-upper">- @Model.Discount%</div>
             }
@@ -36,15 +36,17 @@
                         <a href="/Product/Details?id=@Model.Id">@Model.Name</a>
                     </h5>
                     @{
-                        var price = Model.Price - (Model.Price / 100) * Model.Discount;
-                        if (Model.Discount == 0)
-                        {
-                            <div class="elis_rty"><span class="ft-bold theme-cl fs-md">$@price</span></div>
-                        }
-                        else
-                        {
-                            <div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$@Model.Price</span><span class="ft-bold theme-cl fs-md">$@price</span></div>
-                        }
+                        var price = Model.Price;
+                        <div class="elis_rty">
+                        
+                            @if (Model.Discount != null && Model.Discount > 0)
+                            {
+                                price = Model.Price - (Model.Price / 100) * Model.Discount ?? 0;
+                                <span class="text-muted ft-medium line-through mr-2">$@Model.Price</span>
+                            }
+                            <span class="ft-bold theme-cl fs-md">$@price</span>
+                        </div>
+                       
                     }
                 </div>
             </div>
