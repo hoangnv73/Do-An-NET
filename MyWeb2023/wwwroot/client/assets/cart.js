@@ -58,3 +58,5 @@ function RemoveToCart(productId) {
     document.cookie = "productIds=" + json_str;
     bindingCart();
 }    
+
+            

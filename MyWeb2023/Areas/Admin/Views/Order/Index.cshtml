@@ -1,4 +1,5 @@
 ﻿@using MyWeb2023.Areas.Admin.Models.Dto
+@using Myweb.Domain.Common;
 @using Myweb.Domain.Models.Entities
 
 @model List<OrderDto>
@@ -36,21 +37,26 @@
                                 <td>@item.Phone</td>
                                 <td>@item.Note</td>
                                 @{
-                                    if (item.Status == 0)
+                                    if (item.StatusName == ORDER_STATUS.Processing.Name 
+                                        || item.StatusName == ORDER_STATUS.Pending.Name)
                                     {
-                                        <td><span class="badge badge-warning">Processing</span></td>
+                                        <td><span class="badge badge-warning text-white">@item.StatusName</span></td>
                                     }
-                                    if (item.Status == 1)
+                                    if (item.StatusName == @ORDER_STATUS.Shipping.Name)
                                     {
-                                        <td><span class="badge badge-success">Delivered</span></td>
+                                        <td><span class="badge badge-primary">@item.StatusName</span></td>
                                     }
-                                    if (item.Status == 2)
+                                    if (item.StatusName == @ORDER_STATUS.Delivered.Name)
                                     {
-                                        <td><span class="badge badge-danger">Fails</span></td>
+                                        <td><span class="badge badge-success">@item.StatusName</span></td>
+                                    }
+                                    if (item.StatusName == @ORDER_STATUS.Cancelled.Name)
+                                    {
+                                        <td><span class="badge badge-danger">@item.StatusName</span></td>
                                     }
                                 }
                                <td>
-                                    <a href="/Admin/Order/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
+                                    <a href="/Admin/Order/Update/@item.Id" type="button" class="btn btn-info btn-sm">Detail</a>
 
                                </td>
                             </tr>
