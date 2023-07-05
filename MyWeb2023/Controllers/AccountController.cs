@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using MyWeb2023.Models;
 
 namespace MyWeb2023.Controllers
 {
@@ -93,7 +94,7 @@ namespace MyWeb2023.Controllers
                     message = "Account does not exist"
                 };
             }
-            password = HashPassword(password);
+            password = CommonFunction.HashPassword(password);
             
             if (user.CheckLogin >= 3 && (user.LastLogin?.AddMinutes(5) >= DateTime.Now))
             {
@@ -165,7 +166,7 @@ namespace MyWeb2023.Controllers
                 {
                     FirstName = firstName,
                     LastName = lastname,
-                    Password = HashPassword(password),
+                    Password = CommonFunction.HashPassword(password),
                     Email = email,
                     Gender = null,
                     LastLogin = DateTime.Now,
@@ -184,23 +185,6 @@ namespace MyWeb2023.Controllers
             return View();
         }
 
-        public string HashPassword(string password)
-        {
-            // Create a SHA256 hash from string   
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // Computing Hash - returns here byte array
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                // now convert byte array to a string   
-                StringBuilder stringbuilder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    stringbuilder.Append(bytes[i].ToString("x2"));
-                }
-                return stringbuilder.ToString();
-            }
-        }
 
         /// <summary>
         /// 

@@ -32,7 +32,6 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 LastName = x.LastName,
                 Email = x.Email,
                 GenderName = x.Gender == null ? "-" : x.Gender == true ? "Nam" : "Nữ", //ifelseif
-                ResetPassword = HashPassWord(),
                 RoleId = x.RoleId,
                 RoleName = x.RoleId == null ? "-" : ShowRoleName(x.RoleId.Value)
             }).ToList();
@@ -49,8 +48,8 @@ namespace MyWeb2023.Areas.Admin.Controllers
         public async Task<string> ResetPassword(int id)
         {
             var user = _context.Users.Find(id);
-            var newPassword = HashPassWord();
-            user.UpdatePassword(newPassword);
+            var newPassword = RandomText();
+            user.UpdatePassword(CommonFunction.HashPassword(newPassword));
             _context.SaveChanges();
             return newPassword;
         }
@@ -73,7 +72,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        public string HashPassWord()
+        public string RandomText()
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[8];
@@ -107,7 +106,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Password = model.Password,
+                Password = CommonFunction.HashPassword(model.Password),
                 Email = model.Email,
                 Gender = model.Gender,
                 RoleId = model.RoleId,

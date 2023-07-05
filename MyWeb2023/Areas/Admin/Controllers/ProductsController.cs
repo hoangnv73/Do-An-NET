@@ -169,7 +169,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
 
         [HttpPost]
         public ActionResult Update(int id, string name, float price, float discount, int brandId,
-           bool status, IFormFile? file, string description)
+           bool status, IFormFile? file, string description, int? categoryId)
         {
             var product = _context.Products.Find(id);
             // delete ảnh cũ trong folder
@@ -192,7 +192,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 image = GetImage(product.Id, file);
             }
             
-            product.Update(name, price, discount, status, image, brandId, description);
+            product.Update(name, price, discount, status, image, brandId, description, categoryId);
             _context.SaveChanges();
             return RedirectToAction("Update", new { id });
         }
