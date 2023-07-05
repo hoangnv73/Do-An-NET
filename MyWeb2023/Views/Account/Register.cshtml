@@ -1,156 +1,87 @@
-﻿@using MyWeb2023.Models;
-@model LoginViewModel
-@{
-    Layout = null;
-    ViewData["Title"] = "Index";
-}
-<!DOCTYPE html>
-<html lang="en">
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-    <title>Register</title>
+﻿
+<script>
+    function Register() {
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+        let firstname = document.getElementById('firstname').value;
+        let lastname = document.getElementById('lastname').value
 
-    <!--[if lt IE 10]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-          <![endif]-->
+        axios.post('/account/register', {
+            'email': email,
+            'password': password,
+            'firstname': firstname,
+            'lastname': lastname
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="#">
-    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-    <meta name="author" content="#">
+        }, {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(function (response) {
+                console.log(response);
 
-    <link rel="icon" href="https://colorlib.com//polygon/adminty/files/assets/images/favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="~/admin/assets/bower_components/bootstrap/css/bootstrap.min.css">
-
-    <link rel="stylesheet" type="text/css" href="~/admin/assets/icon/themify-icons/themify-icons.css">
-
-    <link rel="stylesheet" type="text/css" href="~/admin/assets/icon/icofont/css/icofont.css">
-
-    <link rel="stylesheet" type="text/css" href="~/admin/assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body class="fix-menu">
-
-    <script>
-        function Register() {
-            let email = document.getElementById('email').value;
-            let password = document.getElementById('password').value;
-            let firstname = document.getElementById('firstname').value;
-            let lastname = document.getElementById('lastname').value
-
-            axios.post('/account/register', {
-                'email': email,
-                'password': password,
-                'firstname': firstname,
-                'lastname': lastname
-
-            }, {
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded'
-                }
-            })
-                .then(function (response) {
-                    console.log(response);
-
-                    // show success
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Register success!',
-                        showConfirmButton: false,
-                        timer: 2000
-                      
-                    })
-                   
+                // show success
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Register success!',
+                    showConfirmButton: false,
+                    timer: 2000
 
                 })
-        }
 
-    </script>
 
-    <section class="vh-100">
-        <div class="container py-5 h-100">
-            <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                         class="img-fluid" alt="Phone image">
+            })
+    }
+
+</script>
+
+<section>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center ">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                     class="img-fluid" alt="Phone image">
+            </div>
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form1Example13">Email address</label>
+                    <input type="email" id="email" name="email" class="form-control form-control-lg" required />
                 </div>
-                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <input type="email" id="email" name="email" class="form-control form-control-lg" required />
-                        <label class="form-label" for="form1Example13">Email address</label>
-                    </div>
-
-                    <!-- Password input -->
-                    <div class="form-outline mb-4">
-                        <input type="password" id="password" name="password" class="form-control form-control-lg" required />
-                        <label class="form-label" for="form1Example23">Password</label>
-                    </div>
-
-                    <!-- FirstName input -->
-                    <div class="form-outline mb-4">
-                        <input id="firstname" name="firstname" class="form-control form-control-lg" required />
-                        <label class="form-label" for="form1Example23">FirstName</label>
-                    </div>
-
-                    <!-- LastName input -->
-                    <div class="form-outline mb-4">
-                        <input id="lastname" name="lastname" class="form-control form-control-lg" required />
-                        <label class="form-label" for="form1Example23">LastName</label>
-                    </div>
-
-                    <div class="d-flex justify-content-around align-items-center mb-4">
-                        <a href="@Url.Action("ForgotPassword","Account")">Forgot password?</a>
-                    </div>
-
-                    <!-- Submit button -->
-                    <button onclick="Register()" type="submit" class="btn btn-success btn-lg btn-block">Register</button>
-
-                    <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-                    </div>
-                    <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b71ca" href="@Url.Action("Login","Account")"
-                       role="button">
-                        <i class="fab fa-twitter me-2"></i>Login
-                    </a>
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form1Example23">Password</label>
+                    <input type="password" id="password" name="password" class="form-control form-control-lg" required />
                 </div>
+
+                <!-- FirstName input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form1Example23">FirstName</label>
+                    <input id="firstname" name="firstname" class="form-control form-control-lg" required />
+                </div>
+
+                <!-- LastName input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form1Example23">LastName</label>
+                    <input id="lastname" name="lastname" class="form-control form-control-lg" required />
+                </div>
+
+                <div class="d-flex justify-content-around align-items-center mb-4">
+                    <a href="@Url.Action("ForgotPassword","Account")">Forgot password?</a>
+                </div>
+
+                <!-- Submit button -->
+                <button onclick="Register()" type="submit" class="btn btn-success btn-lg btn-block">Register</button>
+
+                <div class="divider d-flex align-items-center my-4">
+                    <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                </div>
+                <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b71ca" href="@Url.Action("Login","Account")"
+                   role="button">Login</a>
             </div>
         </div>
-    </section>
-
-
-    <script type="text/javascript" src="~/assets/bower_components/jquery/js/jquery.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/popper.js/js/popper.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/bootstrap/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="~/assets/bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
-
-    <script type="text/javascript" src="~/assets/bower_components/modernizr/js/modernizr.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/modernizr/js/css-scrollbars.js"></script>
-
-    <script type="text/javascript" src="~/assets/bower_components/i18next/js/i18next.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
-    <script type="text/javascript" src="~/assets/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
-    <script type="text/javascript" src="~/assets/js/common-pages.js"></script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-23581568-13');
-    </script>
-</body>
-</html>
-
+    </div>
+</section>

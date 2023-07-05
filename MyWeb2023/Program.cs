@@ -1,3 +1,4 @@
+ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MyWeb2023.Areas.Admin.Models;
 
@@ -12,9 +13,30 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyWorldDbConnection"));
 });
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+          .AddCookie("Cookies", options =>
+          {
+              options.LoginPath = "/account/login";
+              options.LogoutPath = "/account/logout";
+              options.AccessDeniedPath = "/account/login";
+              options.ReturnUrlParameter = "ReturnUrl";
+
+          });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdministratorRole",
+         policy => policy.RequireRole("Administrator"));
+});
 
 var app = builder.Build();
-
+app.UseSession();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -23,30 +45,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseHttpsRedirection();
-//app.UseStaticFiles();
-
-//app.UseRouting();
-
-//app.UseAuthorization();
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-//if (app.Environment.IsDevelopment())
-//{
-//    //app.UseSwagger();
-//    //app.UseSwaggerUI();
-//}
-//app.UseHttpsRedirection();
-//app.UseAuthorization();
-//app.MapControllers();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
@@ -56,10 +59,6 @@ app.UseEndpoints(endpoints =>
     pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}"
     );
 
-    //endpoints.MapControllerRoute(
-    //  name: "areas",
-    //  pattern: "{area:exists}/{controller}/{action}/{id?}"
-    //);
     endpoints.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models;
@@ -8,6 +9,7 @@ using MyWeb2023.RequestModel.Admin;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class BannersController : Controller
     {
         private readonly ApplicationDbContext _context;

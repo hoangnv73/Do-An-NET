@@ -9,11 +9,13 @@ namespace MyWeb2023.Controllers
 {
     public class CheckoutController : Controller
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationDbContext _context;
 
-        public CheckoutController(ApplicationDbContext context)
+        public CheckoutController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index()
@@ -24,7 +26,12 @@ namespace MyWeb2023.Controllers
         [HttpPost]
         public IActionResult Index(CheckoutRequest request)
         {
-            var order = new Order(null, request.Address, request.Phone, request.Note, request.CustomerName);
+            int? userId = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                userId = int.Parse(User.Identity.Name);
+            }
+            var order = new Order(userId, request.Address, request.Phone, request.Note, request.CustomerName);
             _context.Orders.Add(order);
             _context.SaveChanges();
           

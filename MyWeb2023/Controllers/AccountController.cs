@@ -1,42 +1,41 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Myweb.Domain;
 using Myweb.Domain.Models.Entities;
 using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
-using Newtonsoft.Json.Linq;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Net.Mail;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyWeb2023.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationDbContext _context;
 
-        public AccountController(ApplicationDbContext context)
+        public AccountController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        //todo
+        [Authorize]
         [HttpGet]
-        public IActionResult Profile(int id)
+        public IActionResult Profile()
         {
-            //todo : hardcode
-            id = 132;
-            var profile = _context.Users.Find(id);
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
+            var userId = int.Parse(User.Identity.Name);
+            var profile = _context.Users.Find(userId);
             var profileDto = new ProfileDto
             {
                 Id = profile.Id,
@@ -48,18 +47,35 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public IActionResult Profile(int id, string firstname, string lastname, string email)
+        public IActionResult Profile(int id, string firstname, string lastname)
         {
             var profile = _context.Users.Find(id);
-            profile.Update(firstname, lastname, email);
+            profile.Update(firstname, lastname);
             _context.SaveChanges();
             return RedirectToAction("Profile", new { id = id });     
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
-            //SendMail();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Profile", "Account");
+            }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var userCookie = _httpContextAccessor.HttpContext.Request.Cookies["user"];
+            if (userCookie != null)
+            {
+                Response.Cookies.Delete("user");
+            }
+           
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
@@ -68,7 +84,16 @@ namespace MyWeb2023.Controllers
             // Kiểm tra email có tồn tại hay không
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
-             password = HashPassword(password);
+            // Nếu không tồn tại thì show lỗi
+            if (user == null)
+            {
+                return new
+                {
+                    code = HttpStatusCode.BadRequest,
+                    message = "Account does not exist"
+                };
+            }
+            password = HashPassword(password);
             
             if (user.CheckLogin >= 3 && (user.LastLogin?.AddMinutes(5) >= DateTime.Now))
             {
@@ -79,15 +104,7 @@ namespace MyWeb2023.Controllers
                 };
             }
 
-            // Nếu không tồn tại thì show lỗi
-            if (user == null)
-            {
-                return new
-                {
-                    code = HttpStatusCode.BadRequest,
-                    message = "Account does not exist"
-                };
-            } 
+           
             // Nếu tồn tại thì kiểm tra password 
             if (user.Password != password)
             {
@@ -109,6 +126,25 @@ namespace MyWeb2023.Controllers
 
             user.CheckLogin = 0;
             _context.SaveChanges();
+
+
+            var claims = new List<Claim>
+            {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+            };
+            if (user.RoleId != null)
+            {
+                var roleName = _context.Roles.Find(user.RoleId)?.Name;
+                claims.Add(new Claim(ClaimTypes.Role, roleName));
+            }
+            HttpContext.Response.Cookies.Append("user", user.Id.ToString());
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    principal,
+                    new AuthenticationProperties { IsPersistent = true });
             return obj;
 
         }
@@ -136,7 +172,7 @@ namespace MyWeb2023.Controllers
                 };
                 _context.Users.Add(UserAdd);
                 _context.SaveChanges();
-                //SendMail();
+                SendMail("SignUp.html", email);
             }
             
             else
@@ -210,7 +246,14 @@ namespace MyWeb2023.Controllers
             return View(response);
         }
 
+        [HttpGet]
         public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(string email)
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[8];
@@ -221,18 +264,20 @@ namespace MyWeb2023.Controllers
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
             var finalString = new string(stringChars);
-
+            var user = _context.Users.FirstOrDefault(x =>  x.Email == email);
+            if (user == null)
+            {
+                ViewBag.Message = "Email not found";
+                return View();
+            }
+            //todo : send mail
             return View();
         }
 
         public List<ObjectMail> GetObjectMails()
         {
-            //var di = new Dictionary<string, string>();
-            //di.Add("firstName", "honga");
-            //var k = new List<KeyValuePair<string, string>>();
-
             var res = new List<ObjectMail>();
-            res.Add(new ObjectMail() { Key = "{FirstName}", Value = "Hoàng" });
+            res.Add(new ObjectMail() { Key = "{FirstName}", Value = "Kumo" });
             res.Add(new ObjectMail() { Key = "{DateTime.Now}", Value = DateTime.Now.ToString() });
             return res;
         }
@@ -247,18 +292,14 @@ namespace MyWeb2023.Controllers
             var to_email = new EmailAddress("maxgamingtvchannel@gmail.com", "Example User");
             var plainTextContent = "";
             var rootFolder = Directory.GetCurrentDirectory();
-            string path = @$"{rootFolder}\wwwroot\template\SignUp.html";
+            string path = @$"{rootFolder}\wwwroot\template\{key}";
             var htmlContent = System.IO.File.ReadAllText(path);
-
             foreach (var item in objMails)
             {
                 htmlContent = htmlContent.Replace(item.Key, item.Value);
             }
-
             var msg = MailHelper.CreateSingleEmail(from_email, to_email, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
-
-
     }
 }

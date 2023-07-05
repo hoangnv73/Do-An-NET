@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Myweb.Domain.Common;
 using MyWeb.Infrastructure.Admin;
 using MyWeb2023.Areas.Admin.Models;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
