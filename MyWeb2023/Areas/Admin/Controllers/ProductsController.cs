@@ -175,9 +175,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             // delete ảnh cũ trong folder
             var rootFolder = Directory.GetCurrentDirectory();
             var photoName = product.Image;
-            string pathproduct = @$"{rootFolder}\wwwroot\data\products\{id}\" + photoName;
-            System.IO.File.Delete(pathproduct);
-             
+            
             if (product == null)
             {
                 ViewBag.Message = "San pham khong ton tai";
@@ -189,6 +187,15 @@ namespace MyWeb2023.Areas.Admin.Controllers
             //nếu file = null thì không cho cập nhật image
             if (file != null)
             {
+                string pathproduct = @$"{rootFolder}\wwwroot\data\products\{id}\" + photoName;
+                try
+                {
+                    System.IO.File.Delete(pathproduct);
+                }
+                catch
+                {
+
+                }
                 image = GetImage(product.Id, file);
             }
             
