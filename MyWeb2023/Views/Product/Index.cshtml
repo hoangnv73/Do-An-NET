@@ -4,7 +4,7 @@
 @model List<ProductVM>
 
 
-<section class="bg-cover" style="background:url(client/assets/img/banner-2.png) no-repeat;">
+<section class="bg-cover" style="background:url(client/assets/img/bg.jpg) no-repeat;">
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -27,7 +27,12 @@
     <div class="container">
         <div class="row align-items-center justify-content-between">
             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12">
-               
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Products</li>
+                    </ol>
+                </nav>
             </div>
             <form method="get">
             <div class="col-xl-9 col-lg-8 col-md-7 col-sm-12">

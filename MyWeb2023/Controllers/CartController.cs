@@ -19,7 +19,7 @@ namespace MyWeb2023.Controllers
             var products = _context.Products.Where(x => productIds.Contains(x.Id)).ToList();
 
             var response = new CartDto();
-            response.Total = products.Sum(x => x.Price).ToString("N2");
+            response.Total = products.Sum(x => x.Price - (x.Price/100 * x.Discount ?? 0)).ToString("N2");
             response.Items = products.Select(x => new ProductCartDto
             {
                 Id = x.Id,
@@ -31,7 +31,7 @@ namespace MyWeb2023.Controllers
                 Price = (x.Price - (x.Price / 100 * x.Discount ?? 0))
                 * (request.FirstOrDefault(r => r.ProductId == x.Id)?.Quantity ?? 0)
             }).ToList();
-            return PartialView("_Cart", response);
+            return PartialView("_Cart", response); 
         }
     }
 }
