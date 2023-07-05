@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models.Dto;
 using MyWeb2023.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -16,10 +18,14 @@ namespace MyWeb2023.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index(string sort, int? page)
+        public async Task<IActionResult> Index(string sort, int? page, int? brandId)
         {
             ViewBag.Page = page == null ? 1 : page;
             var products = await _context.Products.ToListAsync();
+            if (brandId != null)
+            {
+                products = products.Where(x => x.BrandId == brandId).ToList();
+            }
 
             if (sort == "price_asc")
             {
@@ -35,7 +41,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)
                         ? $"/data/products/{x.Id}/{x.Image}"
-                        : "/www/images/default-thumbnail.jpg",
+                        : "/data/default.png",
                 Name = x.Name,
                 BrandId = x.Id,
                 Price = x.Price,
@@ -143,7 +149,14 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Name = x.Name,
             }).ToList();
 
+            var categories = _context.Categories.Select(x => new ComboboxDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToList();
+
             ViewBag.Brands = listBrands;
+            ViewBag.Categories = categories;
 
             var product = _context.Products.Find(id);
 
@@ -156,7 +169,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
 
         [HttpPost]
         public ActionResult Update(int id, string name, float price, float discount, int brandId,
-           bool status, IFormFile? file, string description)
+           bool status, IFormFile? file, string description, int? categoryId)
         {
             var product = _context.Products.Find(id);
             // delete ảnh cũ trong folder
@@ -179,7 +192,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 image = GetImage(product.Id, file);
             }
             
-            product.Update(name, price, discount, status, image, brandId, description);
+            product.Update(name, price, discount, status, image, brandId, description, categoryId);
             _context.SaveChanges();
             return RedirectToAction("Update", new { id });
         }

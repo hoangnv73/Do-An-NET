@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-sm-3"> </div>
             <div class="col-sm-6">
-                <form method="post" action="/Admin/Users/Update">
+                <form method="post" action="/Admin/Users/Update" enctype="multipart/form-data">
                     <div class="form-group">
                         <input id="update" name="id" value="@Model.Id" type="hidden">
                         <input name="password" value="@Model.Password" type="hidden">
@@ -25,35 +25,23 @@
                             </div>
                             <div class="col-sm-4">
                                 <label>Email:</label>
-                                <input name="email" value="@Model.Email" type="text" class="form-control">
+                                <input name="email" value="@Model.Email" type="text" class="form-control" readonly>
                             </div>
                         </div>
                     </div>
 
                     @{
-                        var isCheckedActive = Model.Gender ? "checked" : string.Empty;
-                        var isCheckedInActive = !Model.Gender ? "checked" : string.Empty;
+                        var isCheckedActive = Model.Gender is true  ? "checked" : string.Empty;
+                        var isCheckedInActive = Model.Gender is false ? "checked" : string.Empty;
                     }
                     <div class="form-group">
                         <input name="gender" value="True" type="radio" @isCheckedActive />
-                        <span> Nam</span>
+                        <span>Male</span>
                         <br />
                         <input name="gender" value="False" type="radio" @isCheckedInActive />
-                        <span>Nữ</span>
+                        <span>Female</span>
                     </div>
 
-                    @*<div class="form-group">
-                    <label>Roles</label>
-                    <select class="form-control" name="roleId">
-                    <option value="">Chọn</option>
-                    @{
-                    foreach (var item in roles)
-                    {
-                    <option value="@item.Id">@item.Name</option>
-                    }
-                    }
-                    </select>
-                    </div>*@
                     <label>Image:</label>
                     <div>
                         <img src="~/data/users/@Model.Id/@Model.Image" width="100px" height="100px" />

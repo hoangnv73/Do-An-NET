@@ -1,12 +1,12 @@
-﻿@using Myweb.Domain.Models.Entities;
-@model Order
+﻿@using MyWeb.Infrastructure.Client;
+@model OrderDetailsDto
 
 <div class="card">
     <div class="card-header">
-        <h5>Edit Order</h5>
+        <h5>Order Details</h5>
     </div>
     <div class="card-block">
-        <div class="row">
+        @*<div class="row">
             <div class="col-sm-3"> </div>
             <div class="col-sm-6">
                 <form method="post" action="/Order/Update">
@@ -27,6 +27,81 @@
 
                     <button type="submit" class="btn btn-info">Update </button>
                 </form>
+            </div>
+        </div>*@
+        <div>
+            <div class="form-group" id="binding-order-01">
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <div>Total : </div>
+                        <div>Customer Name : </div>
+                        <div>Address : </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div>$@Model.TotalPrice.ToString("N2")</div>
+                        <div>@Model.CustomerName</div>
+                        <div>@Model.Address</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Status</label>
+                        <form method="post" action="/Order/Update">
+                            <input id="update" name="id" value="@Model.Id" type="hidden" />
+                            <select name="status"  class="form-control">
+                                @foreach (var item in Model.OrderStatuses)
+                                {
+                                    var sele = Model.Status == item.Id ? "selected" : "";
+                                    <option @sele value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                            <br />
+                            <button type="submit" class="btn btn-info btn-sm text-right">Update </button>
+                        </form>
+                      
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <hr style="margin-top:0px">
+            </div>
+            <div class="row">
+                @{
+                    foreach (var item in Model.Products)
+                    {
+                        var total = @item.Quantity * @item.Price;
+                        <div class="col-sm-4" style="padding-bottom:10px;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <img style="width:100%" src="@item.Image">
+                                </div>
+                                <div class="col-sm-8">
+                                    <div id="orderdetail-446">
+                                        <div>@item.Name</div>
+                                        <div>
+                                            <span><i class="ti-money"></i> @item.Quantity </span>
+                                            <span> x </span>
+                                            <span> $@item.Price </span>
+                                            <span> = </span>
+                                            <span style="font-weight:800"> $@total </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
             </div>
         </div>
         <div>

@@ -12,6 +12,7 @@ namespace Myweb.Domain.Models.Entities
         public double? Discount { get; set; }
         public bool Status { get; set; }
         public string? Description { get; set; } 
+        public int? CategoryId { get; set; }
 
         public Product()
         {
@@ -28,7 +29,7 @@ namespace Myweb.Domain.Models.Entities
         }
 
         public void Update(string name, double price, double? discount, bool status,
-            string? image, int brandId, string description)
+            string? image, int brandId, string description, int? categoryId)
         {
             Name = name;
             Price = price;
@@ -37,6 +38,7 @@ namespace Myweb.Domain.Models.Entities
             Image = image;
             BrandId = brandId;
             Description = description;
+            CategoryId = categoryId;
         }
     }
 }

@@ -1,0 +1,109 @@
+﻿@using MyWeb.Infrastructure.Admin;
+@model DashboardDto
+
+
+<div class="page-body">
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h4 class="text-c-yellow f-w-600">@Model.TotalOrders</h4>
+                            <h6 class="text-muted m-b-0">Orders</h6>
+                        </div>
+                        <div class="col-4 text-right">
+                            <i class="feather icon-file-text f-28"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-c-yellow">
+                    <div class="row align-items-center">
+                        <div class="col-9">
+                            <p class="text-white m-b-0">% change</p>
+                        </div>
+                        <div class="col-3 text-right">
+                            <i class="feather icon-trending-up text-white f-16"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h4 class="text-c-green f-w-600">$@Model.TotalRevenu</h4>
+                            <h6 class="text-muted m-b-0">Revenue</h6>
+                        </div>
+                        <div class="col-4 text-right">
+                            <i class="feather icon-bar-chart f-28"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-c-green">
+                    <div class="row align-items-center">
+                        <div class="col-9">
+                            <p class="text-white m-b-0">% change</p>
+                        </div>
+                        <div class="col-3 text-right">
+                            <i class="feather icon-trending-up text-white f-16"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h4 class="text-c-pink f-w-600">@Model.TotalUsers</h4>
+                            <h6 class="text-muted m-b-0">Users</h6>
+                        </div>
+                        <div class="col-4 text-right">
+                            <i class="feather icon-calendar f-28"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-c-pink">
+                    <div class="row align-items-center">
+                        <div class="col-9">
+                            <p class="text-white m-b-0">% change</p>
+                        </div>
+                        <div class="col-3 text-right">
+                            <i class="feather icon-trending-up text-white f-16"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h4 class="text-c-blue f-w-600">867</h4>
+                            <h6 class="text-muted m-b-0">View</h6>
+                        </div>
+                        <div class="col-4 text-right">
+                            <i class="feather icon-download f-28"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-c-blue">
+                    <div class="row align-items-center">
+                        <div class="col-9">
+                            <p class="text-white m-b-0">% change</p>
+                        </div>
+                        <div class="col-3 text-right">
+                            <i class="feather icon-trending-up text-white f-16"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</div>

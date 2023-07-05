@@ -37,23 +37,21 @@ namespace Myweb.Domain.Models.Entities
             LastLogin = DateTime.Now;
 
         }
-        public void Update(string firstname, string lastname, string password,string email, bool gender,
+        public void Update(string firstname, string lastname, string password, bool gender,
             int statusid,string? image)
         {
             FirstName = firstname;
             LastName = lastname;
             Password = password;
-            Email = email;
             Gender = gender;
             StatusId = statusid;
             Image = image;
         }
 
-        public void Update(string firstname, string lastname, string email)
+        public void Update(string firstname, string lastname)
         {
             FirstName = firstname;
             LastName = lastname;
-            Email = email;
         }
 
         public void UpdatePassword(string newPassword)

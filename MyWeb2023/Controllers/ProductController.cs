@@ -15,13 +15,16 @@ namespace MyWeb2023.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index(string sort, int? page)
+        public async Task<IActionResult> Index(string sort, int? page, int? categoryId)
         {
             ViewBag.Page = page == null ? 1 : page;
 
             // Status = true thì hiển thị product
             var products = await _context.Products.Where(x => x.Status == true).Take(12).ToListAsync();
-
+            if(categoryId != null)
+            {
+                products = products.Where(x => x.CategoryId == categoryId).ToList();
+            }
             if (sort == "price_asc")
             {
                 products = products.OrderBy(x => x.Price - ((x.Price / 100) * x.Discount)).ToList();
@@ -36,7 +39,7 @@ namespace MyWeb2023.Controllers
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)
                         ? $"/data/products/{x.Id}/{x.Image}"
-                        : "/www/images/default-thumbnail.jpg",
+                        : "/data/default.png",
                 Name = x.Name,
                 BrandId = x.Id,
                 Price = x.Price,

@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Myweb.Domain.Common;
 using Myweb.Domain.Models.Entities;
 using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
+using System.Reflection;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class OrderController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,11 +21,11 @@ namespace MyWeb2023.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = await _context.Orders.OrderByDescending(x => x.OrderDate).ToListAsync();
             var result = orders.Select(x => new OrderDto
             {
                 Id = x.Id,
-                Status = x.Status,
+                StatusName = ORDER_STATUS.GetDetail(x.Status)?.Name ?? "-",
                 OrderDate = x.OrderDate,
                 Address = x.Address,
                 Phone = x.Phone,    
@@ -34,28 +38,51 @@ namespace MyWeb2023.Areas.Admin.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Create(OrderDto model)
-        {
-            var addOrder = new Order
-            {
-                OrderDate = model.OrderDate,
-                Address = model.Address,
-                Phone = model.Phone,
-                Note = model.Note,
-                Status = model.Status,
-            }; 
-
-            return View();
-        }
 
         //Update
         [HttpGet]
         public ActionResult Update(int id)
         {
-            var order = _context.Orders.Find(id);
-            return View(order);
-        }
+			var order = _context.Orders.Find(id);
+			if (order == null) return RedirectToAction("NotFound", "Common");
+			
+			
+
+
+			var orderDetails = _context.OrderDetails.Where(x => x.OrderId == id).ToList();
+			var products = new List<OrderProductDto>();
+
+			foreach (var orderDetail in orderDetails)
+			{
+				var product = _context.Products.Find(orderDetail.ProductId);
+                if (product == null) continue;
+				var orderProduct = new OrderProductDto()
+				{
+					ProductId = orderDetail.ProductId,
+					Name = product.Name,
+					Price = product.Price,
+                    Quantity = orderDetail.Quantity,
+                    Image = !string.IsNullOrEmpty(product.Image)
+                        ? $"/data/products/{product.Id}/{product.Image}"
+                        : "/data/default.png",
+                };
+				products.Add(orderProduct);
+			}
+            var response = new OrderDetailsDto
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                Address = order.Address,
+                Phone = order.Phone,
+                Note = order.Note,
+                Status = order.Status,
+                CustomerName = order.CustomerName,
+                TotalPrice = products.Sum(x => x.Price * x.Quantity),
+                Products = products,
+                OrderStatuses = ORDER_STATUS.GetList(),
+		    };
+			return View(response);
+		}
         [HttpPost]
         public ActionResult Update(int id, int status)
         {
@@ -64,42 +91,6 @@ namespace MyWeb2023.Areas.Admin.Controllers
             order.Update(status);
             _context.SaveChanges();
             return RedirectToAction("Order", "Admin");
-        }
-
-        /// <summary>
-        /// Order Details
-        /// </summary>
-        /// <param name="id">OrderId</param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<ActionResult> Details(int id) 
-        {
-            var response = new OrderDetailsDto();
-            var order = _context.Orders.Find(id);
-
-            response.Id = order.Id;
-            response.OrderDate = order.OrderDate;
-            response.Address = order.Address;
-            response.Phone = order.Phone;
-            response.Note = order.Note;
-            response.Status = order.Status;
-
-            var orderDetails = _context.OrderDetails.Where(x => x.OrderId == id).ToList();
-            var myArr = new List<OrderProductDto>();
-
-            foreach (var item in orderDetails)
-            {
-                var product = _context.Products.Find(item.ProductId);
-                var orderProduct = new OrderProductDto()
-                {
-                    ProductId = item.ProductId,
-                    Name = product.Name,
-                    Price = product.Price
-                };
-            }
-            response.Products = myArr;
-            return View(response);
-
         }
     }
 }

@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore; // using EntityFrameworkCore
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models.Dto;
 using MyWeb2023.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class BrandController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
+using MyWeb2023.Models;
+using System.Reflection;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,7 +32,6 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 LastName = x.LastName,
                 Email = x.Email,
                 GenderName = x.Gender == null ? "-" : x.Gender == true ? "Nam" : "Nữ", //ifelseif
-                ResetPassword = HashPassWord(),
                 RoleId = x.RoleId,
                 RoleName = x.RoleId == null ? "-" : ShowRoleName(x.RoleId.Value)
             }).ToList();
@@ -45,8 +48,8 @@ namespace MyWeb2023.Areas.Admin.Controllers
         public async Task<string> ResetPassword(int id)
         {
             var user = _context.Users.Find(id);
-            var newPassword = HashPassWord();
-            user.UpdatePassword(newPassword);
+            var newPassword = RandomText();
+            user.UpdatePassword(CommonFunction.HashPassword(newPassword));
             _context.SaveChanges();
             return newPassword;
         }
@@ -69,7 +72,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        public string HashPassWord()
+        public string RandomText()
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[8];
@@ -103,7 +106,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Password = model.Password,
+                Password = CommonFunction.HashPassword(model.Password),
                 Email = model.Email,
                 Gender = model.Gender,
                 RoleId = model.RoleId,
@@ -145,26 +148,20 @@ namespace MyWeb2023.Areas.Admin.Controllers
         }
         [HttpPost]
         public IActionResult Update(int id, string firstname, string lastname, string password,
-            string email, bool gender, int statusid, IFormFile? file)
+            bool gender, int statusid, IFormFile? file)
         {
             var user = _context.Users.Find(id);
-            var rootFolder = Directory.GetCurrentDirectory();
-            var photoName = user.Image;
-            string pathproduct = @$"{rootFolder}\wwwroot\data\users\{id}\" + photoName;
-            System.IO.File.Delete(pathproduct);
-            if (user == null)
-            {
-                ViewBag.Message = "San pham khong ton tai";
-                return View();
-            }
-            var image = user.Image;
-
+            if (user == null) return RedirectToAction("NotFound", "Common");
             if (file != null)
             {
-                image = GetImage(user.Id, file);
+                var rootFolder = Directory.GetCurrentDirectory();
+                var photoName = user.Image;
+                string pathproduct = @$"{rootFolder}\wwwroot\data\users\{id}\" + photoName;
+                System.IO.File.Delete(pathproduct);
+                user.Image = file.FileName;
+                CommonFunction.UploadImage(file, $"users/{user.Id}");
             }
-
-            user.Update(firstname, lastname, password, email, gender, statusid, image);
+            user.Update(firstname, lastname, password, gender, statusid, user.Image);
             _context.SaveChanges();
 
             return RedirectToAction("Update", new { id });
