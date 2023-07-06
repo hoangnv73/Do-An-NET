@@ -43,7 +43,8 @@ namespace MyWeb2023.Controllers
                 Email = profile.Email,
                 FirstName = profile.FirstName,
                 LastName = profile.LastName,
-            };
+                Image = profile.Image
+            };  
             return View(profileDto);
         }
 
@@ -55,6 +56,41 @@ namespace MyWeb2023.Controllers
             _context.SaveChanges();
             return RedirectToAction("Profile", new { id = id });     
         }
+
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            var userId = int.Parse(User.Identity.Name);
+            var profile = _context.Users.Find(userId);
+            var profileDto = new ProfileDto
+            {
+                Id = profile.Id,
+                FirstName = profile.FirstName,
+                Image = profile.Image,
+            };
+            return View(profileDto);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(int id, string password, string curentPassword)
+        {
+            var profile = _context.Users.Find(id);
+            if (profile == null)
+            {
+                //
+            }
+            curentPassword = CommonFunction.HashPassword(curentPassword);
+            if (curentPassword != profile.Password)
+            {
+               //todo
+            }
+            CommonFunction.HashPassword(password);
+            profile.Update(password);
+            _context.SaveChanges();
+            return RedirectToAction("ChangePassword", new { id = id });
+        }
+        
 
         [HttpGet]
         public IActionResult Login()
