@@ -21,7 +21,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
       
         public async Task<IActionResult> Index(string sort, int? page, int? brandId)
         {
-            var products = await _context.Products.ToListAsync();
+            var products = await _context.Products.Where(x => !x.IsDeleted).ToListAsync();
             if (brandId != null)
             {
                 products = products.Where(x => x.BrandId == brandId).ToList();
@@ -98,7 +98,8 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 BrandId = request.BrandId,
                 Discount = request.Discount == null ? 0 : request.Discount,
                 Status = request.Status,
-                Description = request.Description
+                Description = request.Description,
+                IsDeleted = false
             };
             _context.Products.Add(product);
             _context.SaveChanges();
@@ -120,7 +121,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             var product = _context.Products.Find(id);
             if (product != null)
             {
-                _context.Products.Remove(product);
+                product.IsDeleted = true;
                 var rootFolder = Directory.GetCurrentDirectory();
 
                 string pathproduct = @$"{rootFolder}\wwwroot\data\products\{id}";

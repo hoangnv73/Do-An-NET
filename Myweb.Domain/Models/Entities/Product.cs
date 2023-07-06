@@ -13,7 +13,7 @@ namespace Myweb.Domain.Models.Entities
         public bool Status { get; set; }
         public string? Description { get; set; } 
         public int? CategoryId { get; set; }
-
+        public bool IsDeleted { get; set; }
         public Product()
         {
 
@@ -26,6 +26,7 @@ namespace Myweb.Domain.Models.Entities
             Status = status;
             Image = image;
             Description = description;
+            IsDeleted = false;
         }
 
         public void Update(string name, double price, double? discount, bool status,

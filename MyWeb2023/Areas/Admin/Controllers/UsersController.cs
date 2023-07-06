@@ -132,12 +132,12 @@ namespace MyWeb2023.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            //var listRoles = _context.Roles.Select(x => new RoleDto
-            //{
-            //    Id = x.Id,
-            //    Name = x.Name,
-            //}).ToList();
-            //ViewBag.Roles = listRoles;
+            var listRoles = _context.Roles.Select(x => new RoleDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToList();
+            ViewBag.Roles = listRoles;
 
             var user = _context.Users.Find(id);
             if (user == null)
@@ -148,7 +148,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
         }
         [HttpPost]
         public IActionResult Update(int id, string firstname, string lastname, string password,
-            bool gender, int statusid, IFormFile? file)
+            bool gender, int statusid, IFormFile? file, int? roleId)
         {
             var user = _context.Users.Find(id);
             if (user == null) return RedirectToAction("NotFound", "Common");
@@ -161,7 +161,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 user.Image = file.FileName;
                 CommonFunction.UploadImage(file, $"users/{user.Id}");
             }
-            user.Update(firstname, lastname, password, gender, statusid, user.Image);
+            user.Update(firstname, lastname, password, gender, statusid, user.Image, roleId);
             _context.SaveChanges();
 
             return RedirectToAction("Update", new { id });

@@ -20,7 +20,7 @@ namespace MyWeb2023.Controllers
             ViewBag.Page = page == null ? 1 : page;
 
             // Status = true thì hiển thị product
-            var products = await _context.Products.Where(x => x.Status == true).Take(12).ToListAsync();
+            var products = await _context.Products.Where(x => x.Status && !x.IsDeleted).Take(12).ToListAsync();
             if(categoryId != null)
             {
                 products = products.Where(x => x.CategoryId == categoryId).ToList();
@@ -68,7 +68,7 @@ namespace MyWeb2023.Controllers
         public async Task<ActionResult> Details(int id)
         {
             var response = new ProductDetailsDto();
-            var product = _context.Products.Find(id);
+            var product = _context.Products.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             var productVM = new ProductVM
             {
                 Id = product.Id,

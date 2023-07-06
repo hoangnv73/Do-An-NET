@@ -38,7 +38,7 @@ namespace Myweb.Domain.Models.Entities
 
         }
         public void Update(string firstname, string lastname, string password, bool gender,
-            int statusid,string? image)
+            int statusid,string? image, int? roleId)
         {
             FirstName = firstname;
             LastName = lastname;
@@ -46,6 +46,7 @@ namespace Myweb.Domain.Models.Entities
             Gender = gender;
             StatusId = statusid;
             Image = image;
+            RoleId = roleId;
         }
 
         public void Update(string firstname, string lastname)

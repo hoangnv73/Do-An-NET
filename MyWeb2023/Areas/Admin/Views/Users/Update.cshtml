@@ -1,4 +1,6 @@
 ﻿@using MyWeb2023.Areas.Admin.Models.Dto;
+@using Myweb.Domain.Models.Entities;
+@model User
 @{
     List<RoleDto> roles = ViewBag.Roles;
 }
@@ -41,7 +43,19 @@
                         <input name="gender" value="False" type="radio" @isCheckedInActive />
                         <span>Female</span>
                     </div>
-
+                    <div class="form-group">
+                    <label>Roles</label>
+                    <select class="form-control" name="roleId">
+                    <option value="">Chọn</option>
+                            @{
+                                foreach (var item in roles)
+                                {
+                                    var sele = Model.RoleId == item.Id ? "selected" : "";
+                                    <option @sele value="@item.Id">@item.Name</option>
+                        }
+                    }
+                    </select>
+                    </div>
                     <label>Image:</label>
                     <div>
                         <img src="~/data/users/@Model.Id/@Model.Image" width="100px" height="100px" />

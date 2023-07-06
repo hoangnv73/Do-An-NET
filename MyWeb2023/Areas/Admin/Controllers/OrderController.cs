@@ -56,15 +56,16 @@ namespace MyWeb2023.Areas.Admin.Controllers
 			{
 				var product = _context.Products.Find(orderDetail.ProductId);
                 if (product == null) continue;
-				var orderProduct = new OrderProductDto()
-				{
-					ProductId = orderDetail.ProductId,
-					Name = product.Name,
-					Price = product.Price,
+                var orderProduct = new OrderProductDto()
+                {
+                    ProductId = orderDetail.ProductId,
+                    Name = product.Name,
+                    Price = product.Price,
                     Quantity = orderDetail.Quantity,
                     Image = !string.IsNullOrEmpty(product.Image)
                         ? $"/data/products/{product.Id}/{product.Image}"
                         : "/data/default.png",
+                    Status = product.IsDeleted ? "Unavailable" : "Active"
                 };
 				products.Add(orderProduct);
 			}

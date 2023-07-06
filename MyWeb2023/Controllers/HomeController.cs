@@ -24,7 +24,7 @@ namespace MyWeb2023.Controllers
         {
             var home = new HomeDto();
             var products = new List<ProductVM>();
-            products = _context.Products.Select(x => new ProductVM
+            products = _context.Products.Where(x => x.Status && !x.IsDeleted).Select(x => new ProductVM
             {
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)

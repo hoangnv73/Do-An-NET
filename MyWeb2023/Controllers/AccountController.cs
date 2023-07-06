@@ -72,9 +72,11 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public object ChangePassword(int id, string password, string curentPassword)
+        [Authorize]
+        public object ChangePassword(string password, string curentPassword)
         {
-            var profile = _context.Users.Find(id);
+            var userId = int.Parse(User.Identity.Name);
+            var profile = _context.Users.Find(userId);
             if (profile == null)
             {
                 return new
@@ -277,6 +279,16 @@ namespace MyWeb2023.Controllers
 
             return View(response);
         }
+
+        [Authorize]
+        public IActionResult CancelOrder(int orderId )
+        {
+            var userId = int.Parse(User.Identity.Name);
+            var orders = _context.Orders.FirstOrDefault(x => x.UserId == userId);
+
+            return View();
+        }
+
 
         [HttpGet]
         public IActionResult ForgotPassword()
