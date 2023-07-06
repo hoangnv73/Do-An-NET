@@ -57,7 +57,6 @@ namespace MyWeb2023.Controllers
             return RedirectToAction("Profile", new { id = id });     
         }
 
-
         [HttpGet]
         public IActionResult ChangePassword()
         {
@@ -73,25 +72,37 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(int id, string password, string curentPassword)
+        public object ChangePassword(int id, string password, string curentPassword)
         {
             var profile = _context.Users.Find(id);
             if (profile == null)
             {
-                //
+                return new
+                {
+                    code = 400,
+                    message = "Account does not exist"
+                };
             }
             curentPassword = CommonFunction.HashPassword(curentPassword);
             if (curentPassword != profile.Password)
             {
-               //todo
+                return new
+                {
+                    code = 400,
+                    message = "Current password is wrong!"
+                };
             }
             password = CommonFunction.HashPassword(password);
             profile.Update(password);
             _context.SaveChanges();
-            return View();
+            var obj = new
+            {
+                code = 200,
+                message = "Change Password Success!"
+            };
+            return obj;
         }
         
-
         [HttpGet]
         public IActionResult Login()
         {
@@ -214,8 +225,7 @@ namespace MyWeb2023.Controllers
             };
             _context.Users.Add(UserAdd);
             _context.SaveChanges();
-            SendMail("SignUp.html", email);
-
+            SendMail("SendMail.html", email);
             var obj = new
             {
                 code = 200,

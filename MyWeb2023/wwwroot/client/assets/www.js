@@ -16,7 +16,6 @@ function showMessageSuccess(message) {
     })
 }
 
-
 function CommonMessage(type, message) {
     Swal.fire({
         position: 'center',
