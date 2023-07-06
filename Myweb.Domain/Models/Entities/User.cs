@@ -53,7 +53,10 @@ namespace Myweb.Domain.Models.Entities
             FirstName = firstname;
             LastName = lastname;
         }
-
+        public void Update( string password)
+        {
+           Password = password;
+        }
         public void UpdatePassword(string newPassword)
         {
             Password = newPassword;

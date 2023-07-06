@@ -18,9 +18,9 @@ namespace MyWeb2023.Areas.Admin.Controllers
         {
             _context = context;
         }
+      
         public async Task<IActionResult> Index(string sort, int? page, int? brandId)
         {
-            ViewBag.Page = page == null ? 1 : page;
             var products = await _context.Products.ToListAsync();
             if (brandId != null)
             {
