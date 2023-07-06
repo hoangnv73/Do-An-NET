@@ -6,29 +6,6 @@
         <h5>Order Details</h5>
     </div>
     <div class="card-block">
-        @*<div class="row">
-            <div class="col-sm-3"> </div>
-            <div class="col-sm-6">
-                <form method="post" action="/Order/Update">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <input id="update" name="id" value="@Model.Id" type="hidden" />
-                                <label>Status</label>
-                                <select class="form-control" name="status">
-                                    <option value="">Order Status</option>
-                                    <option value="1">Delivered</option>
-                                    <option value="2">Fails</option>
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-info">Update </button>
-                </form>
-            </div>
-        </div>*@
         <div>
             <div class="form-group" id="binding-order-01">
                 <div class="row">
@@ -40,7 +17,7 @@
                         <div>Address : </div>
                     </div>
                     <div class="col-6 col-md-4">
-                        <div>$@Model.TotalPrice.ToString("N2")</div>
+                        <div style="font-weight:800">$@Model.TotalPrice.ToString("N2")</div>
                         <div>@Model.CustomerName</div>
                         <div>@Model.Address</div>
                     </div>

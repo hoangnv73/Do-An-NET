@@ -7,6 +7,16 @@ function showMessageError(message) {
     })
 }
 
+function showMessageSuccess(message) {
+    console.log('ok' + message)
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: message,
+    })
+}
+
+
 function CommonMessage(type, message) {
     Swal.fire({
         position: 'center',
@@ -15,4 +25,11 @@ function CommonMessage(type, message) {
         showConfirmButton: false,
         timer: 2200
     })
+}
+function Success() {
+    Swal.fire({
+  icon: 'success',
+  title: 'Success',
+  text: 'Change Password success!',
+})
 }

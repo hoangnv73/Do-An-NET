@@ -85,10 +85,10 @@ namespace MyWeb2023.Controllers
             {
                //todo
             }
-            CommonFunction.HashPassword(password);
+            password = CommonFunction.HashPassword(password);
             profile.Update(password);
             _context.SaveChanges();
-            return RedirectToAction("ChangePassword", new { id = id });
+            return View();
         }
         
 
@@ -192,35 +192,37 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(string email, string password, string firstName, string lastname)
+        public object Register(string email, string password, string firstName, string lastname)
         {
             var check = _context.Users.FirstOrDefault(x => x.Email == email);
-            if (check == null)
+            if (check != null)
             {
-                //Nếu bằng null cho phép tạo TK
-                var UserAdd = new User
+                return new
                 {
-                    FirstName = firstName,
-                    LastName = lastname,
-                    Password = CommonFunction.HashPassword(password),
-                    Email = email,
-                    Gender = null,
-                    LastLogin = DateTime.Now,
+                    code = 400,
+                    message = "Account already exists!"
                 };
-                _context.Users.Add(UserAdd);
-                _context.SaveChanges();
-                SendMail("SignUp.html", email);
             }
-            
-            else
+            var UserAdd = new User
             {
-                // Nếu not null kh cho tạo và show "TK đã tồn tại"
-                ViewBag.Message = "Tài khoản đã tồn tại";
-                return View();
-            }
-            return View();
-        }
+                FirstName = firstName,
+                LastName = lastname,
+                Password = CommonFunction.HashPassword(password),
+                Email = email,
+                Gender = null,
+                LastLogin = DateTime.Now,
+            };
+            _context.Users.Add(UserAdd);
+            _context.SaveChanges();
+            SendMail("SignUp.html", email);
 
+            var obj = new
+            {
+                code = 200,
+                message = "Register Success!"
+            };
+            return obj;
+        }
 
         /// <summary>
         /// 
