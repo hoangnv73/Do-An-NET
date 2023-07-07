@@ -1,4 +1,5 @@
 ﻿@using MyWeb.Infrastructure.Client;
+@using Myweb.Domain.Common;
 @model List<MyOrderDto>
 
 <div class="preloader"></div>
@@ -50,69 +51,114 @@
                 </div>
 
                 <div class="col-12 col-md-12 col-lg-8 col-xl-8">
-                    <div class="ord_list_wrap border mb-4 mfliud">
-                        <div class="ord_list_head gray d-flex align-items-center justify-content-between px-3 py-3">
-                            @foreach (var item in Model)
-                            {
+               @foreach (var item in Model)
+                    {
+                        var total = item.Details.Sum(x => x.Price);
+                        <div class="ord_list_wrap border mb-4 mfliud">
+
+
+                            <div class="ord_list_head gray d-flex align-items-center justify-content-between px-3 py-3">
                                 <div class="olh_flex">
-                                    <p class="m-0 p-0"><span class="text-muted">@item.OrderDate</span></p>
-                                    <h6 class="mb-0 ft-medium">#@item.Id</h6>
+                                    <p class="m-0 p-0"><span class="text-muted">Order Number</span></p>
+                                    <h6 class="mb-0 ft-medium">#@item.Id  - @item.OrderDate.ToString("dd/MM/yyyy HH:mm:ss")</h6>
                                 </div>
-                            }
-                            <div class="olh_flex">
-                                <a href="javascript:void(0);" class="btn btn-sm btn-dark">Track Order</a>
+                                <div class="olh_flex">
+                                    <div>@item.StatusName</div>
+                                </div>
                             </div>
-                        </div>
-
-                        @*<div class="ord_list_head gray d-flex align-items-center justify-content-between px-3 py-3">
-                        <div class="olh_flex">
-                        <p class="m-0 p-0"><span class="text-muted">Order Number</span></p>
-                        <h6 class="mb-0 ft-medium">#1250004123</h6>
-                        </div>
-                        <div class="olh_flex">
-                        <a href="javascript:void(0);" class="btn btn-sm btn-dark">Track Order</a>
-                        </div>
-                        </div>*@
-                        <div class="ord_list_body text-left">
-                            <!-- First Product -->
-
-                            <div class="row align-items-center justify-content-center m-0 py-4 br-bottom">
-                                <div class="col-xl-5 col-lg-5 col-md-5 col-12">
-                                    <div class="cart_single d-flex align-items-start mfliud-bot">
-                                        <div class="cart_selected_single_thumb">
-                                            <a href="#"><img src="assets/img/product/4.jpg" width="75" class="img-fluid rounded" alt=""></a>
+                            <div class="ord_list_body text-left">
+                                <!-- First Product -->
+                                @foreach (var product in item.Details)
+                                {
+                                    <div class="row align-items-center justify-content-center m-0 py-4 br-bottom">
+                                        <div class="col-xl-5 col-lg-5 col-md-5 col-12">
+                                            <div class="cart_single d-flex align-items-start mfliud-bot">
+                                                <div class="cart_selected_single_thumb">
+                                                    <a href="#"><img src="@product.Image" width="75" class="img-fluid rounded" alt=""></a>
+                                                </div>
+                                                <div class="cart_single_caption pl-3">
+                                                    <h4 class="product_title fs-sm ft-medium mb-1 lh-1">@product.Name</h4>
+                                                    <p class="mb-2">
+                                                        <span class="text-dark medium">Available</span>
+                                                    </p>
+                                                    @*<h4 class="fs-sm ft-bold mb-0 lh-1"></h4>*@
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="cart_single_caption pl-3">
-                                            <p class="mb-0"><span class="text-muted small">Dresses</span></p>
-                                            <h4 class="product_title fs-sm ft-medium mb-1 lh-1">Women Striped Shirt Dress</h4>
-                                            <p class="mb-2">
-                                                <span class="text-dark medium">Quantity: 2</span>
-                                            </p>
-                                            <h4 class="fs-sm ft-bold mb-0 lh-1">$129</h4>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-6">
+                                            <p class="mb-1 p-0"><span class="text-muted">Price</span></p>
+                                            <div class="delv_status"><span class="ft-medium small text-warning bg-light-warning rounded px-3 py-1">$@product.Price</span></div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-6">
+                                            <p class="mb-1 p-0"><span class="text-muted">Quantity</span></p>
+                                            <h6 class="mb-0 ft-medium fs-sm">@product.Quantity</h6>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-3 col-md-3 col-6">
-                                    <p class="mb-1 p-0"><span class="text-muted">Status</span></p>
-                                    <div class="delv_status"><span class="ft-medium small text-warning bg-light-warning rounded px-3 py-1">In Progress</span></div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-6">
-                                    <p class="mb-1 p-0"><span class="text-muted">Expected date by:</span></p>
-                                    <h6 class="mb-0 ft-medium fs-sm">2023</h6>
-                                </div>
-                            </div>
+                                }
+                               
 
-                        </div>
-                        <div class="ord_list_footer d-flex align-items-center justify-content-between br-top px-3">
-                            <div class="col-xl-3 col-lg-3 col-md-4 olf_flex text-left px-0 py-2 br-right"><a href="javascript:void(0);" class="ft-medium fs-sm"><i class="ti-close mr-2"></i>Cancel Order</a></div>
-                            <div class="col-xl-9 col-lg-9 col-md-8 pr-0 py-2 olf_flex d-flex align-items-center justify-content-between">
-                                <div class="olf_inner_right"><h5 class="mb-0 fs-sm ft-bold">Total: $4510</h5></div>
+                            </div>
+                            <div class="ord_list_footer d-flex align-items-center justify-content-between br-top px-3">
+                               
+                                @{
+                                    var classBtn = item.Status == ORDER_STATUS.Pending.Id ? "btn btn-sm btn-danger"
+                                    : "btn btn-sm btn-default";
+                                    var isCancel = item.Status == ORDER_STATUS.Pending.Id ? true
+                                    : false;
+                                }
+                                <div onclick="CancelOrder('@item.Id', '@isCancel')" class="col-xl-3 col-lg-3 col-md-4 olf_flex text-left px-0 py-2 br-right">
+                                    <a href="javascript:void(0);" class="@classBtn">
+                                    <i class="ti-close mr-2"></i>Cancel Order</a></div>
+
+                                <div class="col-xl-9 col-lg-9 col-md-8 pr-0 py-2 olf_flex d-flex align-items-center justify-content-between">
+                                    <div class="olf_inner_right"><h5 class="mb-0 fs-sm ft-bold">Total: $@total</h5></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+
+
+                    }
+                  
+
+
+
                 </div>
             </div>
         </div>
     </section>
 </div>
-<
+
+
+
+<script>
+    function CancelOrder(orderId, isCancel){
+        if (isCancel == 'False') {
+            return;
+        }
+        Swal.fire({
+            title: 'Do you want to cancel an order?',
+            text: "If you cancel, you cannot restore!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post('/Account/CancelOrder', {
+                    'orderId': orderId
+                }, {
+
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                    .then(function (response) {
+                        window.location.reload()
+                    })
+            }
+        })
+       
+    }
+</script>

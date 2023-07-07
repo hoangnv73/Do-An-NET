@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using MyWeb2023.Models;
+using Myweb.Domain.Common;
 
 namespace MyWeb2023.Controllers
 {
@@ -241,9 +242,12 @@ namespace MyWeb2023.Controllers
         /// </summary>
         /// <param name="userId">userId</param>
         /// <returns></returns>
-        public IActionResult MyOrder(int userId) 
+        /// 
+        [HttpGet]
+        [Authorize]
+        public IActionResult MyOrder() 
         {
-            // khai bao doi tuong
+            int userId = int.Parse(User.Identity.Name);
             var response = new List<MyOrderDto>();
             var orders = _context.Orders.Where(x => x.UserId == userId).ToList();
 
@@ -261,7 +265,8 @@ namespace MyWeb2023.Controllers
                         ? $"/data/products/{product.Id}/{product.Image}"
                         : "/www/images/default-thumbnail.jpg",
                         Name = product.Name,
-                        Price = orderDetail.Price
+                        Price = orderDetail.Price,
+                        Quantity = orderDetail.Quantity
                     };
                     details.Add(aa);
                 }
@@ -271,6 +276,8 @@ namespace MyWeb2023.Controllers
                     Id = order.Id,
                     Address = order.Address,
                     Status = order.Status,
+                    //nếu not null return name, null return -
+                    StatusName = ORDER_STATUS.GetDetail(order.Status)?.Name ?? "-",
                     OrderDate = order.OrderDate,
                     Details = details
                 };
@@ -281,12 +288,22 @@ namespace MyWeb2023.Controllers
         }
 
         [Authorize]
-        public IActionResult CancelOrder(int orderId )
+        [HttpPost]
+        public string CancelOrder(int orderId )
         {
             var userId = int.Parse(User.Identity.Name);
-            var orders = _context.Orders.FirstOrDefault(x => x.UserId == userId);
-
-            return View();
+            var order = _context.Orders.FirstOrDefault(x => x.UserId == userId && x.Id == orderId);
+            if (order == null)
+            {
+                return "Order not found";
+            }
+            if (order.Status != ORDER_STATUS.Pending.Id)
+            {
+                return "Chỉ được huỷ đơn hàng đang Pending";
+            }
+            order.Status = ORDER_STATUS.Cancelled.Id;
+            _context.SaveChanges();
+            return "OK";
         }
 
 
