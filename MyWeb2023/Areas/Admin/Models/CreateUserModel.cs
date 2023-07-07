@@ -8,7 +8,7 @@
         public string Email { get; set; } = string.Empty;
         public bool Gender { get; set; }
         public IFormFile? File { get; set; }
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
     }
 }
