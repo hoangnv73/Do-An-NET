@@ -27,7 +27,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Id = x.Id,
                 Image = !string.IsNullOrEmpty(x.Image)
                         ? $"/data/users/{x.Id}/{x.Image}"
-                        : "/client/assets/img/default.jpg",
+                        : "/data/default.png",
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
