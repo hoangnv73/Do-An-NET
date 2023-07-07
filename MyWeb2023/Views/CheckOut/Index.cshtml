@@ -10,83 +10,82 @@
                 </div>
             </div>
         </div>
-            <div class="row justify-content-between">
-                <div class="col-12 col-lg-7 col-md-12">
-                    <h5 class="mb-4 ft-medium">Billing Details</h5>
-                    <div class="row mb-2">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="text-dark">Email <span class="text-danger">*</span></label>
-                                        <input id="email" name="email" type="email" class="form-control" placeholder="Email" />
-                                    </div>
-                                </div>
+        <div class="row justify-content-between">
+            <div class="col-12 col-lg-7 col-md-12">
+                <h5 class="mb-4 ft-medium">Billing Details</h5>
+                <div class="row mb-2">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="row">
                             <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="text-dark">Full name <span class="text-danger">*</span></label>
-                                         <input id="customerName" name="customerName" class="form-control" placeholder="Full name" />
-                                    </div>
+                                <div class="form-group">
+                                    <label class="text-dark">Email <span class="text-danger">*</span></label>
+                                    <input id="email" name="email" type="email" class="form-control" placeholder="Email" />
                                 </div>
                             </div>
-                          
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="text-dark">Full name <span class="text-danger">*</span></label>
+                                    <input id="customerName" name="customerName" class="form-control" placeholder="Full name" />
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="form-group">
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="form-group">
                             <label class="text-dark">Phone Number <span class="text-danger">*</span></label>
-                                <input id="phone" name="phone" type="text" class="form-control" placeholder="Mobile Number" />
-                            </div>
+                            <input id="phone" name="phone" type="text" class="form-control" placeholder="Mobile Number" />
                         </div>
+                    </div>
 
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="form-group">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="form-group">
                             <label class="text-dark">Address <span class="text-danger">*</span></label>
-                                <input id="address" name="address" type="text" class="form-control" placeholder="Address " />
-                            </div>
-                        </div>
-
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label class="text-dark">Country </label>
-                                <select class="custom-select">
-                                    <option value="1" selected="">Viet Nam</option>
-                                    <option value="2">United State</option>
-                                    <option value="3">United Kingdom</option>
-                                    <option value="4">China</option>
-                                    <option value="5">Pakistan</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label class="text-dark">Additional Information</label>
-                                <textarea id="note" name="note" class="form-control ht-50"></textarea>
-                            </div>
+                            <input id="address" name="address" type="text" class="form-control" placeholder="Address " />
                         </div>
                     </div>
 
-                    <h5 class="mb-4 ft-medium">Payments</h5>
-                   <div>
-                       <select class="custom-select" id="payment">
-                           <option value="cod">COD</option>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-dark">Country </label>
+                            <select class="custom-select">
+                                <option value="1" selected="">Viet Nam</option>
+                                <option value="2">United State</option>
+                                <option value="3">United Kingdom</option>
+                                <option value="4">China</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-dark">Additional Information</label>
+                            <textarea id="note" name="note" class="form-control ht-50"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="mb-4 ft-medium">Payments</h5>
+                <div>
+                    <select class="custom-select" id="payment">
+                        <option value="cod">COD</option>
                         <option value="vnpay">VN PAY</option>
-                       </select>
-                       <br />
-                   </div>
+                    </select>
+                </div>
+                <br />
                 <button onclick="Checkout()" type="submit" class="btn btn-dark btm-md full-width">Order Now!</button>
+            </div>
+
+            <!-- Product -->
+            <div class="col-12 col-lg-4 col-md-12">
+                <div class="d-block mb-3">
+                    <h5 class="mb-4">Order Items:</h5>
+                    <div id="render-cart-2"></div>
                 </div>
 
-                <!-- Product -->
-                <div class="col-12 col-lg-4 col-md-12">
-                    <div class="d-block mb-3">
-                        <h5 class="mb-4">Order Items:</h5>
-                        <div id="render-cart-2"></div>
-                    </div>
-                   
-                </div>
-         </div>
+            </div>
+        </div>
     </div>
 
 </section>

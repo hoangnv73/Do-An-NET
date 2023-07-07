@@ -19,7 +19,6 @@ namespace MyWeb2023.Controllers
             _context = context;
         }
 
-
         public IActionResult Index()
         {
             var home = new HomeDto();

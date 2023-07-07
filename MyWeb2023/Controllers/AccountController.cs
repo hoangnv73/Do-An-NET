@@ -348,8 +348,8 @@ namespace MyWeb2023.Controllers
             var objMails = GetObjectMails();
             var apiKey = "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";
             var client = new SendGridClient(apiKey);
-            var from_email = new EmailAddress("nguyenvanhoang73qb@gmail.com", "Mamz Shop");
-            var subject = "Sending with Mamz Shop";
+            var from_email = new EmailAddress("nguyenvanhoang73qb@gmail.com", "Kumo Shop");
+            var subject = "Sending with Kumo Shop";
             var to_email = new EmailAddress("maxgamingtvchannel@gmail.com", "Example User");
             var plainTextContent = "";
             var rootFolder = Directory.GetCurrentDirectory();
