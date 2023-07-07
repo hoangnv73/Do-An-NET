@@ -19,7 +19,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var orders = _context.Orders.Where(x => x.Status == ORDER_STATUS.Delivered.Id);
-            var totalUsers = _context.Users.Count(x => x.StatusId == USER_STATUS.Active);
+            var totalUsers = _context.Users.Count();
             var totalRevenu = _context.OrderDetails.Sum(x => x.Price * x.Quantity);
             var dashboard = new DashboardDto()
             {

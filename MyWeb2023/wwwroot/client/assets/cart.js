@@ -1,5 +1,11 @@
-bindingCart();
 
+bindingCart();
+//setTotalOrder();
+//function setTotalOrder() {
+//    let arr = getCarts();
+//    console.log("arr", arr.length);
+//    document.getElementById("total-order-desktop").innerHTML = arr.length;
+//}
 function getCarts() {
     let productIds = getCookie("productIds");
     let arr = productIds != null ? JSON.parse(productIds) : [];
@@ -17,12 +23,12 @@ function AddToCart(productId) {
     document.cookie = "productIds=" + json_str;
 
     Swal.fire({
-        position: 'center',
         icon: 'success',
-        title: 'Add to cart successfully!',
-        showConfirmButton: false,
-        timer: 2200
+        title: 'Successfully',
+        text: 'Add to cart successfully!',
+        //footer: '<a href="">Why do I have this issue?</a>'
     })
+    document.getElementById("total-order-desktop").innerHTML = getCarts().length;
     bindingCart();
 }
 
@@ -60,6 +66,8 @@ function RemoveToCart(productId) {
     });
     var json_str = JSON.stringify(newArr);
     document.cookie = "productIds=" + json_str;
+
+    document.getElementById("total-order-desktop").innerHTML = getCarts().length;
     bindingCart();
 }    
 
