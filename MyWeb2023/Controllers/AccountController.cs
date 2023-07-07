@@ -187,6 +187,7 @@ namespace MyWeb2023.Controllers
             if (user.RoleId != null)
             {
                 var roleName = _context.Roles.Find(user.RoleId)?.Name;
+                //add roles
                 claims.Add(new Claim(ClaimTypes.Role, roleName));
             }
             HttpContext.Response.Cookies.Append("user", user.Id.ToString());
