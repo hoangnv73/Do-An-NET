@@ -8,5 +8,7 @@
         public string Address { get; set; }
         public int Phone { get; set; }
         public string Note { get; set; }
+        public string? Payment { get; set; }
+        public string PaymentStatus { get; set; }
     }
 }

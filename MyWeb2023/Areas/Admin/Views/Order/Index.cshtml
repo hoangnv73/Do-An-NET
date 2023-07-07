@@ -18,7 +18,8 @@
                         <th>OrderDate</th>
                         <th>Address</th>
                         <th>Phone</th>
-                        
+                        <th>Payment</th>
+                         <th>Payment Status</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -37,6 +38,20 @@
                                 <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
                                 <td>@item.Address</td>
                                 <td>@item.Phone</td>
+                                <td>@item.Payment</td>
+                                <td>
+                                @{
+                                        if (item.PaymentStatus == "Paid")
+                                        {
+                                            <label class="badge badge-success">@item.PaymentStatus</label>
+                                        }
+                                        else
+                                        {
+                                             <label class="badge badge-info">@item.PaymentStatus</label>
+                                        }
+                                }
+                                </td>
+
                                 
                                 @{
                                     if (item.StatusName == ORDER_STATUS.Processing.Name 

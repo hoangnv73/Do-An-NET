@@ -30,6 +30,8 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Address = x.Address,
                 Phone = x.Phone,    
                 Note = x.Note,
+                Payment = !string.IsNullOrEmpty(x.Payment) ? x.Payment : "-",
+                PaymentStatus = x.Payment == "vnpay" || x.Status == ORDER_STATUS.Delivered.Id ? "Paid" : "Unpaid"
             }).ToList();
             return View(result);
         }
@@ -60,7 +62,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 {
                     ProductId = orderDetail.ProductId,
                     Name = product.Name,
-                    Price = product.Price,
+                    Price = orderDetail.Price,
                     Quantity = orderDetail.Quantity,
                     Image = !string.IsNullOrEmpty(product.Image)
                         ? $"/data/products/{product.Id}/{product.Image}"

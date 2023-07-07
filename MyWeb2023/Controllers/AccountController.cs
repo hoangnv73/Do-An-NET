@@ -249,7 +249,7 @@ namespace MyWeb2023.Controllers
         {
             int userId = int.Parse(User.Identity.Name);
             var response = new List<MyOrderDto>();
-            var orders = _context.Orders.Where(x => x.UserId == userId).ToList();
+            var orders = _context.Orders.Where(x => x.UserId == userId).OrderByDescending(x => x.OrderDate).ToList();
 
             foreach (var order in orders)
             { 

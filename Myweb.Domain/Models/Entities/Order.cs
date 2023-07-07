@@ -20,14 +20,14 @@ namespace Myweb.Domain.Models.Entities
         public int Phone { get; set; }
         public string? Note { get; set; }
         public string CustomerName { get; set; }
-
+        public string? Payment { get; set; }
         public Order()
         {
 
         }
 
         public Order(int? userId, string address,
-            int phone, string? note, string customerName)
+            int phone, string? note, string customerName, string payment)
         {
             UserId = userId;
             Status = ORDER_STATUS.Pending.Id;
@@ -36,6 +36,7 @@ namespace Myweb.Domain.Models.Entities
             Phone = phone;
             Note = note;
             CustomerName = customerName;
+            Payment = payment;
         }
 
         public void Update(int status)

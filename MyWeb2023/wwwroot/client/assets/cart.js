@@ -75,6 +75,7 @@ function Checkout() {
     let address = document.getElementById('address').value;
     let note = document.getElementById('note').value;
     let customerName = document.getElementById('customerName').value;
+    let payment = document.getElementById('payment').value;
     let cartItems = getCarts();
 
     if (IsEmpty(email)) {
@@ -104,6 +105,7 @@ function Checkout() {
         'address': address,
         'note': note,
         'customerName': customerName,
+        'payment': payment,
         'cartItems': cartItems
     }, {
         headers: {
@@ -111,9 +113,18 @@ function Checkout() {
         }
     })
         .then(function (response) {
-            ShowMessage("success", "Order successfully!");
+            //ShowMessage("success", "Order successfully!");
+            //ResetCookie();
+            //location.href = '/account/myorder'
+            if (response.data == "cod") {
+                location.href = '/account/myorder'
+            }
+            else {
+                location.href = response.data;
+            }
             ResetCookie();
-            location.href = '/account/myorder'
+            
+           
         })
 }
 
