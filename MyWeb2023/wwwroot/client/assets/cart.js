@@ -28,6 +28,7 @@ function AddToCart(productId) {
         text: 'Add to cart successfully!',
         //footer: '<a href="">Why do I have this issue?</a>'
     })
+    //+1 UI cart
     document.getElementById("total-order-desktop").innerHTML = getCarts().length;
     bindingCart();
 }
