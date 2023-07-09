@@ -9,6 +9,12 @@ namespace MyWeb2023.Models
 {
     public class CommonFunction
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file">File truyền vào</param>
+        /// <param name="pathFile">Đường dẫn</param>
+        /// <param name="fileName"></param>
         public static void UploadImage(IFormFile file, string pathFile, string? fileName = null)
         {
             var rootFolder = Directory.GetCurrentDirectory();

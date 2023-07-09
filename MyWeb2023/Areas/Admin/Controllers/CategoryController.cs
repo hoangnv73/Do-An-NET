@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
+using MyWeb2023.Models;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
@@ -78,10 +79,21 @@ namespace MyWeb2023.Areas.Admin.Controllers
             return View(category);
         }
         [HttpPost]
-        public IActionResult Update(int id, string name, bool isActive)
+        public IActionResult Update(int id, string name, bool isActive, IFormFile? file)
         {
             var category = _context.Categories.Find(id);
-            category.Update(name, isActive);
+
+            if (file != null)
+            {
+                var rootFolder = Directory.GetCurrentDirectory();
+                var photoName = category.Image;
+                string pathproduct = @$"{rootFolder}\wwwroot\data\categories\{id}\" + photoName;
+                System.IO.File.Delete(pathproduct);
+                category.Image = file.FileName;
+                CommonFunction.UploadImage(file, $"categories/{category.Id}");
+            }
+
+            category.Update(name, isActive, category.Image);
             _context.SaveChanges(true);
             return RedirectToAction("Update", new { id });
         }

@@ -154,6 +154,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             if (user == null) return RedirectToAction("NotFound", "Common");
             if (file != null)
             {
+                //  lấy ra đường dẫn thư mục hiện tại
                 var rootFolder = Directory.GetCurrentDirectory();
                 var photoName = user.Image;
                 string pathproduct = @$"{rootFolder}\wwwroot\data\users\{id}\" + photoName;
