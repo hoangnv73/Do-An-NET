@@ -6,6 +6,7 @@ using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.RequestModel.Client;
 using SendGrid.Helpers.Mail;
 using SendGrid;
+using MyWeb2023.Models;
 
 namespace MyWeb2023.Controllers
 {
@@ -68,37 +69,9 @@ namespace MyWeb2023.Controllers
                 resApi = "cod";
             }
 
-            SendMail("SendMailOrder.html", request.Email);
+            CommonFunction.SendMail("SendMailOrder.html", request.Email);
             return resApi;
         }
-
-        public List<ObjectMail> GetObjectMails()
-        {
-            var res = new List<ObjectMail>();
-            res.Add(new ObjectMail() { Key = "{FirstName}", Value = "Kumo" });
-            res.Add(new ObjectMail() { Key = "{DateTime.Now}", Value = DateTime.Now.ToString() });
-            return res;
-        }
-        public async Task SendMail(string key, string mailTo)
-        {
-            var objMails = GetObjectMails();
-            var apiKey = "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";
-            var client = new SendGridClient(apiKey);
-            var from_email = new EmailAddress("nguyenvanhoang73qb@gmail.com", "Kumo Shop");
-            var subject = "Sending with Kumo Shop";
-            var to_email = new EmailAddress("maxgamingtvchannel@gmail.com", "Example User");
-            var plainTextContent = "";
-            var rootFolder = Directory.GetCurrentDirectory();
-            string path = @$"{rootFolder}\wwwroot\template\{key}";
-            var htmlContent = System.IO.File.ReadAllText(path);
-            foreach (var item in objMails)
-            {
-                htmlContent = htmlContent.Replace(item.Key, item.Value);
-            }
-            var msg = MailHelper.CreateSingleEmail(from_email, to_email, subject, plainTextContent, htmlContent);
-            var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
-        }
-
 
         protected string btnPay_Click(double amount)
         {
