@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
+using MyWeb2023.Models;
 
 namespace MyWeb2023.Controllers
 {
@@ -28,9 +29,9 @@ namespace MyWeb2023.Controllers
                         : "/data/default.png",
                 Name = x.Name,
                 Quantity = request.FirstOrDefault(r => r.ProductId == x.Id)?.Quantity ?? 0,
-                Price = (x.Price - (x.Price / 100 * x.Discount ?? 0))
-                * (request.FirstOrDefault(r => r.ProductId == x.Id)?.Quantity ?? 0)
-            }).ToList();
+                Price = CommonFunction.SumDiscount(x.Price, x.Discount)
+                * (request.FirstOrDefault(r => r.ProductId == x.Id)?.Quantity ?? 0)}).ToList();
+
             return PartialView("_Cart", response); 
         }
     }

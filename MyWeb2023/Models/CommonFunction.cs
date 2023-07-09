@@ -74,5 +74,15 @@ namespace MyWeb2023.Models
                 return stringbuilder.ToString();
             }
         }
+
+        public static double SumDiscount(double price, double? discount)
+        {
+            if (discount != null)
+            {
+                var sum = price - (price / 100 * discount) ?? 0;// nếu như discount null thì discount = 0
+                return sum;
+            }
+            return price;
+        }
     }
 }
