@@ -68,6 +68,8 @@ namespace MyWeb2023.Controllers
         public async Task<ActionResult> Details(int id)
         {
             var response = new ProductDetailsDto();
+            var totalReview = _context.Reviews.Count(x => x.ProductId ==  id);
+
             var product = _context.Products.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             var productVM = new ProductVM
             {
@@ -79,6 +81,7 @@ namespace MyWeb2023.Controllers
                 Discount = product.Discount,
                 Image = product.Image,
                 BrandName = ShowBrandName(product.BrandId),
+                TotalReview = totalReview
             };
 
             var listReviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();

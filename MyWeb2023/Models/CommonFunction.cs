@@ -83,6 +83,6 @@ namespace MyWeb2023.Models
                 return sum;
             }
             return price;
-        }
+        } 
     }
 }
