@@ -73,9 +73,9 @@ namespace MyWeb2023.Controllers
         {
             var response = new ProductDetailsDto();
             var totalReview = _context.Reviews.Count(x => x.ProductId == id);
-            var sumReview = _context.Reviews.Where(x => x.ProductId == id).Sum(x => x.Rating);
-            //var abc = _context.Reviews.Where(x => x.ProductId == id).Average(x => x.Rating);
+            var sumReview = _context.Reviews.Where(x => x.ProductId == id).Sum(x => x.Rating);  
             var tbcReview = sumReview / totalReview;
+
             var product = _context.Products.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             var productVM = new ProductVM
             {
