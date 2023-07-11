@@ -18,5 +18,8 @@ namespace MyWeb.Infrastructure.Client
         public string BrandName { get; set; } = string.Empty;
         public string? Description { get; set; } = string.Empty;
         public int? TotalReview { get; set; }
+        public int? SumReview { get; set; } 
+        public int? TBCReview { get; set; } 
+
     }
 }

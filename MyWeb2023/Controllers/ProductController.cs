@@ -15,7 +15,7 @@ namespace MyWeb2023.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index(string sort, int? page, int? categoryId)
+         public async Task<IActionResult> Index(string sort, int? page, int? categoryId,int id)
         {
             ViewBag.Page = page == null ? 1 : page;
 
@@ -34,6 +34,8 @@ namespace MyWeb2023.Controllers
                 products = products.OrderByDescending(x => x.Price - ((x.Price / 100) * x.Discount)).ToList();
             }
 
+            var toralReview = _context.Reviews.Count(x => x.ProductId == id) ;  
+           
             var result = products.Select(x => new ProductVM
             {
                 Id = x.Id,
@@ -45,8 +47,10 @@ namespace MyWeb2023.Controllers
                 Price = x.Price,
                 Discount = x.Discount,
                 Status = x.Status,
+                TotalReview = toralReview,
+              
             }).ToList();
-            return View(result);
+            return View(result); 
         }
 
         // Show BrandName
@@ -68,8 +72,10 @@ namespace MyWeb2023.Controllers
         public async Task<ActionResult> Details(int id)
         {
             var response = new ProductDetailsDto();
-            var totalReview = _context.Reviews.Count(x => x.ProductId ==  id);
-
+            var totalReview = _context.Reviews.Count(x => x.ProductId == id);
+            var sumReview = _context.Reviews.Where(x => x.ProductId == id).Sum(x => x.Rating);
+            //var abc = _context.Reviews.Where(x => x.ProductId == id).Average(x => x.Rating);
+            var tbcReview = sumReview / totalReview;
             var product = _context.Products.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             var productVM = new ProductVM
             {
@@ -81,7 +87,8 @@ namespace MyWeb2023.Controllers
                 Discount = product.Discount,
                 Image = product.Image,
                 BrandName = ShowBrandName(product.BrandId),
-                TotalReview = totalReview
+                TotalReview = totalReview,
+                TBCReview = tbcReview
             };
 
             var listReviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();

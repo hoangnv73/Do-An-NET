@@ -20,10 +20,11 @@
                         <a href="#" data-toggle="modal" data-target="#quickview" class="prd_btn_square"><i class="ti-fullscreen"></i></a>
                         <a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="lni lni-heart"></i></a>
                         <a href="javascript:void(0);"
-                        onclick="AddToCart('@Model.Id')"
-                        class="prd_btn_square" data-toggle="tooltip"
-                        data-placement="top" title="Add To Cart"><i class="lni lni-shopping-basket"></i>
-                    </a>
+                           onclick="AddToCart('@Model.Id')"
+                           class="prd_btn_square" data-toggle="tooltip"
+                           data-placement="top" title="Add To Cart">
+                            <i class="lni lni-shopping-basket"></i>
+                        </a>
                         <a href="javascript:void(0);" class="prd_btn_square" data-toggle="tooltip" data-placement="top" title="Compare"><i class="lni lni-shuffle"></i></a>
                     </div>
                 </div>
@@ -31,14 +32,23 @@
         </div>
         <div class="card-footer b-0 p-3 pb-0 bg-white d-flex align-items-start justify-content-center">
             <div class="text-left">
+                <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star"></i>
+                    <span class="small">(@Model.TotalReview Reviews)</span>
+                </div>
                 <div class="text-center">
+                    <input id="productId" name="productId" value="@Model.Id" type="hidden"/>
                     <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1">
                         <a href="/Product/Details?id=@Model.Id">@Model.Name</a>
                     </h5>
                     @{
                         var price = Model.Price;
                         <div class="elis_rty">
-                        
+
                             @if (Model.Discount != null && Model.Discount > 0)
                             {
                                 price = Model.Price - (Model.Price / 100) * Model.Discount ?? 0;
@@ -46,7 +56,7 @@
                             }
                             <span class="ft-bold theme-cl fs-md">$@price</span>
                         </div>
-                       
+
                     }
                 </div>
             </div>
