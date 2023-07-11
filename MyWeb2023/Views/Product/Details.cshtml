@@ -1,6 +1,9 @@
 ﻿@using MyWeb.Infrastructure.Client;
 @model ProductDetailsDto
 
+<script>
+   
+</script>
 
 <div id="main-wrapper">
     <!-- Start Navigation -->
@@ -47,11 +50,15 @@
                             <h2 class="ft-bold mb-1">@Model.Product.Name</h2>
                             <div class="text-left">
                                 <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i> 
-                                    <i class="fas fa-star"></i>
+                                    @{
+                                        var stars2 = new List<int> { 1, 2, 3, 4, 5 };
+                                        var star2 = Model.Product.TBCReview;
+                                        @foreach (var i in stars2)
+                                        {
+                                            var filled = star2 >= i ? "filled" : string.Empty;
+                                            <i class="fas fa-star @filled"></i>
+                                        }
+                                    }
                                     <span class="small">(@Model.Product.TBCReview Stars)</span>
                                 </div>
                                 @{
@@ -167,6 +174,7 @@
                                                         }
                                                     }
                                                 </div>
+                                               
                                             </div>
                                         </div>
                                     </div>

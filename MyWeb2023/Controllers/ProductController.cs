@@ -107,11 +107,16 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public IActionResult Comment(string name, int rating, string comment, int productId)
+        public IActionResult Comment( int rating, string comment, int productId)
         {
+            var userId = int.Parse(User.Identity.Name);
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var addReview = new Review
             {
-                Name = name,
+                UserId = userId,
                 Rating = rating,
                 Comment = comment,
                 CreateDate = DateTime.Now,
