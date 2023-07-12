@@ -73,8 +73,13 @@ namespace MyWeb2023.Controllers
         {
             var response = new ProductDetailsDto();
             var totalReview = _context.Reviews.Count(x => x.ProductId == id);
-            var sumReview = _context.Reviews.Where(x => x.ProductId == id).Sum(x => x.Rating);  
-            var tbcReview = sumReview / totalReview;
+            var sumReview = _context.Reviews.Where(x => x.ProductId == id).Sum(x => x.Rating);
+
+            var tbcReview = 0;
+            if (totalReview != 0)
+            {
+                tbcReview = sumReview / totalReview;
+            }
 
             var product = _context.Products.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             var productVM = new ProductVM
@@ -107,13 +112,17 @@ namespace MyWeb2023.Controllers
         }
 
         [HttpPost]
-        public IActionResult Comment( int rating, string comment, int productId)
+        public object Comment(int rating, string comment, int productId)
         {
-            var userId = int.Parse(User.Identity.Name);
-            if (userId == null)
+            if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Login", "Account");
+                return new
+                {
+                    code = 400,
+                    message = "Login"
+                };
             }
+            var userId = int.Parse(User.Identity.Name);
             var addReview = new Review
             {
                 UserId = userId,
@@ -126,11 +135,5 @@ namespace MyWeb2023.Controllers
             _context.SaveChanges();
             return RedirectToAction("Details", new { id = productId });
         }
-
-
-
-
-
-
     }
 }

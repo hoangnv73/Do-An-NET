@@ -2,7 +2,30 @@
 @model ProductDetailsDto
 
 <script>
-   
+    function Review() {
+        let rating = document.getElementById('rating').value;
+        let comment = document.getElementById('comment').value
+
+        axios.post('/product/details', {
+            'rating': rating,
+            'comment': comment
+        }, {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(function (res) {
+                console.log(res);
+                //if (res.data.code == 200) {
+                //    //alert(`${res.data.message}`);
+                //    showMessageError(res.data.message);
+                //}
+               
+                if (res.data.code == 400) {
+                    window.location.href = "/";
+                }
+            })
+    }
 </script>
 
 <div id="main-wrapper">
@@ -59,7 +82,7 @@
                                             <i class="fas fa-star @filled"></i>
                                         }
                                     }
-                                    <span class="small">(@Model.Product.TBCReview Stars)</span>
+                                    <span class="small">@Model.Product.TBCReview (@Model.Product.TotalReview Reviews)</span>
                                 </div>
                                 @{
                                     var price = Model.Product.Price - (Model.Product.Price / 100) * Model.Product.Discount;
@@ -170,7 +193,7 @@
                                                         @foreach (var i in stars) 
                                                         {
                                                             var filled = star >= i ? "filled" : string.Empty;
-                                                            <i class="fas fa-star @filled"></i>
+                                                            <i id="rating" class="fas fa-star @filled"></i>
                                                         }
                                                     }
                                                 </div>
@@ -222,12 +245,12 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="medium text-dark ft-medium">Comment</label>
-                                            <textarea name="comment" class="form-control"></textarea>
+                                            <textarea id="comment" name="comment" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                         <div class="form-group m-0">
-                                            <button class="btn btn-white stretched-link hover-black" type="submit"> Submit Review <i class="lni lni-arrow-right"></i></button>
+                                            <button onclick="Review()" class="btn btn-white stretched-link hover-black" type="submit"> Submit Review <i class="lni lni-arrow-right"></i></button>
                                         </div>
                                     </div>
 
