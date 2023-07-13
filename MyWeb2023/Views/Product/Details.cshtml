@@ -4,11 +4,17 @@
 <script>
     function Review() {
         let rating = document.getElementById('rating').value;
-        let comment = document.getElementById('comment').value
+        let comment = document.getElementById('comment').value;
+        let productId = document.getElementById('productId').value
 
-        axios.post('/product/details', {
+        console.log(rating);
+        console.log(comment);
+        console.log(productId);
+
+        axios.post('/product/comment', {
             'rating': rating,
-            'comment': comment
+            'comment': comment,
+            'productId': productId
         }, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded'
@@ -16,15 +22,22 @@
         })
             .then(function (res) {
                 console.log(res);
-                //if (res.data.code == 200) {
-                //    //alert(`${res.data.message}`);
-                //    showMessageError(res.data.message);
-                //}
-               
+                if (res.data.code == 200) {
+
+                    showMessageSuccess(res.data.message);
+                }
+
                 if (res.data.code == 400) {
-                    window.location.href = "/";
+                    window.location.href = "/account/login";
                 }
             })
+    }
+    // get value, id name 
+    function setValue(clicked_id) {
+        var star = document.getElementById(clicked_id).value;
+
+        console.log("value star: " + star)
+        console.log("id: " + clicked_id)
     }
 </script>
 
@@ -55,7 +68,7 @@
     <!-- ======================= Product Detail ======================== -->
     <section class="middle">
         <div class="container">
-            <div class="row">  
+            <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="sp-loading"><img src="#" alt=""><br>LOADING IMAGES</div>
                     <div class="sp-wrap">
@@ -64,7 +77,7 @@
                         </a>
                     </div>
                 </div>
-               
+
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="prd_details">
 
@@ -82,7 +95,7 @@
                                             <i class="fas fa-star @filled"></i>
                                         }
                                     }
-                                    <span class="small">@Model.Product.TBCReview (@Model.Product.TotalReview Reviews)</span>
+                                    <span class="small">(@Model.Product.TotalReview Reviews)</span>
                                 </div>
                                 @{
                                     var price = Model.Product.Price - (Model.Product.Price / 100) * Model.Product.Discount;
@@ -157,7 +170,7 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link active" id="description-tab" href="#description" data-toggle="tab" role="tab" aria-controls="description" aria-selected="true">Description</a>
                         </li>
-                       
+
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" href="#reviews" id="reviews-tab" data-toggle="tab" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
                         </li>
@@ -167,7 +180,7 @@
                         <!-- Description Content -->
                         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                             <div class="description_info">
-                             @Html.Raw(@Model.Product.Description)
+                                @Html.Raw(@Model.Product.Description)
                             </div>
                         </div>
 
@@ -190,71 +203,71 @@
                                                     @{
                                                         var stars = new List<int> { 1, 2, 3, 4, 5 };
                                                         var star = item.Rating;
-                                                        @foreach (var i in stars) 
+                                                        @foreach (var i in stars)
                                                         {
                                                             var filled = star >= i ? "filled" : string.Empty;
                                                             <i id="rating" class="fas fa-star @filled"></i>
                                                         }
                                                     }
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             }
                             <div class="reviews_rate">
-                                <form class="row" method="post" action="@Url.Action( "Comment","Product")">
-                                   
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <h4>Submit Rating</h4>
-                                    </div>
-                                    <input id="productId" name="productId" value="@Model.Product.Id" type="hidden"/>
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <div class="revie_stars d-flex align-items-center justify-content-between px-2 py-2 gray rounded mb-2 mt-1">
-                                            <div class="srt_013">
-                                                <div class="submit-rating">
-                                                    <input id="star-5" type="radio" name="rating" value="5" />
-                                                    <label for="star-5" title="5 stars">
-                                                        <i class="active fa fa-star" aria-hidden="true"></i>
-                                                    </label>
-                                                    <input id="star-4" type="radio" name="rating" value="4" />
-                                                    <label for="star-4" title="4 stars">
-                                                        <i class="active fa fa-star" aria-hidden="true"></i>
-                                                    </label>
-                                                    <input id="star-3" type="radio" name="rating" value="3" />
-                                                    <label for="star-3" title="3 stars">
-                                                        <i class="active fa fa-star" aria-hidden="true"></i>
-                                                    </label>
-                                                    <input id="star-2" type="radio" name="rating" value="2" />
-                                                    <label for="star-2" title="2 stars">
-                                                        <i class="active fa fa-star" aria-hidden="true"></i>
-                                                    </label>
-                                                    <input id="star-1" type="radio" name="rating" value="1" />
-                                                    <label for="star-1" title="1 star">
-                                                        <i class="active fa fa-star" aria-hidden="true"></i>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                @* <form class="row" method="post" action="@Url.Action( "Comment","Product")">*@
 
-                                            <div class="srt_014">
-                                                <h6 class="mb-0">5 Star</h6>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <h4>Submit Rating</h4>
+                                </div>
+                                <input id="productId" name="productId" value="@Model.Product.Id" type="hidden" />
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="revie_stars d-flex align-items-center justify-content-between px-2 py-2 gray rounded mb-2 mt-1">
+                                        <div class="srt_013">
+                                            <div class="submit-rating">
+                                                <input onclick="setValue(this.id)" id="star-5" type="radio" name="rating" value="5" />
+                                                <label for="star-5" title="5 stars">
+                                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                                </label>
+                                                <input onclick="setValue(this.id)" id="star-4" type="radio" name="rating" value="4" />
+                                                <label for="star-4" title="4 stars">
+                                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                                </label>
+                                                <input onclick="setValue(this.id)" id="star-3" type="radio" name="rating" value="3" />
+                                                <label for="star-3" title="3 stars">
+                                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                                </label>
+                                                <input onclick="setValue(this.id)" id="star-2" type="radio" name="rating" value="2" />
+                                                <label for="star-2" title="2 stars">
+                                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                                </label>
+                                                <input onclick="setValue(this.id)" id="star-1" type="radio" name="rating" value="1" />
+                                                <label for="star-1" title="1 star">
+                                                    <i class="active fa fa-star" aria-hidden="true"></i>
+                                                </label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <div class="form-group">
-                                            <label class="medium text-dark ft-medium">Comment</label>
-                                            <textarea id="comment" name="comment" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <div class="form-group m-0">
-                                            <button onclick="Review()" class="btn btn-white stretched-link hover-black" type="submit"> Submit Review <i class="lni lni-arrow-right"></i></button>
-                                        </div>
-                                    </div>
 
-                                </form>
+                                        <div class="srt_014">
+                                            <h6 class="mb-0">5 Star</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="medium text-dark ft-medium">Comment</label>
+                                        <textarea id="comment" name="comment" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group m-0">
+                                        <button onclick="Review()" class="btn btn-white stretched-link hover-black" type="submit"> Submit Review <i class="lni lni-arrow-right"></i></button>
+                                    </div>
+                                </div>
+
+                                @* </form>*@
                             </div>
 
                         </div>

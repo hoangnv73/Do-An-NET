@@ -132,8 +132,16 @@ namespace MyWeb2023.Controllers
                 ProductId = productId,
             };
             _context.Reviews.Add(addReview);
+          
+
+            var obj = new
+            {
+                code = 200,
+                message = "Comment Success !"
+            };
+
             _context.SaveChanges();
-            return RedirectToAction("Details", new { id = productId });
+            return obj;
         }
     }
 }
