@@ -12,6 +12,7 @@
     function DeleteProduct(id) {
         axios.post('/products/DeleteProduct', {
             'id': id
+
         }, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded'
@@ -64,11 +65,12 @@
             </div>
 
             <div class="col-sm-3">
-                <form class="d-flex">
-                    <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" action="/Admin/Products" method="get">
+                    <input name="kw" class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-success btn-sm" type="submit">Search</button>
                 </form>
             </div>
+
         </div>
     </div>
     <div class="card-block table-border-style">
@@ -142,5 +144,5 @@
         </div>
     </div>
 </div>
-</div>
+
 

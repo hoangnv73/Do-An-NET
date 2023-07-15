@@ -6,6 +6,7 @@ using Myweb.Domain.Models.Entities;
 using MyWeb2023.Areas.Admin.Models.Dto;
 using MyWeb2023.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
@@ -19,8 +20,9 @@ namespace MyWeb2023.Areas.Admin.Controllers
             _context = context;
         }
       
-        public async Task<IActionResult> Index(string sort, int? page, int? brandId)
+        public async Task<IActionResult> Index(string sort, int? page, int? brandId, string? kw)
         {
+            
             var products = await _context.Products.Where(x => !x.IsDeleted).ToListAsync();
             if (brandId != null)
             {
@@ -34,6 +36,15 @@ namespace MyWeb2023.Areas.Admin.Controllers
             if (sort == "price_desc")
             {
                 products = products.OrderByDescending(x => x.Price).ToList();
+            }
+
+            //search
+            if (!string.IsNullOrEmpty(kw))
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(kw.ToLower())
+                || x.Id.ToString() == kw).ToList();
+
+               
             }
 
             var result = products.Select(x => new ProductDto
