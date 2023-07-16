@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Myweb.Domain.Models.Entities;
+using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
 using MyWeb2023.Areas.Admin.Models.Dto;
 using MyWeb2023.Models;
@@ -18,9 +19,17 @@ namespace MyWeb2023.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? kw)
         {
             var users = await _context.Users.ToListAsync();
+
+
+            //search
+            if (!string.IsNullOrEmpty(kw))
+            {
+                users = users.Where(x => x.LastName.ToLower().Contains(kw.ToLower())).ToList();
+                ViewBag.Keyword = kw;
+            }
 
             var result = users.Select(x => new UserDto
             {
@@ -35,6 +44,9 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 RoleId = x.RoleId,
                 RoleName = x.RoleId == null ? "-" : ShowRoleName(x.RoleId.Value)
             }).ToList();
+
+            
+
             return View(result);
         }
 

@@ -20,6 +20,7 @@ namespace MyWeb.Infrastructure.Client
         public int? TotalReview { get; set; }
         public int? SumReview { get; set; } 
         public int? TBCReview { get; set; } 
+        public int TotalSold { get; set; }
 
     }
 }

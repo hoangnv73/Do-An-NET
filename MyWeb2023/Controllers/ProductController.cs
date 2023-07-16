@@ -18,7 +18,7 @@ namespace MyWeb2023.Controllers
          public async Task<IActionResult> Index(string sort, int? page, int? categoryId,int id)
         {
             ViewBag.Page = page == null ? 1 : page;
-
+           
             // Status = true thì hiển thị product
             var products = await _context.Products.Where(x => x.Status && !x.IsDeleted).Take(12).ToListAsync();
             if(categoryId != null)
@@ -34,8 +34,8 @@ namespace MyWeb2023.Controllers
                 products = products.OrderByDescending(x => x.Price - ((x.Price / 100) * x.Discount)).ToList();
             }
 
-            var toralReview = _context.Reviews.Count(x => x.ProductId == id) ;  
-           
+            var totalReview = _context.Reviews.Count(x => x.ProductId == id) ;  
+            
             var result = products.Select(x => new ProductVM
             {
                 Id = x.Id,
@@ -47,7 +47,7 @@ namespace MyWeb2023.Controllers
                 Price = x.Price,
                 Discount = x.Discount,
                 Status = x.Status,
-                TotalReview = toralReview,
+                TotalReview = totalReview,
               
             }).ToList();
             return View(result); 
@@ -75,6 +75,8 @@ namespace MyWeb2023.Controllers
             var totalReview = _context.Reviews.Count(x => x.ProductId == id);
             var sumReview = _context.Reviews.Where(x => x.ProductId == id).Sum(x => x.Rating);
 
+            var totalSold = _context.OrderDetails.Count(x => x.ProductId == id);
+
             var tbcReview = 0;
             if (totalReview != 0)
             {
@@ -93,7 +95,8 @@ namespace MyWeb2023.Controllers
                 Image = product.Image,
                 BrandName = ShowBrandName(product.BrandId),
                 TotalReview = totalReview,
-                TBCReview = tbcReview
+                TBCReview = tbcReview,
+                TotalSold = totalSold,
             };
 
             var listReviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();

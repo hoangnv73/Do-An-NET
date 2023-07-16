@@ -22,7 +22,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
       
         public async Task<IActionResult> Index(string sort, int? page, int? brandId, string? kw)
         {
-            
+            ViewBag.Sort = sort;
             var products = await _context.Products.Where(x => !x.IsDeleted).ToListAsync();
             if (brandId != null)
             {
@@ -37,14 +37,14 @@ namespace MyWeb2023.Areas.Admin.Controllers
             {
                 products = products.OrderByDescending(x => x.Price).ToList();
             }
+         
 
             //search
             if (!string.IsNullOrEmpty(kw))
             {
                 products = products.Where(x => x.Name.ToLower().Contains(kw.ToLower())
                 || x.Id.ToString() == kw).ToList();
-
-               
+                ViewBag.Keyword = kw;
             }
 
             var result = products.Select(x => new ProductDto

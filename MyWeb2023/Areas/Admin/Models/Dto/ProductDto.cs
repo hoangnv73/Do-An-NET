@@ -18,5 +18,13 @@
 
         public string BrandName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+
+      
     }
+    public class FilterProduct
+    {
+        public string Sort { get; set; }
+        public string Kw { get; set; }
+    }
+
 }

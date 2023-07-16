@@ -4,6 +4,9 @@
 @{
     List<int> pages = new List<int> { 1, 2, 3, 4, 5 };
     int currentPage = 1;
+    var sort = ViewBag.Sort;
+  //  FilterProduct filter = ViewBag.Filter;
+
 }
 <script>
     function reloadPage() {
@@ -46,30 +49,51 @@
     </div>
     <div class="card-block">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <a href="/Admin/Products/Create" class="btn btn-success btn-sm">Add</a>
             </div>
-            <div class="col-sm-3">
-                <form method="get">
-                    <div class="d-flex flex-row">
+
+            <form class="col-sm-10 d-flex" action="/Admin/Products" method="get">
+                <div class="col-sm-3">
+                    <div class="d-flex">
                         <div>
-                            <select name="sort" class="form-control btn-md">
+                            <select id="leaveCode" name="sort" class="form-control btn-md">
                                 <option>Filter</option>
                                 <option value="price_asc">Price Low => High</option>
                                 <option value="price_desc">Price High => Low</option>
+
                             </select>
                         </div>
-                        <div><button class="btn btn-success btn-sm" type="submit">Filter</button></div>
                     </div>
-                </form>
-            </div>
+                    <div class="d-flex">
+                        <div>
+                            <select id="leaveCode" name="sort" class="form-control btn-md">
+                                <option>Filter</option>
+                                <option value="price_asc">Price Low => High</option>
+                                <option value="price_desc">Price High => Low</option>
 
-            <div class="col-sm-3">
-                <form class="d-flex" action="/Admin/Products" method="get">
-                    <input name="kw" class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-success btn-sm" type="submit">Search</button>
-                </form>
-            </div>
+                            </select>
+                        </div>
+                    </div>
+                    <script>
+                        function selectElement(id, valueToSelect) {
+                            let element = document.getElementById(id);
+                            element.value = valueToSelect;
+                        }
+                        selectElement('leaveCode', '@sort');
+
+                    </script>
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="d-flex">
+                        <input name="kw" value="@ViewBag.Keyword" class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-success btn-sm" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+
+
 
         </div>
     </div>

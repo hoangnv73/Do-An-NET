@@ -72,6 +72,29 @@
             <div class="col-sm-3">
                 <a href="/Admin/Users/Create" class="btn btn-success btn-sm">Create</a>
             </div>
+
+            <div class="col-sm-3">
+                <form method="get">
+                    <div class="d-flex flex-row">
+                        <div>
+                            <select name="sort" class="form-control btn-md">
+                                <option>Filter</option>
+                                <option value="price_asc">Price Low => High</option>
+                                <option value="price_desc">Price High => Low</option>
+                            </select>
+                        </div>
+                        <div><button class="btn btn-success btn-sm" type="submit">Filter</button></div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-3">
+                <form class="d-flex" action="/Admin/Users" method="get">
+                    <input name="kw" value="@ViewBag.Keyword"  class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success btn-sm" type="submit">Search</button>
+
+                </form>
+            </div>
         </div>
     </div>
     <div class="card-block table-border-style">
