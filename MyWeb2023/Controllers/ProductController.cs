@@ -76,6 +76,8 @@ namespace MyWeb2023.Controllers
             var sumReview = _context.Reviews.Where(x => x.ProductId == id).Sum(x => x.Rating);
 
             var totalSold = _context.OrderDetails.Count(x => x.ProductId == id);
+            var orders = _context.Orders.Where(x => x.Id == id);
+            
 
             var tbcReview = 0;
             if (totalReview != 0)

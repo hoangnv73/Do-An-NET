@@ -20,9 +20,17 @@ namespace MyWeb2023.Areas.Admin.Controllers
             _context = context;
         }
       
-        public async Task<IActionResult> Index(string sort, int? page, int? brandId, string? kw)
+        public async Task<IActionResult> Index(string sort, int? page, int? brandId, string? kw, string brand)
         {
-            ViewBag.Sort = sort;
+            var filter = new FilterProduct
+            {
+              Sort = sort,
+              Kw = kw,
+              Brand = brand,
+            };
+            ViewBag.Filter = filter;
+
+            // sort price
             var products = await _context.Products.Where(x => !x.IsDeleted).ToListAsync();
             if (brandId != null)
             {
@@ -38,7 +46,6 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 products = products.OrderByDescending(x => x.Price).ToList();
             }
          
-
             //search
             if (!string.IsNullOrEmpty(kw))
             {

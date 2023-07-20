@@ -25,6 +25,7 @@
     {
         public string Sort { get; set; }
         public string Kw { get; set; }
+        public string Brand { get; set; }
     }
 
 }
