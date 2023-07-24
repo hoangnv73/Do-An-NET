@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Myweb.Domain.Common;
 using Myweb.Domain.Models.Entities;
 using MyWeb.Infrastructure.Client;
 using MyWeb2023.Areas.Admin.Models;
@@ -74,12 +75,19 @@ namespace MyWeb2023.Controllers
             var response = new ProductDetailsDto();
             var totalReview = _context.Reviews.Count(x => x.ProductId == id);
             var sumReview = _context.Reviews.Where(x => x.ProductId == id).Sum(x => x.Rating);
+           
+            // tính total sản phẩm đã bán
+            var orderdetails = _context.OrderDetails.Where(x => x.ProductId == id).ToList();
+            var count = 0;
+            foreach (var orderDetail in orderdetails)
+            {
+                var order = _context.Orders.Find(orderDetail.OrderId);
+                if (order == null) continue;
 
-            var totalSold = _context.OrderDetails.Count(x => x.ProductId == id);
-            var orders = _context.Orders.Where(x => x.Id == id);
+                if (order.Status == ORDER_STATUS.Delivered.Id) count = count + 1;
+            }
             
-
-            var tbcReview = 0;
+            var tbcReview = 0; 
             if (totalReview != 0)
             {
                 tbcReview = sumReview / totalReview;
@@ -98,7 +106,7 @@ namespace MyWeb2023.Controllers
                 BrandName = ShowBrandName(product.BrandId),
                 TotalReview = totalReview,
                 TBCReview = tbcReview,
-                TotalSold = totalSold,
+                TotalSold = count,
             };
 
             var listReviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();

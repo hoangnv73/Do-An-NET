@@ -7,6 +7,7 @@ using MyWeb2023.Areas.Admin.Models.Dto;
 using MyWeb2023.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Myweb.Domain.Common;
 
 namespace MyWeb2023.Areas.Admin.Controllers
 {
@@ -53,6 +54,9 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 || x.Id.ToString() == kw).ToList();
                 ViewBag.Keyword = kw;
             }
+            // tính total sản phẩm đã bán
+
+       
 
             var result = products.Select(x => new ProductDto
             {
@@ -67,7 +71,23 @@ namespace MyWeb2023.Areas.Admin.Controllers
                 Status = x.Status,
                 Description = x.Description,
                 BrandName = ShowBrandName(x.BrandId),
+                Sold = 0
             }).ToList();
+
+            
+            foreach (var product in result)
+            {
+                var count = 0;
+                var orderDetails = _context.OrderDetails.Where(x => x.ProductId == product.Id).ToList();
+               
+                foreach (var item in orderDetails)
+                {
+                    var order = _context.Orders.Find(item.OrderId);
+                    if (order == null) continue;
+                    if (order.Status == ORDER_STATUS.Delivered.Id) count = count + 1;
+                }
+                product.Sold = count;
+            }
             return View(result);
         }
         public string ShowBrandName(int? brandId)

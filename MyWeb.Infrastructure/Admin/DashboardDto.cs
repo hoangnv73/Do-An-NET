@@ -9,7 +9,9 @@ namespace MyWeb.Infrastructure.Admin
     public class DashboardDto
     {
         public int TotalOrders { get; set; }
-        public string TotalRevenu { get; set; }
+        public double TotalRevenu { get; set; }
         public int TotalUsers { get; set; }
+        public int TotalProducts { get; set; }
+        public double GrowthRevenu { get; set; }
     }
 }

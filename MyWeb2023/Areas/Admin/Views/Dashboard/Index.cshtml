@@ -1,4 +1,4 @@
-﻿@using MyWeb.Infrastructure.Admin;
+﻿ @using MyWeb.Infrastructure.Admin;
 @model DashboardDto;
 
 <div class="row">
@@ -43,7 +43,7 @@
             <div class="card-footer bg-c-green">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <p class="text-white m-b-0">% change</p>
+                        <p class="text-white m-b-0">@Model.GrowthRevenu% change</p>
                     </div>
                     <div class="col-3 text-right">
                         <i class="feather icon-trending-up text-white f-16"></i>
@@ -82,8 +82,8 @@
             <div class="card-block">
                 <div class="row align-items-center">
                     <div class="col-8">
-                        <h4 class="text-c-blue f-w-600">59</h4>
-                        <h6 class="text-muted m-b-0">View</h6>
+                        <h4 class="text-c-blue f-w-600">@Model.TotalProducts</h4>  
+                        <h6 class="text-muted m-b-0">Products</h6>
                     </div>
                     <div class="col-4 text-right">
                         <i class="feather icon-download f-28"></i>
