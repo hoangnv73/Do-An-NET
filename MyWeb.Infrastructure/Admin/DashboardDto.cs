@@ -12,6 +12,6 @@ namespace MyWeb.Infrastructure.Admin
         public double TotalRevenu { get; set; }
         public int TotalUsers { get; set; }
         public int TotalProducts { get; set; }
-        public double GrowthRevenu { get; set; }
+        public double GrowthOrder { get; set; }
     }
 }
