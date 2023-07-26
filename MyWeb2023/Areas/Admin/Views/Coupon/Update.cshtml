@@ -1,0 +1,51 @@
+﻿@using Myweb.Domain.Models.Entities;
+@model Coupon
+
+<div class="card">
+    <div class="card-header">
+        <h5>Edit Coupon</h5>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm-3"> </div>
+            <div class="col-sm-6">
+                <form method="post" action="/Coupon/Update">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input id="update" name="id" value="@Model.Id" type="hidden" />
+                                <label>Coupon Code</label>
+                                <input name="couponCode" value="@Model.CouponCode" type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-5">
+                                <label>Expired</label>
+                                <input name="expired" value="@Model.Expired" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label>Quantity</label>
+                                <input name="quantity" value="@Model.Quantity" type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-5">
+                                <label>Type</label>
+                                <input name="typeId" value="@Model.TypeId" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label>Value</label>
+                                <input name="value" value="@Model.Value" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-info">Update </button>
+                </form>
+            </div>
+        </div>
+        <div>
+            <a type="button" href="/Admin/Coupon" class="btn btn-default">Back</a>
+        </div>
+    </div>
+</div>

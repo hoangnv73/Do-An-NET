@@ -20,5 +20,6 @@ namespace MyWeb2023.Areas.Admin.Models
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Catalog> Catalogs {get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
     }
 }
