@@ -23,28 +23,52 @@ namespace MyWeb2023.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public string Index(CheckoutRequest request)
+        public object Index(CheckoutRequest request)
         {
+            int? couponId = null;
+            if (!string.IsNullOrEmpty(request.CouponCode))
+            {
+                var coupon = _context.Coupons.FirstOrDefault(x => x.CouponCode == request.CouponCode);
+                if (coupon == null)
+                {
+                    return new
+                    {
+                        code = 400,
+                        messege = "Coupon Wrong!"
+                    };
+                }
+                couponId = coupon.Id;
+            }
+            else
+            {
+                couponId = null;
+            }
+
             int? userId = null;
             if (User.Identity.IsAuthenticated)
             {
                 userId = int.Parse(User.Identity.Name);
-            }
-            var order = new Order(userId, request.Address, request.Phone, request.Note, 
-                request.CustomerName, request.Payment);
+            }    
+
+            var order = new Order(userId, request.Address, request.Phone, request.Note,
+              request.CustomerName, couponId, request.Payment);
+
             _context.Orders.Add(order);
             _context.SaveChanges();
+
 
             double totalPrice = 0;
             foreach (var item in request.CartItems)
             {
                 var product = _context.Products.FirstOrDefault(x => x.Id ==item.ProductId && !x.IsDeleted);
+
+
                 if (product == null) continue;
                 var orderDetail = new OrderDetail
                 {
@@ -59,18 +83,28 @@ namespace MyWeb2023.Controllers
             }
             _context.SaveChanges();
 
-            var resApi = "";
+            //var resApi = "";
+            CommonFunction.SendMail("SendMailOrder.html", request.Email);
             if (request.Payment == "vnpay")
             {
-                resApi = btnPay_Click(totalPrice * 23000);
+                return new
+                {
+                    code = 200,
+                    data = "vnpay",
+                };
+                //resApi = btnPay_Click(totalPrice * 23000);
             }
             else
             {
-                resApi = "cod";
+                return new
+                {
+                    code = 200,
+                    data = "cod",
+                };
+                //resApi = "cod";
             }
+           
 
-            CommonFunction.SendMail("SendMailOrder.html", request.Email);
-            return resApi;
         }
 
         protected string btnPay_Click(double amount)

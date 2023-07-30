@@ -20,6 +20,7 @@ namespace Myweb.Domain.Models.Entities
         public int Phone { get; set; }
         public string? Note { get; set; }
         public string CustomerName { get; set; }
+        public int? CouponId { get; set; }
         public string? Payment { get; set; }
         public Order()
         {
@@ -27,7 +28,7 @@ namespace Myweb.Domain.Models.Entities
         }
 
         public Order(int? userId, string address,
-            int phone, string? note, string customerName, string payment)
+            int phone, string? note, string customerName, int? couponId, string payment)
         {
             UserId = userId;
             Status = ORDER_STATUS.Pending.Id;
@@ -36,6 +37,7 @@ namespace Myweb.Domain.Models.Entities
             Phone = phone;
             Note = note;
             CustomerName = customerName;
+            CouponId = couponId;
             Payment = payment;
         }
 

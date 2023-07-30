@@ -7,6 +7,7 @@
         public int Phone { get; set; }
         public string? Note { get; set; }
         public string CustomerName { get; set; } = string.Empty;
+        public string? CouponCode { get; set; }
         public string Payment { get; set; } = "cod";
         public List<CartItem> CartItems { get; set; } = new List<CartItem> { };
     }
