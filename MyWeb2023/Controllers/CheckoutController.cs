@@ -7,6 +7,7 @@ using MyWeb2023.RequestModel.Client;
 using SendGrid.Helpers.Mail;
 using SendGrid;
 using MyWeb2023.Models;
+using Myweb.Domain.Common;
 
 namespace MyWeb2023.Controllers
 {
@@ -54,7 +55,7 @@ namespace MyWeb2023.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 userId = int.Parse(User.Identity.Name);
-            }    
+            }
 
             var order = new Order(userId, request.Address, request.Phone, request.Note,
               request.CustomerName, couponId, request.Payment);
@@ -66,8 +67,18 @@ namespace MyWeb2023.Controllers
             double totalPrice = 0;
             foreach (var item in request.CartItems)
             {
-                var product = _context.Products.FirstOrDefault(x => x.Id ==item.ProductId && !x.IsDeleted);
+                var product = _context.Products.FirstOrDefault(x => x.Id == item.ProductId && !x.IsDeleted);
 
+                var coupon = _context.Coupons.Find(couponId);
+                double couponValue = 0;
+                if (coupon.TypeId == COUPON_STATUS.Percent)
+                {
+                    couponValue = product.Price / 100 * coupon.Value;
+                }
+                else
+                {
+                    couponValue = coupon.Value;
+                }  
 
                 if (product == null) continue;
                 var orderDetail = new OrderDetail
@@ -75,7 +86,7 @@ namespace MyWeb2023.Controllers
                     OrderId = order.Id,
                     ProductId = item.ProductId,
                     Price = (product.Price - (product.Price / 100 * product.Discount ?? 0))
-                    * (request.CartItems.FirstOrDefault(r => r.ProductId == product.Id)?.Quantity ?? 0),
+                    * (request.CartItems.FirstOrDefault(r => r.ProductId == product.Id)?.Quantity ?? 0) - couponValue,
                     Quantity = item.Quantity,
                 };
                 totalPrice = totalPrice + orderDetail.Price;
@@ -103,7 +114,7 @@ namespace MyWeb2023.Controllers
                 };
                 //resApi = "cod";
             }
-           
+
 
         }
 

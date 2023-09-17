@@ -94,4 +94,12 @@ namespace Myweb.Domain.Common
         /// </summary>
         public const int ComingSoon = 3;
     }
+
+    public static class COUPON_STATUS
+    {
+        // Trừ Phần trăm
+        public const int Percent = 1;
+        // Trừ Tiền
+        public const int Money = 2;
+    }
 }

@@ -218,19 +218,25 @@ namespace MyWeb2023.Controllers
                     message = "Account already exists!"
                 };
             }
-            var UserAdd = new User
+            if (email.Contains("@") && email.Contains("."))
             {
-                FirstName = firstName,
-                LastName = lastname,
-                Password = CommonFunction.HashPassword(password),
-                Email = email,
-                Gender = null,
-                LastLogin = DateTime.Now,
-            };
-            _context.Users.Add(UserAdd);
-            _context.SaveChanges();
-            //
-             CommonFunction.SendMail("SendMail.html", email);
+                var UserAdd = new User
+                {
+                    FirstName = firstName,
+                    LastName = lastname,
+                    Password = CommonFunction.HashPassword(password),
+                    Email = email,
+                    Gender = null,
+                    LastLogin = DateTime.Now,
+                };
+                _context.Users.Add(UserAdd);
+                _context.SaveChanges();
+                 CommonFunction.SendMail("SendMail.html", email);
+            }
+            else
+            {
+
+            }
             var obj = new
             {
                 code = 200,

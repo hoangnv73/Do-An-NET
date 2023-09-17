@@ -76,7 +76,7 @@ namespace MyWeb2023.Areas.Admin.Controllers
             var coupon = _context.Coupons.Find(id);
             if (coupon == null)
             {
-                ViewBag.Message = "San pham khong ton tai";
+                ViewBag.Message = "Coupon khong ton tai";
                 return View();
             }
             coupon.Update(couponCode, value, typeId, quantity, expired);
