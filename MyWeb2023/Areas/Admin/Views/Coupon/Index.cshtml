@@ -78,7 +78,14 @@
                             <td>@item.Value</td>
                             <td>@item.Expired</td>
                             <td>@item.Quantity</td>
-                            <td>@item.TypeId</td>
+                            @if (@item.TypeId == 1)
+                            {
+                                <td><span class="badge badge-success">Percent</span></td>
+                            }
+                            else
+                            {
+                                <td><span class="badge badge-success">Money</span></td>
+                            }
                             <td>
                                 <a href="/Admin/Coupon/Update/@item.Id" type="button" class="btn btn-info btn-sm">Edit</a>
 

@@ -132,8 +132,6 @@ function Checkout() {
                 location.href = response.data;
             }
             ResetCookie();
-            
-           
         })
 }
 

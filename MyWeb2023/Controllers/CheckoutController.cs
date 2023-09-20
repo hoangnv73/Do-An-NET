@@ -41,7 +41,7 @@ namespace MyWeb2023.Controllers
                     return new
                     {
                         code = 400,
-                        messege = "Coupon Wrong!"
+                        message = "Coupon Wrong!"
                     };
                 }
                 couponId = coupon.Id;
@@ -79,7 +79,6 @@ namespace MyWeb2023.Controllers
                 {
                     couponValue = coupon.Value;
                 }  
-
                 if (product == null) continue;
                 var orderDetail = new OrderDetail
                 {
