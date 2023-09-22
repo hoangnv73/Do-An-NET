@@ -85,6 +85,7 @@ function Checkout() {
     let note = document.getElementById('note').value;
     let customerName = document.getElementById('customerName').value;
     let payment = document.getElementById('payment').value;
+    let couponCode = document.getElementById('couponCode').value;
     let cartItems = getCarts();
 
     if (IsEmpty(email)) {
@@ -115,7 +116,8 @@ function Checkout() {
         'note': note,
         'customerName': customerName,
         'payment': payment,
-        'cartItems': cartItems
+        'cartItems': cartItems,
+        'couponCode': couponCode, 
     }, {
         headers: {
             'content-type': 'application/x-www-form-urlencoded'
@@ -125,8 +127,14 @@ function Checkout() {
             //ShowMessage("success", "Order successfully!");
             //ResetCookie();
             //location.href = '/account/myorder'
-            if (response.data == "cod") {
+
+            if (response.data.code == 400) {
+                ShowMessage("error", response.data.message);
+                return;
+            }
+            if (response.data.data == "cod") {
                 location.href = '/account/myorder'
+                
             }
             else {
                 location.href = response.data;

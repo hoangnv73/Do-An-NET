@@ -8,6 +8,8 @@ using SendGrid.Helpers.Mail;
 using SendGrid;
 using MyWeb2023.Models;
 using Myweb.Domain.Common;
+using System.Text.RegularExpressions;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MyWeb2023.Controllers
 {
@@ -32,6 +34,16 @@ namespace MyWeb2023.Controllers
         [HttpPost]
         public object Index(CheckoutRequest request)
         {
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(request.Email);
+            if (!match.Success)
+            {
+                return new
+                {
+                    code = 400,
+                    message = "Email Khong hop le!"
+                };
+            }
             int? couponId = null;
             if (!string.IsNullOrEmpty(request.CouponCode))
             {
@@ -45,10 +57,6 @@ namespace MyWeb2023.Controllers
                     };
                 }
                 couponId = coupon.Id;
-            }
-            else
-            {
-                couponId = null;
             }
 
             int? userId = null;
@@ -68,28 +76,50 @@ namespace MyWeb2023.Controllers
             foreach (var item in request.CartItems)
             {
                 var product = _context.Products.FirstOrDefault(x => x.Id == item.ProductId && !x.IsDeleted);
+                // kiem tra xem san pham co ton tai hay khong 
+                if (product == null)
+                    return new
+                    {
+                        code = 400,
+                        message = "Product unavailable!"
+                    };
 
                 var coupon = _context.Coupons.Find(couponId);
                 double couponValue = 0;
-                if (coupon.TypeId == COUPON_STATUS.Percent)
+
+                if (coupon != null)
                 {
-                    couponValue = product.Price / 100 * coupon.Value;
+                    if (coupon.TypeId == COUPON_STATUS.Percent)
+                    {
+                        couponValue = product.Price / 100 * coupon.Value;
+                    }
+                    if (coupon.TypeId == COUPON_STATUS.Money)
+                    {
+                        couponValue = coupon.Value;
+                    }
                 }
-                else
-                {
-                    couponValue = coupon.Value;
-                }  
+
                 if (product == null) continue;
+                var price = (product.Price - (product.Price / 100 * product.Discount ?? 0))
+                    * (request.CartItems.FirstOrDefault(r => r.ProductId == product.Id)?.Quantity ?? 0) - couponValue;
+
                 var orderDetail = new OrderDetail
                 {
                     OrderId = order.Id,
                     ProductId = item.ProductId,
-                    Price = (product.Price - (product.Price / 100 * product.Discount ?? 0))
-                    * (request.CartItems.FirstOrDefault(r => r.ProductId == product.Id)?.Quantity ?? 0) - couponValue,
+                    Price = price,
                     Quantity = item.Quantity,
                 };
+
+                // Nếu như áp mã giảm giá mà đơn hàng về âm $ thì gắn lại bằng 0$
+                if (price <= 0)
+                {
+                    price = 0;
+                }
+
                 totalPrice = totalPrice + orderDetail.Price;
                 _context.OrderDetails.Add(orderDetail);
+
             }
             _context.SaveChanges();
 
