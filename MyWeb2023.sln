@@ -9,6 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Myweb.Domain", "Myweb.Domai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWeb.Infrastructure", "MyWeb.Infrastructure\MyWeb.Infrastructure.csproj", "{74B1A2F3-C775-4522-B312-A6E643154745}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{AC7F3652-E2D3-4052-A731-D44F88D3A535}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{85B63073-63DD-49C1-AC07-0C718E7F65CE}"
+	ProjectSection(SolutionItems) = preProject
+		db.sql = db.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +34,10 @@ Global
 		{74B1A2F3-C775-4522-B312-A6E643154745}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74B1A2F3-C775-4522-B312-A6E643154745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74B1A2F3-C775-4522-B312-A6E643154745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC7F3652-E2D3-4052-A731-D44F88D3A535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC7F3652-E2D3-4052-A731-D44F88D3A535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC7F3652-E2D3-4052-A731-D44F88D3A535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC7F3652-E2D3-4052-A731-D44F88D3A535}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
